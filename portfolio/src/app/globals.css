@@ -1,0 +1,130 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@theme {
+  --background-home-bg: '/assets/bgimageHome.jpg';
+  --color-kat-black: #0D0B0F;
+  --color-kat-purple: #4D4889;
+}
+
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+@media (max-width: 1000px) {
+  h1 {
+    font-size: 100px;
+  }
+}
+
+@media (max-width: 994px) {
+  .catears-img {
+    position: absolute;
+    width: 350px;
+    top: -50px;
+    left: -110px;
+  }
+  .mewo-img {
+    width: 150px;
+    height: auto;
+    top: -130px;
+    left: 560px;
+  }
+  .screamingcat-img {
+    width: 150px;
+    top: 80px;
+    left: 35px;
+  }
+  .sillycat-img {
+    width: 170px;
+    right: -0px;
+    top: 90px;
+  }
+  .sparkle {
+    width: 100px;
+    right: -85px;
+    top: 40px;
+  }
+}
+
+
+
+@media (max-width: 765px) {
+  .catears-img {
+    position: absolute;
+    width: 250px;
+    top: -40px;
+    left: -60px;
+  }
+  .mewo-img {
+    width: 100px;
+    height: auto;
+    bottom: 80px;
+    left: 500px;
+  }
+  .screamingcat-img {
+    width: 150px;
+    top: 90px;
+    left: 35px;
+  }
+  .sillycat-img {
+    width: 180px;
+    top: 70px;
+    right: 30;
+  }
+  .sparkle {
+    width: 70px;
+    top: -180px;
+    right: 20px;
+  }
+}
+
+@media (max-width: 666px) {
+  h1 {
+    font-size: 50px;
+  }
+}
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: 60px;
+  }
+  .catears-img {
+    position: absolute;
+    width: 200px;
+    top: -30px;
+    left: 10px;
+  }
+  .mewo-img {
+    width: 100px;
+    height: auto;
+    top: -150px;
+    left: 220px;
+  }
+  .screamingcat-img {
+    width: 150px;
+    top: 150px;
+    left: -10px;
+  }
+  .sillycat-img {
+    top: 200px;
+  }
+  .sparkle {
+    top: 100px;
+    right: 20px;
+  }
+}
