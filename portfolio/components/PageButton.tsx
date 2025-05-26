@@ -8,6 +8,6 @@ export default function PageButton({ label }: { label: string }) {
     const isActive = pathname == toCompareWithPath || pathname == "/" && label == "Home";
 
     return (
-        <button className="hover:text-kat-purple cursor-pointer isActive ? text-kat-purple : text-white">{label}</button>
+        <button className={`hover:text-kat-purple cursor-pointer ${isActive ? "text-kat-purple" : "text-white"}`}>{label}</button>
     );
 }
