@@ -1,3 +1,5 @@
+"use client";
+
 import TopBar from "../../../components/TopBar";
 import BottomBar from "../../../components/BottomBar";
 
@@ -25,7 +27,7 @@ export default function About() {
                 </div>
             </div>
             <div>
-                <BottomBar></BottomBar>
+                <BottomBar />
             </div>
         </div>
     );
