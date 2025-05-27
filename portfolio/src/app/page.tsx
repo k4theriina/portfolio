@@ -26,36 +26,36 @@ export default function Home() {
       <div className={`${koulen.className} bg-[url('/assets/bgimageHome.jpg')] bg-cover bg-bottom h-screen min-h-screen`}>
         <TopBar />
         <div className="flex flex-col space-y-5 items-center text-center justify-center mt-45">
-          <p className="text-4xl md:text-5xl">Software Engineer</p>
+          <p className="text-4xl md:text-5xl pointer-events-none">Software Engineer</p>
           <h1 className="katherinaText pointer-events-none text-7xl md:text-[150px] relative">
               <img
                 src="/assets/catears.png"
-                className="catears-img absolute w-[230px] -top-10 -left-16 md:-top-20 md:-left-35 md:w-[500px] h-auto"
+                className="pointer-events-none catears-img absolute w-[230px] -top-10 -left-16 md:-top-20 md:-left-35 md:w-[500px] h-auto"
                 alt="cat ears"
               />
               <img
                 src="/assets/mewo.png"
-                className="mewo-img absolute w-[230px] left-16 -top-50 md:left-210 md:w-[250px] h-auto"
+                className="pointer-events-none mewo-img absolute w-[230px] left-16 -top-50 md:left-210 md:w-[250px] h-auto"
                 alt="mewo"
               />
               <img
                 src="/assets/screamingcat.png"
-                className="screamingcat-img absolute top-25 -left-0 w-[250px] h-auto"
+                className="pointer-events-none screamingcat-img absolute top-25 -left-0 w-[250px] h-auto"
                 alt="screaming-cat"
               />
               <img
                 src="/assets/sillycat.png"
-                className="sillycat-img absolute top-25 right-10 w-[300px] h-auto"
+                className="sillycat-img pointer-events-none absolute top-25 right-10 w-[300px] h-auto"
                 alt="silly-cat"
               />
               <img
                 src="/assets/sparkle.svg"
-                className="sparkle absolute top-15 -right-30 w-[150px] h-auto"
+                className="sparkle pointer-events-none absolute top-15 -right-30 w-[150px] h-auto"
                 alt="sparkle"
               />
               <img
                 src="/assets/line.png"
-                className="line absolute -top-38 right-80 w-[350px] h-auto"
+                className="line pointer-events-none absolute -top-38 right-80 w-[350px] h-auto"
                 alt="line"
               />
               
