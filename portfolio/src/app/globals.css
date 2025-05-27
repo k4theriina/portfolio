@@ -59,6 +59,9 @@ body {
     right: -85px;
     top: 40px;
   }
+  .line {
+    left: 170px;
+  }
 }
 
 
@@ -97,6 +100,11 @@ body {
   h1 {
     font-size: 50px;
   }
+  .line {
+    width: 200px;
+    top: -95px;
+    left: 60px;
+  }
 }
 
 @media (max-width: 480px) {
@@ -126,5 +134,8 @@ body {
   .sparkle {
     top: 100px;
     right: 20px;
+  }
+  .line {
+    left: 100px;
   }
 }

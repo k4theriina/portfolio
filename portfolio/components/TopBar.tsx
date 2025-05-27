@@ -1,5 +1,8 @@
+"use client";
+
 import { Jersey_10 } from "next/font/google";
 import PageButton from "./PageButton";
+import { useRouter } from "next/navigation";
 
 const jersey10 = Jersey_10({
   subsets: ['latin'],
@@ -8,10 +11,13 @@ const jersey10 = Jersey_10({
 
 
 export default function TopBar() {
+
+    const router = useRouter();
+
     return (
         <div className={`${jersey10.className} w-full flex bg-kat-black p-4 max-h-20 justify-between items-center flex-row text-3xl`}>
             <div className="group hover:text-kat-purple">
-                <button className="flex space-x-4 items-center relative cursor-pointer">
+                <button onClick={() => router.push("/")} className="flex space-x-4 items-center relative cursor-pointer">
                 <img
                     className="group-hover:hidden w-16 h-16 absolute"
                     src="/assets/catHead.png"
@@ -31,6 +37,7 @@ export default function TopBar() {
                 <PageButton label="About" />
                 <PageButton label="Experience" />
                 <PageButton label="Projects" />
+                
             </div>
 
             <div className="md:hidden pr-4">

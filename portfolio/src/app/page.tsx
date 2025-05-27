@@ -1,7 +1,10 @@
+"use client";
+
 import TopBar from "../../components/TopBar";
 import BottomBar from "../../components/BottomBar";
 import { Koulen } from "next/font/google";
 import { Jersey_10 } from "next/font/google";
+import { useRouter } from "next/navigation";
 
 const jersey10 = Jersey_10({
   subsets: ['latin'],
@@ -15,6 +18,9 @@ const koulen = Koulen({
 
 
 export default function Home() {
+
+  const router = useRouter();
+
   return (
     <div className="min-h-screen overflow-hidden">
       <div className={`${koulen.className} bg-[url('/assets/bgimageHome.jpg')] bg-cover bg-bottom h-screen min-h-screen`}>
@@ -47,13 +53,18 @@ export default function Home() {
                 className="sparkle absolute top-15 -right-30 w-[150px] h-auto"
                 alt="sparkle"
               />
+              <img
+                src="/assets/line.png"
+                className="line absolute -top-38 right-80 w-[350px] h-auto"
+                alt="line"
+              />
               
             <span className="relative inline-block">
               Kat
             </span>
             herina Dayaon
           </h1>
-          <button className={`hover:bg-white hover:text-kat-purple cursor-pointer ${jersey10.className} bg-kat-purple py-2 px-7 rounded-2xl text-3xl md:text-6xl`}>DISCOVERY</button>
+          <button onClick={() => router.push("/about")}  className={`hover:bg-white hover:text-kat-purple cursor-pointer ${jersey10.className} bg-kat-purple py-2 px-7 rounded-2xl text-3xl md:text-6xl`}>DISCOVERY</button>
         </div>
       </div>
       <div>
