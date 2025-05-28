@@ -24,10 +24,15 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
-
-@media (min-width: 1709px) {
+@media (min-width: 1860px) {
   .burnett {
-    margin-left: 980px;
+    margin-left: 700px !important;
+  }
+}
+
+@media (min-width: 1720px) {
+  .burnett {
+    margin-left: 420px;
   }
 }
 
