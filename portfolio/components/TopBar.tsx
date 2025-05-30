@@ -77,7 +77,7 @@ export default function TopBar() {
                                     src="/assets/catHeadHover.png"
                                     alt="cat icon happy"
                                 />
-                                <span className="pl-20 min-w-66">Katherina Dayaon</span> 
+                                <span className="pl-10 min-w-66">Katherina Dayaon</span> 
                                 </button>
                             </div>
                             <div className="absolute top-4 right-8">

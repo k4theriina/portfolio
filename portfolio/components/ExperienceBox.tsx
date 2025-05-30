@@ -1,0 +1,49 @@
+import React from "react";
+
+import { Koulen, Special_Elite } from "next/font/google";
+import { spec } from "node:test/reporters";
+
+const koulen = Koulen({
+  subsets: ['latin'],
+  weight: '400',
+});
+const specialElite = Special_Elite({
+  subsets: ['latin'],
+  weight: '400',
+});
+
+type ExperienceBoxProps = {
+  title: string;
+  date: string;
+  organization: string;
+  image: string;
+  description: string;
+};
+
+const ExperienceBox: React.FC<ExperienceBoxProps> = ({ title, date, organization, image, description, }) => {
+  return (
+    <div className="bg-linear-to-t from-[#25223E] to-kat-black from-10% to-90% text-white rounded-xl p-4 w-3/4 max-w-md mx-auto border-l-4 border-kat-purple flex flex-col text-left">
+      <div className="flex flex-row items-start">
+        {image && (
+            <img
+            src={image}
+            alt={`${organization} logo`}
+            className="w-16 h-16 object-contain mb-4 sm:mb-0 sm:mr-4"
+            />
+        )}
+        <div className={`${specialElite.className} flex flex-col ml-5`}>
+            <p className="text-sm italic">{date}</p>
+            <h2 className={`${koulen.className} text-xl font-bold text-kat-purple`}>{title}</h2>
+            <p className="text-sm">{organization}</p>
+        </div>
+      </div>
+
+      {/* Content */}
+      <div>
+        <p className={`${specialElite.className} text-sm mt-5`}>{description} Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+      </div>
+    </div>
+  );
+};
+
+export default ExperienceBox;
