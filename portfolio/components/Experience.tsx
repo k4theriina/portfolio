@@ -11,7 +11,7 @@ export const experiences: ExperienceData[] = [
     title: "Design Director",
     date: "2024–Present",
     organization: "Knight Hacks",
-    image: "/assets/knighthacks.png",
+    image: "/assets/ucfLogo.png",
     description:
       "Led the design team for branding, UI/UX, and marketing materials for UCF's largest hackathon.",
   },
@@ -19,7 +19,7 @@ export const experiences: ExperienceData[] = [
     title: "Design Director",
     date: "2024–Present",
     organization: "Knight Hacks",
-    image: "/assets/knighthacks.png",
+    image: "/assets/ucfLogo.png",
     description:
       "Led the design team for branding, UI/UX, and marketing materials for UCF's largest hackathon.",
   },
@@ -27,7 +27,7 @@ export const experiences: ExperienceData[] = [
     title: "Design Director",
     date: "2024–Present",
     organization: "Knight Hacks",
-    image: "/assets/knighthacks.png",
+    image: "/assets/ucfLogo.png",
     description:
       "Led the design team for branding, UI/UX, and marketing materials for UCF's largest hackathon.",
   },
