@@ -20,13 +20,13 @@ const specialElite = Special_Elite({
 export default function Experience() {
     return (
         <div className="min-h-screen overflow-hidden w-full">
-            <div className={`${koulen.className} bg-[url('/assets/bgimageExp.jpg')] bg-fixed bg-center w-full`}>
+            <div className={`${koulen.className} bg-[url('/assets/bgimageExp.jpg')] bg-repeat bg-cover bg-center w-full`}>
                 <TopBar />
                 <div className="relative flex flex-col items-center text-center px-6 pt-10 pb-32">
                     <div className="absolute top-0 left-1/2 -translate-x-1/2 h-full w-[5px] bg-white z-0 pointer-events-none"></div>
                     <div className="place-self-center w-1/4 relative">
-                        <img className="cat1 absolute z-90 h-20 top-45 -left-25 sm:h-30 sm:top-35 sm:-left-40 md:h-40 md:top-50 md:-left-60 lg:h-50 lg:top-70 lg:-left-65" src="/assets/guitarCat.png"></img>
-                        <img className="cat2 absolute z-90 h-20 top-5 left-32 sm:h-30 sm:-top-5 sm:left-35 md:h-40 md:left-60 md:top-5 lg:h-50 lg:left-85" src="/assets/catstanding.png"></img>
+                        <img className="cat1 absolute z-40 h-20 top-45 -left-25 sm:h-30 sm:top-35 sm:-left-40 md:h-40 md:top-50 md:-left-60 lg:h-50 lg:top-70 lg:-left-65" src="/assets/guitarCat.png"></img>
+                        <img className="cat2 absolute z-40 h-20 top-5 left-32 sm:h-30 sm:-top-5 sm:left-35 md:h-40 md:left-60 md:top-5 lg:h-50 lg:left-85" src="/assets/catstanding.png"></img>
                     </div>
                     <img
                         className="absolute pointer-events-none z-10 left-1/2 top-40 -translate-x-1/2 -translate-y-1/2 h-[300px] md:h-[400px] lg:h-[500px] md:top-60 lg:top-75 w-auto max-w-full"
