@@ -40,7 +40,7 @@ const ExperienceBox: React.FC<ExperienceBoxProps> = ({ title, date, organization
 
       {/* Content */}
       <div>
-        <p className={`${specialElite.className} text-sm mt-5 lg:max-w-5/6 lg:text-lg`}>{description} Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+        <p className={`${specialElite.className} text-sm mt-5 lg:max-w-5/6 lg:text-lg`}>{description}</p>
       </div>
     </div>
   );

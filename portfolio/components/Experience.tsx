@@ -9,27 +9,43 @@ type ExperienceData = {
 export const experiences: ExperienceData[] = [
   {
     title: "Design Director",
-    date: "2024–Present",
+    date: "January 2025–Present",
     organization: "Knight Hacks",
-    image: "/assets/ucfLogo.png",
+    image: "/assets/knighthacksLogo.png",
     description:
-      "Led the design team for branding, UI/UX, and marketing materials for UCF's largest hackathon.",
+      "Led design efforts for Knight Hacks, creating branding assets for 4,000+ members and 500+ hackathon attendees. Managed a 12-person team, delegated tasks via Notion, and ensured visuals aligned with organizational goals across teams.",
   },
   {
     title: "Software Engineer Intern",
-    date: "2024–Present",
-    organization: "Knight Hacks",
-    image: "/assets/ucfLogo.png",
+    date: "February 2025-May 2025",
+    organization: "ZuLeris Interactive",
+    image: "/assets/zulerisLogo.png",
     description:
-      "Led the design team for branding, UI/UX, and marketing materials for UCF's largest hackathon.",
+      "Built a military training simulation in Unity for the U.S. Department of Defense, focusing on electromagnetic warfare. Enhanced realism, UI/UX, and interactivity to boost soldier proficiency and operational readiness.",
   },
   {
-    title: "Design Director",
-    date: "2024–Present",
-    organization: "Knight Hacks",
-    image: "/assets/ucfLogo.png",
+    title: "Secretary",
+    date: "September 2023-June 2024",
+    organization: "Asian Student Association",
+    image: "/assets/asaLogo.png",
     description:
-      "Led the design team for branding, UI/UX, and marketing materials for UCF's largest hackathon.",
+      "Founded Wesley Chapel High School’s first Asian Student Association, growing it to over 30 members. Led cultural presentations and organized fundraising efforts, including raising $200+ for cancer research through Relay for Life.",
+  },
+  {
+    title: "Front of House Worker",
+    date: "March 2023-July 2023",
+    organization: "Epperson Lagoon",
+    image: "/assets/eppersonLogo.png",
+    description:
+      "Provided front-of-house service at Epperson Lagoon, handling food, drinks, and customer interactions. Managed opening/closing duties, maintained cleanliness, and supported inventory and operations.",
+  },
+  {
+    title: "Volunteer",
+    date: "Feb 2022-January 2023",
+    organization: "New River Library & WCHS Boys Lacrosse",
+    image: "/assets/volunteerLogo.png",
+    description:
+      "Volunteered at New River Library, supporting event preparation and maintaining the space. Contributed to community service efforts focused on supporting the elderly and unhoused. Assisted with game operations for the lacrosse team, including scorekeeping, setup, and cleanup.",
   },
  
 
