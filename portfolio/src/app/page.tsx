@@ -64,7 +64,7 @@ export default function Home() {
             </span>
             herina Dayaon
           </h1>
-          <button onClick={() => router.push("/about")}  className={`hover:bg-white hover:text-kat-purple cursor-pointer ${jersey10.className} bg-kat-purple py-2 px-7 rounded-2xl text-3xl md:text-6xl`}>DISCOVERY</button>
+          <button onClick={() => router.push("/about")}  className={`hover:bg-white hover:text-kat-purple cursor-pointer ${jersey10.className} bg-kat-purple py-2 px-7 rounded-2xl text-3xl md:text-6xl hover:scale-110 hover:shadow-lg hover:shadow-kat-purple transition-transform duration-300`}>DISCOVERY</button>
         </div>
       </div>
       <div>

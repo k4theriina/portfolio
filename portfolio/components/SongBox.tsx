@@ -19,7 +19,7 @@ const specialElite = Special_Elite({
 export default function Songbox({ index, title, artist, cover }: Props) {
 
   return (
-    <div className="bg-kat-black w-1/4 rounded-3xl xl:w-1/3 h-fit flex flex-col items-center p-4">
+    <div className="bg-kat-black w-1/4 rounded-3xl xl:w-1/3 h-fit flex flex-col items-center p-4 hover:scale-110 hover:shadow-lg hover:shadow-kat-purple transition-transform duration-300">
       <img
         className="rounded-xl w-3/4 aspect-square mt-2 object-cover"
         src={cover}

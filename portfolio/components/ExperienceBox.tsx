@@ -22,7 +22,7 @@ type ExperienceBoxProps = {
 
 const ExperienceBox: React.FC<ExperienceBoxProps> = ({ title, date, organization, image, description, }) => {
   return (
-    <div className="bg-linear-to-t from-[#25223E] to-kat-black from-10% to-90% text-white rounded-xl p-8 w-3/4 max-w-md md:max-w-225 mx-auto border-l-4 border-kat-purple flex flex-col text-left">
+    <div className="hover:scale-110 hover:shadow-lg hover:shadow-kat-purple transition-transform duration-300 bg-linear-to-t from-[#25223E] to-kat-black from-10% to-90% text-white rounded-xl p-8 w-3/4 max-w-md md:max-w-225 mx-auto border-l-4 border-kat-purple flex flex-col text-left">
       <div className="flex flex-row items-start">
         {image && (
             <img
