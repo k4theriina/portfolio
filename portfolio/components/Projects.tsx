@@ -9,13 +9,13 @@ export const projects:ProjectData[] = [
     {
         title: "AiSight",
         gif: "/assets/aiSight.png",
-        description: "This is a short description yay. Awesome Awesome.",
+        description: "A React Native app using Python for gesture and object recognition to aid the visually impaired.",
         technologies: ["React", "Tailwind", "Figma"],
     },
     {
         title: "Rock, Paper AI Sensors",
         gif: "/assets/aiSight.png",
-        description: "Hello this is a different description",
+        description: "Python TKinter game teaching K-12 students AI basics through an engaging Rock, Paper, Scissors experience with a user-friendly interface.",
         technologies: ["React", "Tailwind", "Figma"],
     },
     {

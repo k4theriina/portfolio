@@ -12,6 +12,7 @@ const techIcons: { [key: string]: JSX.Element } = {
   Tailwind: <SiTailwindcss className="text-teal-400 w-8 h-8" />,
 };
 
+
 const koulen = Koulen({
   subsets: ['latin'],
   weight: '400',
@@ -34,11 +35,11 @@ export const ProjectBox: React.FC<ProjectData> = ({title, gif, description, tech
             <h1 className={`!text-2xl mb-2 mt-4`} >{title}</h1>
             {/* Gif of project */}
             <img className="aspect-square rounded-3xl h-55" src={gif} alt={title} ></img>
-            <div className="bg-linear-to-t to-[#1C1A31] from-kat-black h-1/2 w-full mt-4 rounded-4xl p-4 border-x-12 border-b-10 border-kat-black">
+            <div className="bg-linear-to-t to-[#1C1A31] from-kat-black h-70 w-full mt-4 rounded-4xl p-4 border-x-12 border-b-10 border-kat-black">
               {/* Description of project */}  
               <p className={`${specialElite.className} text-sm`}>{description}</p>
               {/* Technologies used */}
-              <div className="flex flex-row space-x-2 justify-center items-center mt-5">
+              <div className="icons flex flex-row space-x-2 justify-center items-center place-items-end">
                 {technologies.map((tech) => (
                   <div key={tech}>
                     {techIcons[tech]}
