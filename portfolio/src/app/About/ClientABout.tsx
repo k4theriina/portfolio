@@ -15,6 +15,14 @@ export default function About({
   const [songs, setSongs] = useState<
     { name: string; artist: string; cover: string }[]
   >([]);
+  
+const [loaded, setLoaded] = useState(false);
+
+useEffect(() => {
+  const timer = setTimeout(() => setLoaded(true), 100);
+  return () => clearTimeout(timer);
+}, []);
+
 
   useEffect(() => {
     fetch("/api/topTracks")
@@ -61,10 +69,13 @@ export default function About({
 
         {/* Intro Section */}
         <div className="xl:text-right xl:mr-10 xl:mt-25 lg:text-right lg:ml-150 lg:mr-10 text-right mr-5 mt-80 ml-0 z-90 sm:mt-40 md:mt-30">
-          <h1 className={`${specialClass} !text-xl sm:!text-2xl lg:!text-4xl`}>
+          <h1 className={`${specialClass} !text-xl sm:!text-2xl lg:!text-4xl transition-all duration-1000 ease-out 
+            ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
             Hi there, I'm
           </h1>
-          <h1 className={`${koulenClass} !text-2xl sm:!text-4xl lg:!text-5xl`}>
+
+          <h1 className={`${koulenClass} !text-2xl sm:!text-4xl lg:!text-5xl transition-all duration-1000 ease-out delay-200
+            ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
             Katherina Dayaon
           </h1>
         </div>
@@ -72,7 +83,7 @@ export default function About({
         {/* Bio */}
         <div className="burnett text-right mr-5 mt-4 ml-14 sm:ml-50 md:ml-90 lg:ml-130 lg:text-right lg:mr-10 xl:ml-190">
           <p
-            className={`burnett ${specialClass} !text-s md:!text-xl lg:!text-md xl:!text-lg`}
+            className={`burnett ${specialClass} !text-s md:!text-xl lg:!text-md xl:!text-lg transition-all duration-1000 ease-out delay-400 ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
           >
             I'm a Burnett Honors Computer Science student at the University of
             Central Florida. I'm the current Knight Hacks Design Director and
@@ -82,7 +93,7 @@ export default function About({
         </div>
 
         {/* Song Section */}
-        <div className="place-self-center flex items-center flex-col md:mt-0 lg:mt-0 lg:justify-end lg:mt-0 xl:ml-0">
+        <div className={`place-self-center flex items-center flex-col md:mt-0 lg:mt-0 lg:justify-end lg:mt-0 xl:ml-0 transition-all duration-1000 ease-out delay-600 ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
           <p className="bg-kat-purple text-center ml-5 p-1 rounded-md mt-10 place-self-center text-2xl lg:mt-5 lg:ml-40 lg:text-xl xl:ml-10">
             Kat's Top Songs...
           </p>
