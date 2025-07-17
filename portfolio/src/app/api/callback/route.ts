@@ -1,38 +1,41 @@
-// app/api/callback/route.ts
-import { NextRequest, NextResponse } from 'next/server';
-import axios from 'axios';
-
-let access_token = '';
-
-export function getAccessToken() {
-  return access_token;
-}
-
-export async function GET(req: NextRequest) {
-  const code = req.nextUrl.searchParams.get('code');
-  const client_id = process.env.SPOTIFY_CLIENT_ID!;
-  const client_secret = process.env.SPOTIFY_CLIENT_SECRET!;
-  const redirect_uri = process.env.REDIRECT_URI!;
-
+import { NextResponse } from "next/server";
+import { getAccessToken } from "@/app/spotify";
+export async function GET() {
   try {
-    const response = await axios.post(
-      'https://accounts.spotify.com/api/token',
-      new URLSearchParams({
-        grant_type: 'authorization_code',
-        code: code || '',
-        redirect_uri,
-        client_id,
-        client_secret,
-      }),
+    const token = await getAccessToken();
+
+    const playlistId = "4fd1FQ2iNC8NMl8q25qmyp";
+
+    const playlistRes = await fetch(
+      `https://api.spotify.com/v1/playlists/${playlistId}/tracks?market=US&limit=10`,
       {
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       }
     );
 
-    access_token = response.data.access_token;
+    if (!playlistRes.ok) {
+      const text = await playlistRes.text();
+      return NextResponse.json(
+        { error: "Failed to fetch playlist tracks", details: text },
+        { status: playlistRes.status }
+      );
+    }
 
-    return NextResponse.redirect(new URL('/top-songs', req.url));
-  } catch (error: any) {
-    return new NextResponse(`Error: ${error.message}`, { status: 500 });
+    const playlistData = await playlistRes.json();
+
+    const tracks = playlistData.items.map((item: any) => {
+      const track = item.track;
+      return {
+        name: track.name,
+        artist: track.artists.map((a: any) => a.name).join(", "),
+        cover: track.album.images[0]?.url ?? "",
+      };
+    });
+
+    return NextResponse.json(tracks);
+  } catch (error) {
+    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
   }
 }
