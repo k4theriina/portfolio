@@ -21,18 +21,20 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       
-      - name: Setup Node
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
           cache: 'npm'
-          cache-dependency-path: package-lock.json
+          cache-dependency-path: portfolio/package-lock.json
       
       - name: Install dependencies
         run: npm ci
+        working-directory: portfolio
       
       - name: Build with Next.js
         run: npx next build
+        working-directory: portfolio
       
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
