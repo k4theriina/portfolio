@@ -53,7 +53,7 @@ useEffect(() => {
           src="assets/sillycat.png"
         />
         <img
-          className="absolute pointer-events-none z-40 w-[90px] top-100 left-2 h-auto sm:left-20 sm:top-85 sm:w-[140px] md:w-[100px] md:top-120 md:left-30 lg:top-140 lg:left-2 lg:w-[120px]"
+          className="absolute pointer-events-none z-40 w-[90px] top-100 left-2 h-auto sm:left-20 sm:top-85 sm:w-[140px] md:block md:w-[100px] md:top-120 md:left-30 lg:top-140 lg:left-2 lg:w-[120px]"
           src="assets/catstanding.png"
         />
         <div className="flex-start">

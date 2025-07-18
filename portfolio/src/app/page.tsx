@@ -28,7 +28,13 @@ export default function Home() {
 
   return (
     <div className="min-h-screen overflow-hidden">
-      <div className={`${koulen.className} bg-[url('/assets/bgimageHome.jpg')] bg-cover bg-bottom h-screen min-h-screen`}>
+      <div
+  className={`${koulen.className} 
+    bg-[url('/assets/mobilehomebg.jpg')] 
+    sm:bg-[url('/assets/bgimageHome.jpg')] 
+     bg-cover bg-bottom h-screen min-h-screen`}
+>
+
         <TopBar />
 
         <div className="flex flex-col space-y-5 items-center text-center justify-center mt-45">
