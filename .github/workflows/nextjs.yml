@@ -32,14 +32,16 @@ jobs:
         run: npm ci
         working-directory: portfolio
       
-      - name: Build with Next.js
-        run: npx next build
+      - name: Build and export Next.js app
+        run: |
+          npx next build
+          npx next export
         working-directory: portfolio
       
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./out
+          path: portfolio/out
 
 
   deploy:
