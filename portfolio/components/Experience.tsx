@@ -21,7 +21,7 @@ export const experiences: ExperienceData[] = [
     organization: "ZuLeris Interactive",
     image: "/assets/zulerisLogo.png",
     description:
-      "Built a military training simulation in Unity for the U.S. Department of Defense, focusing on electromagnetic warfare. Enhanced realism, UI/UX, and interactivity to boost soldier proficiency and operational readiness.",
+      "Built a military training simulation in Unity intended for the U.S. Department of Defense, focusing on electromagnetic warfare. Enhanced realism, UI/UX, and interactivity to enhance operational readiness.",
   },
   {
     title: "Secretary",
@@ -37,7 +37,7 @@ export const experiences: ExperienceData[] = [
     organization: "Epperson Lagoon",
     image: "/assets/eppersonLogo.png",
     description:
-      "Provided front-of-house service at Epperson Lagoon, handling food, drinks, and customer interactions. Managed opening/closing duties, maintained cleanliness, and supported inventory and operations.",
+      "Provided front-of-house service at Epperson Lagoon, handling food, drinks, and customer interactions. Managed opening/closing duties, maintained cleanliness, and managed inventory.",
   },
   {
     title: "Volunteer",
