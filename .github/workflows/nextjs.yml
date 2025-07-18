@@ -20,40 +20,25 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
+      
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: "20"
-          cache: npm
-          cache-dependency-path: portfolio/portfolio/package-lock.json
-
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
-        with:
-          static_site_generator: next
-
-      - name: Restore cache
-        uses: actions/cache@v4
-        with:
-          path: portfolio/portfolio/.next/cache
-          key: ${{ runner.os }}-nextjs-${{ hashFiles('portfolio/portfolio/package-lock.json') }}-${{ hashFiles('portfolio/portfolio/**/*.[jt]s', 'portfolio/portfolio/**/*.[jt]sx') }}
-          restore-keys: |
-            ${{ runner.os }}-nextjs-${{ hashFiles('portfolio/portfolio/package-lock.json') }}-
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: package-lock.json
       
-
       - name: Install dependencies
         run: npm ci
-        working-directory: portfolio/portfolio
-
+      
       - name: Build with Next.js
         run: npx next build
-        working-directory: portfolio/portfolio
-
+      
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: portfolio/portfolio/out
+          path: ./out
+
 
   deploy:
     environment:
