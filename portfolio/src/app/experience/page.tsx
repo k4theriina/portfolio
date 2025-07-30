@@ -49,7 +49,7 @@ export default function Experience() {
                     <div>
                         
                     </div>
-                    <h1 className={`z-80 text-kat-purple !text-3xl mt-13 md:!text-6xl md:mt-25 lg:!text-7xl lg:mt-37 transition-all duration-1000 ease-out delay-200
+                    <h1 className={`z-10 text-kat-purple !text-3xl mt-13 md:!text-6xl md:mt-25 lg:!text-7xl lg:mt-37 transition-all duration-1000 ease-out delay-200
             ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>Experience</h1>
                     <p className={`${specialElite.className} expDesc z-10 !text-[12px]/4 text-kat-black mx-8 max-w-2xl sm:mx-40 md:mx-150 max-w-[300px] md:!text-[17px]/5 md:max-w-[400px] md:mt-2 lg:!text-[18px]/6 lg:max-w-[500px]
                     transition-all duration-1000 ease-out delay-400
