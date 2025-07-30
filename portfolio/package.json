@@ -17,6 +17,7 @@
     "open": "^10.2.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-helmet": "^6.1.0",
     "react-icons": "^5.5.0"
   },
   "devDependencies": {

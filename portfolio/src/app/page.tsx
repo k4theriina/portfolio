@@ -18,6 +18,8 @@ const koulen = Koulen({
   weight: '400',
 });
 
+
+
 export default function Home() {
   const router = useRouter();
   const [loaded, setLoaded] = useState(false);
@@ -31,12 +33,12 @@ export default function Home() {
     <>
       <Head>
       <title>Katherina Dayaon | Software Engineer & Creative</title>
-      <meta name="description" content="Katherina's personal website — aspiring software engineer, creative technologist, and designer. Discover her projects, ideas, and silly cat-themed design choices." />
+      <meta name="description" content="Katherina is an aspiring software engineer, creative technologist, and designer. Discover her projects, ideas, and silly love for cats ^_^" />
       <meta name="robots" content="index, follow" />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
 
       <meta property="og:title" content="Kat Dayaon | Software Engineer & Creative" />
-      <meta property="og:description" content="Katherina's personal website — aspiring software engineer, creative technologist, and designer. Discover her projects, ideas, and silly cat-themed design choices." />
+      <meta property="og:description" content="Katherina is an aspiring software engineer, creative technologist, and designer. Discover her projects, ideas, and silly love for cats ^_^" />
       <meta property="og:image" content="https://katherinadayaon.me/assets/og-image.jpg" />
       <meta property="og:url" content="https://katherinadayaon.me/" />
       <meta property="og:type" content="website" />
