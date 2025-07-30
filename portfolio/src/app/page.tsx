@@ -71,37 +71,32 @@ export default function Home() {
                 src="/assets/catears.png"
                 className={`pointer-events-none catears-img absolute w-[230px] -top-10 -left-16 md:-top-20 md:-left-35 md:w-[500px] h-auto transition-all duration-1000 ease-out delay-300 
                 ${loaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}
-                alt="cat ears"
               />
               <img
                 src="/assets/mewo.png"
                 className={`pointer-events-none mewo-img absolute w-[230px] left-16 -top-50 md:left-210 md:w-[250px] h-auto transition-all duration-1000 ease-out delay-300 
                 ${loaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}
-                alt="mewo"
               />
               <img
                 src="/assets/screamingcat.png"
                 className={`pointer-events-none screamingcat-img absolute top-25 -left-0 w-[250px] h-auto transition-all duration-1000 ease-out delay-300 
                 ${loaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}
-                alt="screaming-cat"
               />
               <img
                 src="/assets/sillycat.png"
                 className={`sillycat-img pointer-events-none absolute top-25 right-10 w-[300px] h-auto transition-all duration-1000 ease-out delay-300 
                 ${loaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}
-                alt="silly-cat"
               />
               <img
                 src="/assets/sparkle.svg"
                 className={`sparkle pointer-events-none absolute top-15 -right-30 w-[150px] h-auto transition-all duration-1000 ease-out delay-300 
                 ${loaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}
-                alt="sparkle"
               />
               <img
                 src="/assets/line.png"
                 className={`line pointer-events-none absolute -top-38 right-80 w-[350px] h-auto transition-all duration-1000 ease-out delay-[300ms] 
                 ${loaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}
-                alt="line"
+
               />
 
               <span className="relative inline-block">Kat</span>
