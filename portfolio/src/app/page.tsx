@@ -46,7 +46,7 @@ export default function Home() {
       </Head>
 
 
-      <div className="min-h-screen overflow-hidden">
+      <div className="select-none min-h-screen overflow-hidden">
         <div
           className={`${koulen.className} 
             bg-[url('/assets/mobilehomebg.jpg')] 
@@ -58,7 +58,7 @@ export default function Home() {
 
           <div className="flex flex-col space-y-5 items-center text-center justify-center mt-45">
             {/* Text fades and slides in */}
-            <p className={`text-4xl md:text-5xl pointer-events-none transition-all duration-1000 ease-out 
+            <p className={`pointer-events-none text-4xl md:text-5xl pointer-events-none transition-all duration-1000 ease-out 
               ${loaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
               Software Engineer
             </p>
@@ -99,7 +99,7 @@ export default function Home() {
 
               />
 
-              <span className="relative inline-block">Kat</span>
+              <span className="pointer-events-none relative inline-block">Kat</span>
               herina Dayaon
             </h1>
 

@@ -31,7 +31,7 @@ export default function Projects() {
 
     return (
         <div className="min-h-screen overflow-hidden w-full">
-            <div className={`${koulen.className} bg-[url('/assets/bgimageExp.jpg')] bg-cover bg-center w-full`}>
+            <div className={`${koulen.className} select-none bg-[url('/assets/bgimageExp.jpg')] bg-cover bg-center w-full`}>
                 <TopBar />
                 <div className="relative flex flex-col items-center text-center min-h-screen min-w-screen">
                     <div>
