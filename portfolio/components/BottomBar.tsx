@@ -17,7 +17,7 @@ export default function BottomBar() {
     };
 
      return (
-    <div className="w-full bg-kat-black px-6 py-4 text-white">
+    <div className="relative z-500 w-full bg-kat-black px-6 py-4 text-white">
       <div className="flex flex-col md:flex-row justify-between items-center gap-4">
         
         {/* Left text */}
