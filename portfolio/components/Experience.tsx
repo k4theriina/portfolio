@@ -8,6 +8,22 @@ type ExperienceData = {
 
 export const experiences: ExperienceData[] = [
   {
+    title: "App Developer",
+    date: "August 2025–Present",
+    organization: "UCF Arboretum",
+    image: "/assets/arbLogo.png",
+    description:
+      "Developed custom apps within a team of 4 to assist the Arboretum at UCF, utilizing data management to create operational workflows for the team. Greatly improved organization and enhanced productivity across various environmental initiatives.",
+  },
+  {
+    title: "Team Leader",
+    date: "August 2025–Present",
+    organization: "Burnett Honors College",
+    image: "/assets/TLlogo.png",
+    description:
+      "Instructed a group of 17 honors students, serving as their mentor and helping them smoothly transition into their first year at UCF. Created a friendly and welcoming environment for them to easily learn and thrive in.",
+  },
+  {
     title: "Design Director",
     date: "January 2025–Present",
     organization: "Knight Hacks",
