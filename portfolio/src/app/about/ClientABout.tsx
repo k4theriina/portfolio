@@ -87,7 +87,7 @@ useEffect(() => {
           >
             I'm a Burnett Honors Computer Science student at the University of
             Central Florida. I'm the current Knight Hacks Design Director and
-            future SWE intern @ the Arboretum! I love everything artsy, below
+            SWE intern @ the UCF Arboretum! I love everything artsy, below
             are some of my favorite songs:
           </p>
         </div>

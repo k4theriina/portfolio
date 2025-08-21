@@ -11,7 +11,7 @@ export const experiences: ExperienceData[] = [
     title: "App Developer",
     date: "August 2025–Present",
     organization: "UCF Arboretum",
-    image: "/assets/arbLogo.png",
+    image: "/assets/ArbLogo.png",
     description:
       "Developed custom apps within a team of 4 to assist the Arboretum at UCF, utilizing data management to create operational workflows for the team. Greatly improved organization and enhanced productivity across various environmental initiatives.",
   },
