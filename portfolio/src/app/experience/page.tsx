@@ -36,9 +36,9 @@ export default function Experience() {
                 <div className="relative flex flex-col items-center text-center px-6 pt-10 pb-32">
                     <div className="absolute top-0 left-1/2 -translate-x-1/2 h-full w-[5px] bg-white z-0 pointer-events-none"></div>
                     <div className="place-self-center w-1/4 relative">
-                        <img className={`cat1 absolute z-40 h-20 top-45 -left-25 sm:h-30 sm:top-35 sm:-left-40 md:h-40 md:top-50 md:-left-60 lg:h-50 lg:top-70 lg:-left-65 transition-all duration-1000 ease-out delay-200
+                        <img className={`cat1 2xl:hidden absolute z-40 h-20 top-45 -left-25 sm:h-30 sm:top-35 sm:-left-40 md:h-40 md:top-50 md:-left-60 lg:h-50 lg:top-70 lg:-left-65 transition-all duration-1000 ease-out delay-200
                     ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`} src="/assets/guitarCat.png"></img>
-                        <img className={`cat2 absolute z-40 h-20 top-5 left-32 sm:h-30 sm:-top-5 sm:left-35 md:h-40 md:left-60 md:top-5 lg:h-50 lg:left-85 transition-all duration-1000 ease-out
+                        <img className={`cat2 2xl:hidden absolute z-40 h-20 top-5 left-32 sm:h-30 sm:-top-5 sm:left-35 md:h-40 md:left-60 md:top-5 lg:h-50 lg:left-85 transition-all duration-1000 ease-out
                     ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`} src="/assets/catstanding.png"></img>
                     </div>
                     <img
