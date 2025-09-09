@@ -69,37 +69,49 @@ useEffect(() => {
 
         {/* Intro Section */}
         <div className="2xl:text-center 2xl:m-0 2xl:mt-20 xl:text-right xl:mr-10 xl:mt-25 lg:text-right lg:ml-150 lg:mr-10 text-right mr-5 mt-80 ml-0 z-90 sm:mt-40 md:mt-30 lg:mt-15">
-          <h1 className={`${specialClass} 2xl:!text-6xl !text-xl sm:!text-2xl lg:!text-4xl transition-all duration-1000 ease-out 
+          <h1 className={`${specialClass} 2xl:!text-5xl !text-xl sm:!text-2xl lg:!text-4xl transition-all duration-1000 ease-out 
             ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
             Hi there, I'm
           </h1>
 
-          <h1 className={`${koulenClass} 2xl:!text-9xl !text-2xl sm:!text-4xl lg:!text-5xl transition-all duration-1000 ease-out delay-200
+          <h1 className={`${koulenClass} 2xl:!text-7xl !text-2xl sm:!text-4xl lg:!text-5xl transition-all duration-1000 ease-out delay-200
             ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
             Katherina Dayaon
           </h1>
         </div>
 
         {/* Bio */}
-        <div className="burnett 2xl:justify-center 2xl:items-center 2xl:flex text-right mr-5 mt-4 ml-14 sm:ml-50 md:ml-90 lg:ml-130 lg:text-right lg:mr-10 xl:ml-190">
+        <div className="burnett 2xl:justify-center 2xl:items-center 2xl:!ml-0 2xl:!mr-0 lg:m-0 2xl:flex text-right mr-5 mt-4 ml-14 sm:ml-50 md:ml-90 lg:ml-130 lg:text-right lg:mr-10 xl:ml-190">
           <p
-            className={`burnett ${specialClass} 2xl:!mb-20 2xl:!mr-160 2xl:!ml-0 2xl:!text-4xl 2xl:text-center  !text-s md:!text-xl lg:!text-md xl:!text-lg transition-all duration-1000 ease-out delay-400 ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
+            className={`burnett ${specialClass} 
+              2xl:!mb-10 
+              2xl:!ml-0 
+              2xl:!mr-0 
+              2xl:mx-auto
+              2xl:max-w-4xl
+              2xl:text-center
+              !text-s md:!text-xl lg:!text-md xl:!text-lg 
+              transition-all duration-1000 ease-out delay-400 
+              ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
           >
             I'm a Burnett Honors Computer Science student at the University of
             Central Florida. I'm the current Knight Hacks Design Director and
             SWE intern @ the UCF Arboretum! I love everything artsy, below
             are some of my favorite songs:
           </p>
+
         </div>
 
         {/* Song Section */}
         <div
           className={`flex flex-col items-center transition-all duration-1000 ease-out delay-600
             md:mt-0 lg:mt-0 lg:justify-end xl:ml-0
+            2xl:max-w-6xl 2xl:mx-auto 2xl:text-center
             ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}
-            2xl:flex 2xl:justify-center 2xl:items-center 2xl:mt-0 2xl:ml-0 2xl:mr-0
+            2xl:flex 2xl:justify-center 2xl:items-center 2xl:mt-0
           `}
         >
+
           <p className="bg-kat-purple text-center p-1 rounded-md mt-10 place-self-center text-2xl 
             lg:mt-5 lg:ml-40 lg:text-xl xl:ml-10 2xl:ml-0 2xl:mt-0">
             Kat's Top Songs...
