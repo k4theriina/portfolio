@@ -13,7 +13,7 @@ export const experiences: ExperienceData[] = [
     organization: "UCF Arboretum",
     image: "/assets/ArbLogo.png",
     description:
-      "Developed custom apps within a team of 4 to assist the Arboretum at UCF, utilizing data management to create operational workflows for the team. Greatly improved organization and enhanced productivity across various environmental initiatives.",
+      "Developed custom apps within a team of 5 to assist the Arboretum at UCF, utilizing data management to create operational workflows for the team. Greatly improved organization and enhanced productivity across various environmental initiatives.",
   },
   {
     title: "Team Leader",
