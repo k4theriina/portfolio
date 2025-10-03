@@ -8,12 +8,12 @@ type ExperienceData = {
 
 export const experiences: ExperienceData[] = [
   {
-    title: "App Developer",
+    title: "Website & App Developer",
     date: "August 2025–Present",
     organization: "UCF Arboretum",
     image: "/assets/ArbLogo.png",
     description:
-      "Developed custom apps within a team of 5 to assist the Arboretum at UCF, utilizing data management to create operational workflows for the team. Greatly improved organization and enhanced productivity across various environmental initiatives.",
+      "Developed custom apps within a team of 5 to assist the Arboretum at UCF, utilizing data management to create operational workflows for the team. Greatly improved productivity and enhanced user retention across various environmental initiatives.",
   },
   {
     title: "Team Leader",
