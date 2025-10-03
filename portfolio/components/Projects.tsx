@@ -9,11 +9,19 @@ type ProjectData = {
 
 export const projects:ProjectData[] = [
     {
+        title: "Potara",
+        gif: "/assets/potara.webm",
+        description: "Draw to your heart's content with our art assistant tool that also provides live feedback, courtesy of our AI-powered art mentor, Shelly. ",
+        caption: "(Made for Shellhacks 2025)",
+        technologies: ["React", "Tailwind", "Figma", "Javascript"],
+        link: "https://potara.art/",
+    },
+    {
         title: "ShapeShift",
         gif: "/assets/shapeShift.webm",
         description: "A Dev tool web app that converts 2D assets into production-ready 3D models and Three.js code.",
         caption: "(Made for Bitcamp 2025)",
-        technologies: ["React", "Tailwind", "Figma", "Javascript", "Typescript"],
+        technologies: ["React", "Tailwind", "Figma", "Typescript"],
         link: "https://www.we-shapeshift.tech/",
     },
     {
