@@ -4,6 +4,12 @@ import TopBar from "../../../components/TopBar";
 import BottomBar from "../../../components/BottomBar";
 import Songbox from "../../../components/SongBox";
 import { useEffect, useState } from "react";
+import { Jersey_10 } from "next/font/google";
+
+const jersey10 = Jersey_10({
+  subsets: ['latin'],
+  weight: '400',
+});
 
 export default function About({
   koulenClass,
@@ -41,11 +47,11 @@ useEffect(() => {
 
         {/* Decorative Images */}
         <img
-          className="2xl:hidden absolute pointer-events-none z-0 w-[250px] top-27 -left-2 h-auto md:w-[350px] md:top-32 md:-left-5 lg:w-[450px] lg:left-20 lg:top-55 xl:top-60"
+          className="2xl:hidden absolute pointer-events-none z-10 w-[250px] top-27 -left-2 h-auto md:w-[350px] md:top-32 md:-left-5 lg:w-[450px] lg:left-20 lg:top-55 xl:top-60"
           src="assets/catearsonme.png"
         />
         <img
-          className="2xl:hidden absolute pointer-events-none z-0 w-[120px] top-20 right-2 h-auto sm:left-70 sm:w-[140px] md:w-[200px] md:top-22 md:left-75 lg:w-[220px] lg:left-100 lg:top-20 xl:left-140"
+          className="2xl:hidden absolute pointer-events-none z-10 w-[120px] top-20 right-2 h-auto sm:left-70 sm:w-[140px] md:w-[200px] md:top-22 md:left-75 lg:w-[220px] lg:left-100 lg:top-20 xl:left-140"
           src="assets/tonguecat.png"
         />
         <img
@@ -53,22 +59,22 @@ useEffect(() => {
           src="assets/sillycat.png"
         />
         <img
-          className="2xl:hidden absolute pointer-events-none z-0 w-[90px] top-100 left-2 h-auto sm:left-20 sm:top-85 sm:w-[140px] md:block md:w-[100px] md:top-120 md:left-30 lg:top-140 lg:left-2 lg:w-[120px]"
+          className="2xl:hidden absolute pointer-events-none z-10 w-[90px] top-100 left-2 h-auto sm:left-20 sm:top-85 sm:w-[140px] md:block md:w-[100px] md:top-120 md:left-30 lg:top-140 lg:left-2 lg:w-[120px]"
           src="assets/catstanding.png"
         />
         <div className="flex-start">
           <img
-            className="lg:hidden lg:ml-0 md:h-200 md:mt-2 h-150 w-auto absolute top-17 left-0 z-0 min-w-90"
+            className="lg:hidden lg:ml-0 md:h-200 md:mt-2 h-150 w-auto absolute top-17 left-0 z-10 min-w-90"
             src="assets/meTransparent.png"
           />
           <img
-            className="hidden 2xl:hidden lg:block pointer-events-none lg:ml-0 md:h-190 md:mt-2 h-150 w-auto absolute top-17 -left-70 z-0 min-w-280"
+            className="hidden 2xl:hidden lg:block pointer-events-none lg:ml-0 md:h-190 md:mt-2 h-150 w-auto absolute top-17 -left-70 z-10 min-w-280"
             src="assets/mesupertransparent.png"
           />
         </div>
 
         {/* Intro Section */}
-        <div className="2xl:text-center 2xl:m-0 2xl:mt-20 xl:text-right xl:mr-10 xl:mt-25 lg:text-right lg:ml-150 lg:mr-10 text-right mr-5 mt-80 ml-0 z-90 sm:mt-40 md:mt-30 lg:mt-15">
+        <div className="z-90 2xl:text-center 2xl:m-0 2xl:mt-20 xl:text-right xl:mr-10 xl:mt-25 lg:text-right lg:ml-150 lg:mr-10 text-right mr-5 mt-80 ml-0 z-90 sm:mt-40 md:mt-30 lg:mt-15">
           <h1 className={`${specialClass} 2xl:!text-5xl !text-xl sm:!text-2xl lg:!text-4xl transition-all duration-1000 ease-out 
             ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
             Hi there, I'm
@@ -81,7 +87,7 @@ useEffect(() => {
         </div>
 
         {/* Bio */}
-        <div className="burnett 2xl:justify-center 2xl:items-center 2xl:!ml-0 2xl:!mr-0 lg:m-0 2xl:flex text-right mr-5 mt-4 ml-14 sm:ml-50 md:ml-90 lg:ml-130 lg:text-right lg:mr-10 xl:ml-190">
+        <div className="z-90 burnett 2xl:justify-center 2xl:items-center 2xl:!ml-0 2xl:!mr-0 lg:m-0 2xl:flex text-right mr-5 mt-4 ml-14 sm:ml-50 md:ml-90 lg:ml-130 lg:text-right lg:mr-10 xl:ml-190">
           <p
             className={`burnett ${specialClass} 
               2xl:!mb-10 
@@ -117,7 +123,7 @@ useEffect(() => {
             Kat's Top Songs...
           </p>
 
-          <div className="flex flex-row mt-5 space-x-3 md:space-x-8 lg:space-x-4 w-screen h-screen justify-center 
+          <div className="flex flex-row mt-5 space-x-3 md:space-x-8 lg:space-x-4 w-screen justify-center 
               lg:w-150 lg:ml-125 2xl:w-auto 2xl:h-auto 2xl:ml-0">
             {songs.slice(0, 3).map((song, index) => (
               <Songbox
@@ -129,9 +135,11 @@ useEffect(() => {
               />
             ))}
           </div>
+
         </div>
 
       </div>
+
 
       <BottomBar />
     </div>

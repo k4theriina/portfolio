@@ -15,7 +15,8 @@ const techIcons: { [key: string]: JSX.Element } = {
   Typescript: <SiTypescript className="text-blue-500 w-8 h-8"/>,
   Javascript: <IoLogoJavascript className="text-yellow-500 w-8 h-8"/>,
   Python: <FaPython className="text-blue-600 w-8 h-8"/>,
-  Flutter: <FaFlutter className="text-cyan-500 w-8 h-8"/>
+  Flutter: <FaFlutter className="text-cyan-500 w-8 h-8"/>,
+  ThreeJS: <img src="/assets/ThreeJSLogo.png" alt="Three.js" className="w-8 h-8" />
 };
 
 

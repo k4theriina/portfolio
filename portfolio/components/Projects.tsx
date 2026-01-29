@@ -9,12 +9,20 @@ type ProjectData = {
 
 export const projects:ProjectData[] = [
     {
+        title: "SMARTLook",
+        gif: "/assets/SmartLOOK.webm",
+        description: "A web-based digital twin utilizing Three.js and AI assistance to better maintain SMART factories.",
+        caption: "(Made for IST Quickstart 2025)",
+        technologies: ["React", "ThreeJS", "Figma", "Javascript"],
+        link: "https://github.com/k4theriina/SMARTLook",
+    },
+    {
         title: "Potara",
         gif: "/assets/potara.webm",
         description: "Draw to your heart's content with our art assistant tool that also provides live feedback, courtesy of our AI-powered art mentor, Shelly. ",
         caption: "(Made for Shellhacks 2025)",
         technologies: ["React", "Tailwind", "Figma", "Javascript"],
-        link: "https://potara.art/",
+        link: "https://github.com/Potara-art/Potara",
     },
     {
         title: "ShapeShift",
