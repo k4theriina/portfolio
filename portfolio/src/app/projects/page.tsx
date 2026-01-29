@@ -52,7 +52,7 @@ export default function Projects() {
                         />
 
                     </div>
-                    <div className="lg:grid lg:grid-cols-3 lg:space-y-10 lg:space-x-15 lg:ml-20 projectSection mb-20 mt-5 flex place-self-center items-center flex-col space-y-10">
+                    <div className="items-start lg:grid lg:grid-cols-3 lg:space-y-10 lg:space-x-15 lg:ml-20 projectSection mb-20 mt-5 flex place-self-center items-center flex-col space-y-10">
                         {projects.map((project, index) => (
                             <ProjectBox key={index}{...project}></ProjectBox>
                         ))}
