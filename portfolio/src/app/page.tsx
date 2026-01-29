@@ -110,7 +110,7 @@ export default function Home() {
                 hover:bg-white hover:text-kat-purple hover:scale-110 hover:shadow-lg hover:shadow-kat-purple transform
                 ${loaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}
             >
-              DISCOVERY
+              LET'S GO! :D
             </button>
           </div>
         </div>

@@ -41,19 +41,19 @@ useEffect(() => {
 
         {/* Decorative Images */}
         <img
-          className="2xl:hidden absolute pointer-events-none z-40 w-[250px] top-27 -left-2 h-auto md:w-[350px] md:top-32 md:-left-5 lg:w-[450px] lg:left-20 lg:top-55 xl:top-60"
+          className="2xl:hidden absolute pointer-events-none z-0 w-[250px] top-27 -left-2 h-auto md:w-[350px] md:top-32 md:-left-5 lg:w-[450px] lg:left-20 lg:top-55 xl:top-60"
           src="assets/catearsonme.png"
         />
         <img
-          className="2xl:hidden absolute pointer-events-none z-40 w-[120px] top-20 right-2 h-auto sm:left-70 sm:w-[140px] md:w-[200px] md:top-22 md:left-75 lg:w-[220px] lg:left-100 lg:top-20 xl:left-140"
+          className="2xl:hidden absolute pointer-events-none z-0 w-[120px] top-20 right-2 h-auto sm:left-70 sm:w-[140px] md:w-[200px] md:top-22 md:left-75 lg:w-[220px] lg:left-100 lg:top-20 xl:left-140"
           src="assets/tonguecat.png"
         />
         <img
-          className="2xl:hidden absolute pointer-events-none display:block z-40 w-[120px] top-60 left-40 h-auto sm:left-60 sm:top-45 sm:w-[140px] md:w-[200px] md:top-92 md:left-45 lg:hidden xl:block xl:left-130 xl:top-70"
+          className="2xl:hidden absolute pointer-events-none display:block z-0 w-[120px] top-60 left-40 h-auto sm:left-60 sm:top-45 sm:w-[140px] md:w-[200px] md:top-92 md:left-45 lg:hidden xl:block xl:left-130 xl:top-70"
           src="assets/sillycat.png"
         />
         <img
-          className="2xl:hidden absolute pointer-events-none z-40 w-[90px] top-100 left-2 h-auto sm:left-20 sm:top-85 sm:w-[140px] md:block md:w-[100px] md:top-120 md:left-30 lg:top-140 lg:left-2 lg:w-[120px]"
+          className="2xl:hidden absolute pointer-events-none z-0 w-[90px] top-100 left-2 h-auto sm:left-20 sm:top-85 sm:w-[140px] md:block md:w-[100px] md:top-120 md:left-30 lg:top-140 lg:left-2 lg:w-[120px]"
           src="assets/catstanding.png"
         />
         <div className="flex-start">
@@ -95,8 +95,8 @@ useEffect(() => {
               ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
           >
             I'm a Burnett Honors Computer Science student at the University of
-            Central Florida. I'm the current Knight Hacks Design Director and
-            Website & App Developer @ the UCF Arboretum! I love everything artsy, below
+            Central Florida. I'm currently interning at BNY and
+            incoming @ Florida Blue! I love everything artsy, below
             are some of my favorite songs:
           </p>
 
@@ -113,7 +113,7 @@ useEffect(() => {
         >
 
           <p className="bg-kat-purple text-center p-1 rounded-md mt-10 place-self-center text-2xl 
-            lg:mt-5 lg:ml-40 lg:text-xl xl:ml-10 2xl:ml-0 2xl:mt-0">
+            lg:mt-7 lg:ml-40 lg:text-xl xl:ml-10 2xl:ml-0 2xl:mt-0">
             Kat's Top Songs...
           </p>
 

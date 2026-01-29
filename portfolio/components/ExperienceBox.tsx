@@ -1,6 +1,7 @@
 import React from "react";
 import { Koulen, Special_Elite } from "next/font/google";
 import { useInView } from "./useInView";
+import Link from "next/link";
 
 const koulen = Koulen({
   subsets: ["latin"],
@@ -17,6 +18,7 @@ type ExperienceBoxProps = {
   organization: string;
   image: string;
   description: string;
+  link: string;
 };
 
 const ExperienceBox: React.FC<ExperienceBoxProps> = ({
@@ -25,6 +27,7 @@ const ExperienceBox: React.FC<ExperienceBoxProps> = ({
   organization,
   image,
   description,
+  link,
 }) => {
   const { ref, isInView } = useInView();
 
@@ -37,8 +40,9 @@ const ExperienceBox: React.FC<ExperienceBoxProps> = ({
         hover:scale-110 hover:shadow-lg hover:shadow-kat-purple
         bg-linear-to-t from-[#25223E] to-kat-black from-10% to-90%
         text-white rounded-xl p-8 w-3/4 max-w-md md:max-w-225 mx-auto
-        border-l-4 border-kat-purple flex flex-col text-left
+        border-l-4 border-kat-purple flex flex-col text-left cursor-pointer
       `}
+      onClick={() => window.open(link, "_blank", "noopener,noreferrer")}
     >
       <div className="flex flex-row items-start">
         {image && (
