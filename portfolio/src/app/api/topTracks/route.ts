@@ -1,5 +1,21 @@
 import { NextResponse } from "next/server";
 
+type SpotifyTrack = {
+  name: string;
+  artists: { name: string }[];
+  album?: { images?: { url?: string }[] };
+};
+
+function isSpotifyTrack(t: unknown): t is SpotifyTrack {
+  if (t === null || typeof t !== "object") return false;
+  const o = t as Record<string, unknown>;
+  return (
+    typeof o.name === "string" &&
+    Array.isArray(o.artists) &&
+    o.artists.every((a) => a !== null && typeof a === "object" && typeof (a as { name?: unknown }).name === "string")
+  );
+}
+
 const clientId = process.env.SPOTIFY_CLIENT_ID!;
 const clientSecret = process.env.SPOTIFY_CLIENT_SECRET!;
 
@@ -24,6 +40,13 @@ async function getAccessToken() {
 
 export async function GET() {
   try {
+    if (!clientId || !clientSecret) {
+      return NextResponse.json(
+        { error: "Spotify credentials are not configured (SPOTIFY_CLIENT_ID / SPOTIFY_CLIENT_SECRET)." },
+        { status: 503 },
+      );
+    }
+
     const token = await getAccessToken();
 
     const playlistId = "4fd1FQ2iNC8NMl8q25qmyp";
@@ -45,17 +68,19 @@ export async function GET() {
       );
     }
 
-    const playlistData = await playlistRes.json();
+    const playlistData = (await playlistRes.json()) as {
+      items: { track?: unknown }[];
+    };
 
     // Build final tracks array with only name, artist, and cover
-    const tracks = playlistData.items.map((item: any) => {
-      const track = item.track;
-      return {
+    const tracks = playlistData.items
+      .map((item) => item.track)
+      .filter(isSpotifyTrack)
+      .map((track: SpotifyTrack) => ({
         name: track.name,
-        artist: track.artists.map((a: any) => a.name).join(", "),
-        cover: track.album.images[0]?.url ?? "",
-      };
-    });
+        artist: track.artists.map((a: { name: string }) => a.name).join(", "),
+        cover: track.album?.images?.[0]?.url ?? "",
+      }));
 
     return NextResponse.json(tracks);
   } catch (error) {

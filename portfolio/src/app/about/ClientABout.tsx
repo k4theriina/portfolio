@@ -33,10 +33,11 @@ useEffect(() => {
 
   useEffect(() => {
     fetch("/api/topTracks")
-      .then((res) => res.json())
-      .then((data) => {
-        if (!data.error) setSongs(data);
-      });
+      .then(async (res) => {
+        const data = await res.json();
+        if (res.ok && Array.isArray(data)) setSongs(data);
+      })
+      .catch(() => setSongs([]));
   }, []);
 
   return (
@@ -104,43 +105,34 @@ drawings, clothes, or websites gives me an immense sense of fufillment. Scroll b
 
         </div>
 
-        {/* Song Section */}
-        <div
-          className={`flex flex-col items-center transition-all duration-1000 ease-out delay-600
-            md:mt-0 lg:mt-0 lg:justify-end xl:ml-0
-            2xl:max-w-6xl 2xl:mx-auto 2xl:text-center
-            ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}
-            2xl:flex 2xl:justify-center 2xl:items-center 2xl:mt-0
-          `}
-        >
-
-          {/* Top songs */}
-          {/* <p className="bg-kat-purple text-center p-1 rounded-md mt-10 place-self-center text-2xl 
-            lg:mt-7 lg:ml-40 lg:text-xl xl:ml-10 2xl:ml-0 2xl:mt-0">
-            Kat's Top Songs...
-          </p>
-
-          <div className="flex flex-row mt-5 space-x-3 md:space-x-8 lg:space-x-4 w-screen justify-center 
-              lg:w-150 lg:ml-125 2xl:w-auto 2xl:h-auto 2xl:ml-0">
-            {songs.slice(0, 3).map((song, index) => (
-              <Songbox
-                key={index}
-                index={index}
-                title={song.name}
-                artist={song.artist}
-                cover={song.cover}
-              />
-            ))}
-          </div> */}
-
-        </div>
-
       </div>
       
       <div
         className={`newDiv ${koulenClass} relative flex min-h-screen flex-col bg-[url('/assets/bgCat.png')] bg-cover bg-top`}
       >
         <ThingsILikeToDo koulenClass={koulenClass} specialClass={specialClass} />
+      </div>
+
+      <div
+        className={`${koulenClass} relative bg-[url('/assets/bgimageAbout.jpg')] bg-cover bg-top pb-12 pt-10 lg:min-h-[28rem] lg:pb-16 lg:pt-7 isolate`}
+      >
+        {/* Top songs — padding-top on this block avoids margin-collapse gap (black strip) above */}
+        <p className="mx-auto w-fit max-w-[90vw] rounded-md bg-kat-purple p-1 text-center text-2xl lg:text-xl">
+          Kat's Top Songs...
+        </p>
+
+        <div className="flex flex-row mt-5 space-x-3 md:space-x-8 lg:space-x-4 w-screen justify-center 
+            lg:w-150 lg:ml-125 2xl:w-auto 2xl:h-auto 2xl:ml-0">
+          {songs.slice(0, 3).map((song, index) => (
+            <Songbox
+              key={index}
+              index={index}
+              title={song.name}
+              artist={song.artist}
+              cover={song.cover}
+            />
+          ))}
+        </div>
       </div>
 
 
