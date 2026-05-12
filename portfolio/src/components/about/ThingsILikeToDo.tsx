@@ -98,65 +98,67 @@ export default function ThingsILikeToDo({
   }, [totalPages]);
 
   return (
-    <div className="mx-auto flex w-full max-w-7xl flex-1 flex-col justify-center px-5 py-12 sm:px-8 sm:py-14 md:px-12 md:py-16 lg:max-w-[90rem] lg:px-16 lg:py-12 xl:px-20">
-      <h2
-        className={`${koulenClass} mb-10 text-center text-3xl text-white drop-shadow-md sm:mb-12 sm:text-4xl md:mb-14 md:text-5xl lg:mb-16 lg:text-5xl xl:text-5xl`}
-      >
-        ‧₊˚❀༉‧₊˚.Things i like to do! ‧₊˚❀༉‧₊˚.
-      </h2>
+    <div className="flex min-h-0 w-full flex-1 flex-col justify-center">
+      <div className="mx-auto w-full max-w-7xl px-5 py-12 sm:px-8 sm:py-14 md:px-12 md:py-16 lg:max-w-[90rem] lg:px-16 lg:py-12 xl:px-20">
+        <h2
+          className={`${koulenClass} mb-10 text-center text-3xl text-white drop-shadow-md sm:mb-12 sm:text-4xl md:mb-14 md:text-5xl lg:mb-16 lg:text-5xl xl:text-5xl`}
+        >
+          ‧₊˚❀༉‧₊˚.Things i like to do! ‧₊˚❀༉‧₊˚.
+        </h2>
 
-      <div className="relative flex min-h-0 flex-1 items-stretch gap-3 sm:gap-4 md:gap-6">
-        {showArrows && (
-          <button
-            type="button"
-            onClick={goPrev}
-            disabled={!canPrev}
-            aria-label="Previous"
-            className="shrink-0 self-center rounded-full p-2 text-white/90 transition enabled:hover:bg-white/15 enabled:hover:text-white disabled:pointer-events-none disabled:opacity-30 md:p-3"
-          >
-            <FaChevronLeft className="h-6 w-6 md:h-8 md:w-8" />
-          </button>
-        )}
-
-        <div className="min-h-0 min-w-0 flex-1">
-          <div className="grid auto-rows-fr grid-cols-1 items-center gap-x-10 gap-y-8 overflow-visible sm:gap-y-10 md:grid-cols-2 md:gap-x-14 md:gap-y-12 lg:min-h-[min(50dvh,28rem)] lg:gap-x-20 lg:gap-y-14 xl:gap-x-24 xl:gap-y-16">
-            {visible.map((item, i) => (
-              <ThingRow
-                key={`${sliceStart + i}-${item.imageSrc}`}
-                item={item}
-                specialClass={specialClass}
-              />
-            ))}
-          </div>
-
-          {showArrows && totalPages > 1 && (
-            <div
-              className="mt-8 flex justify-center gap-2.5 md:mt-10 md:gap-3"
-              aria-hidden
+        <div className="relative flex min-h-0 w-full items-stretch gap-3 sm:gap-4 md:gap-6">
+          {showArrows && (
+            <button
+              type="button"
+              onClick={goPrev}
+              disabled={!canPrev}
+              aria-label="Previous"
+              className="shrink-0 self-center rounded-full p-2 text-white/90 transition enabled:hover:bg-white/15 enabled:hover:text-white disabled:pointer-events-none disabled:opacity-30 md:p-3"
             >
-              {Array.from({ length: totalPages }, (_, i) => (
-                <span
-                  key={i}
-                  className={`h-2.5 w-2.5 rounded-full transition-colors md:h-3 md:w-3 ${
-                    i === page ? "bg-white" : "bg-white/35"
-                  }`}
+              <FaChevronLeft className="h-6 w-6 md:h-8 md:w-8" />
+            </button>
+          )}
+
+          <div className="min-h-0 min-w-0 w-0 flex-1 basis-0">
+            <div className="grid w-full auto-rows-fr grid-cols-1 items-center gap-x-10 gap-y-8 overflow-visible sm:gap-y-10 md:grid-cols-2 md:gap-x-14 md:gap-y-12 lg:min-h-[min(50dvh,28rem)] lg:gap-x-20 lg:gap-y-14 xl:gap-x-24 xl:gap-y-16">
+              {visible.map((item, i) => (
+                <ThingRow
+                  key={`${sliceStart + i}-${item.imageSrc}`}
+                  item={item}
+                  specialClass={specialClass}
                 />
               ))}
             </div>
+
+            {showArrows && totalPages > 1 && (
+              <div
+                className="mt-8 flex justify-center gap-2.5 md:mt-10 md:gap-3"
+                aria-hidden
+              >
+                {Array.from({ length: totalPages }, (_, i) => (
+                  <span
+                    key={i}
+                    className={`h-2.5 w-2.5 rounded-full transition-colors md:h-3 md:w-3 ${
+                      i === page ? "bg-white" : "bg-white/35"
+                    }`}
+                  />
+                ))}
+              </div>
+            )}
+          </div>
+
+          {showArrows && (
+            <button
+              type="button"
+              onClick={goNext}
+              disabled={!canNext}
+              aria-label="Next"
+              className="shrink-0 self-center rounded-full p-2 text-white/90 transition enabled:hover:bg-white/15 enabled:hover:text-white disabled:pointer-events-none disabled:opacity-30 md:p-3"
+            >
+              <FaChevronRight className="h-6 w-6 md:h-8 md:w-8" />
+            </button>
           )}
         </div>
-
-        {showArrows && (
-          <button
-            type="button"
-            onClick={goNext}
-            disabled={!canNext}
-            aria-label="Next"
-            className="shrink-0 self-center rounded-full p-2 text-white/90 transition enabled:hover:bg-white/15 enabled:hover:text-white disabled:pointer-events-none disabled:opacity-30 md:p-3"
-          >
-            <FaChevronRight className="h-6 w-6 md:h-8 md:w-8" />
-          </button>
-        )}
       </div>
     </div>
   );

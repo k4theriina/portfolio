@@ -4,13 +4,8 @@ import TopBar from "../../../components/TopBar";
 import BottomBar from "../../../components/BottomBar";
 import Songbox from "../../../components/SongBox";
 import ThingsILikeToDo from "../../components/about/ThingsILikeToDo";
+import ArtGallery from "../../components/about/ArtGallery";
 import { useEffect, useState } from "react";
-import { Jersey_10 } from "next/font/google";
-
-const jersey10 = Jersey_10({
-  subsets: ['latin'],
-  weight: '400',
-});
 
 export default function About({
   koulenClass,
@@ -22,14 +17,13 @@ export default function About({
   const [songs, setSongs] = useState<
     { name: string; artist: string; cover: string }[]
   >([]);
-  
-const [loaded, setLoaded] = useState(false);
 
-useEffect(() => {
-  const timer = setTimeout(() => setLoaded(true), 100);
-  return () => clearTimeout(timer);
-}, []);
+  const [loaded, setLoaded] = useState(false);
 
+  useEffect(() => {
+    const timer = setTimeout(() => setLoaded(true), 100);
+    return () => clearTimeout(timer);
+  }, []);
 
   useEffect(() => {
     fetch("/api/topTracks")
@@ -43,86 +37,83 @@ useEffect(() => {
   return (
     <div className="min-h-screen overflow-hidden">
       <div
-        className={`${koulenClass} lg:bg-[url('/assets/aboutXL.png')] bg-[url('/assets/bgimageAbout.jpg')] bg-cover bg-top lg:h-screen relative`}
+        className={`${koulenClass} relative flex min-h-0 flex-col bg-[url('/assets/bgimageAbout.jpg')] bg-cover bg-top lg:h-screen lg:bg-[url('/assets/aboutXL.png')]`}
       >
         <TopBar />
-        
-        {/* First part */}
-        <div className="flex flex-col lg:flex-row items-center gap-0 w-full">
-          <img src="/assets/UltimateKatPhoto.webp" className="
-            lg:mr-5
-            lg:mt-10 lg:ml-0" >
-          </img>
 
-          {/* Text section */}
-          <div className="text-center md:text-left ">
-            {/* Intro Section */}
-          <div className="z-90 flex-1 max-w-full">
-            <h1 className={`${specialClass} 2xl:!text-5xl !text-xl lg:!text-xl transition-all duration-1000 ease-out 
-              ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-              Hi there, I'm
-            </h1>
+        {/* Hero: flex-1 + justify-center avoids content hugging top-left; clamp() scales type + photo with viewport */}
+        <div className="flex min-h-0 flex-1 flex-col justify-center py-8 sm:py-10 lg:py-6">
+          <div className="mx-auto flex w-full max-w-[min(100%-1.5rem,2400px)] flex-col items-center gap-8 px-4 sm:gap-10 sm:px-6 md:gap-12 lg:flex-row lg:items-center lg:justify-center lg:gap-[clamp(1.5rem,4vw,5rem)] lg:px-8 xl:px-12 2xl:gap-16 2xl:px-16">
+            <img
+              src="/assets/UltimateKatPhoto.webp"
+              alt="Katherina Dayaon"
+              className="h-auto w-[min(40rem,96vw)] shrink-0 object-contain sm:w-[min(46rem,95vw)] md:w-[min(52rem,93vw)] lg:w-[clamp(28rem,48vw,64rem)] xl:w-[clamp(32rem,46vw,72rem)] 2xl:w-[clamp(36rem,44vw,80rem)]"
+            />
 
-            <h1 className={`${koulenClass} mb-2 2xl:!text-7xl !text-2xl sm:!text-4xl lg:!text-5xl transition-all duration-1000 ease-out delay-200
-              ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-              Katherina Dayaon
-            </h1>
+            <div className="flex w-full min-w-0 max-w-[min(40rem,92vw)] flex-col items-center gap-2 text-center lg:max-w-[min(55rem,48vw)] lg:items-start lg:gap-3 lg:text-left xl:max-w-[min(60rem,46vw)] 2xl:max-w-[min(68rem,44vw)]">
+              <div className="w-full">
+                <h1
+                  className={`${specialClass} transition-all duration-1000 ease-out !text-[clamp(1.125rem,1.1vw+0.65rem,2.75rem)] ${
+                    loaded
+                      ? "translate-y-0 opacity-100"
+                      : "translate-y-4 opacity-0"
+                  }`}
+                >
+                  Hi there, I&apos;m
+                </h1>
+                <h1
+                  className={`${koulenClass} transition-all delay-200 duration-1000 ease-out !text-[clamp(1.5rem,2.4vw+0.85rem,4.25rem)] ${
+                    loaded
+                      ? "translate-y-0 opacity-100"
+                      : "translate-y-4 opacity-0"
+                  }`}
+                >
+                  Katherina Dayaon
+                </h1>
+              </div>
 
+              <div
+                className={`${specialClass} w-full transition-all delay-400 duration-1000 ease-out !text-[clamp(0.9rem,0.45vw+0.72rem,1.35rem)] leading-relaxed ${
+                  loaded
+                    ? "translate-y-0 opacity-100"
+                    : "translate-y-4 opacity-0"
+                }`}
+              >
+                <p>
+                  I&apos;m a Burnett Honors Computer Science student at the
+                  University of Central Florida, where I&apos;m passionate about
+                  creating meaningful technologies and exploring the intersection
+                  of technology and creativity. I&apos;m currently a software
+                  engineer intern at BNY and I&apos;m excited to be joining
+                  Florida Blue this summer where I&apos;ll continue to develop my
+                  skills in software engineering.
+                  <br />
+                  <br />
+                  Beyond coding and problem-solving, I absolutely love anything
+                  and everything artsy! The act of creating, whether it be music,
+                  drawings, clothes, or websites gives me an immense sense of
+                  fufillment. Scroll below to learn more about me! :3
+                </p>
+              </div>
+            </div>
           </div>
-            {/* Bio */}
-          <div
-              className={`burnett ${specialClass} 
-                text-sm
-                mb-10
-                ml-10
-                mr-10
-                z-90 burnett text-left
-                mr-0
-                lg:mr-15
-                lg:ml-0
-                2xl:mx-auto
-                2xl:max-w-4xl
-                2xl:text-center
-                !text-s md:!text-md lg:!text-md xl:!text-lg 
-                transition-all duration-1000 ease-out delay-400 
-                ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-            <p
-            >
-            I'm a Burnett Honors Computer Science student at the University of
-  Central Florida, where I'm passionate about creating meaningful technologies
-  and exploring the intersection of technology and creativity. I'm currently
-  a software engineer intern at BNY and I'm excited to be joining Florida Blue this summer
-  where I'll continue to develop my skills in software engineering.
-
-<br></br><br></br>Beyond coding and problem-solving, I absolutely love anything and everything artsy! The act of creating, whether it be music,
-drawings, clothes, or websites gives me an immense sense of fufillment. Scroll below to learn more about me! :3
-
-            </p>
-
-          </div>
-
-          </div>
-
         </div>
-
       </div>
-      
+
       <div
-        className={`newDiv ${koulenClass} relative flex min-h-screen flex-col bg-[url('/assets/bgCat.png')] bg-cover bg-top`}
+        className={`newDiv ${koulenClass} relative flex min-h-screen w-full flex-col items-stretch bg-[url('/assets/bgCat.png')] bg-cover bg-top`}
       >
         <ThingsILikeToDo koulenClass={koulenClass} specialClass={specialClass} />
       </div>
 
       <div
-        className={`${koulenClass} relative bg-[url('/assets/bgimageAbout.jpg')] bg-cover bg-top pb-12 pt-10 lg:min-h-[28rem] lg:pb-16 lg:pt-7 isolate`}
+        className={`${koulenClass} relative flex flex-col items-center bg-[url('/assets/bgimageAbout.jpg')] bg-cover bg-top pb-12 pt-10 lg:min-h-[35rem] lg:pb-16 lg:pt-7 isolate`}
       >
-        {/* Top songs — padding-top on this block avoids margin-collapse gap (black strip) above */}
-        <p className="mx-auto w-fit max-w-[90vw] rounded-md bg-kat-purple p-1 text-center text-2xl lg:text-xl">
-          Kat's Top Songs...
+        <p className="mx-auto w-fit max-w-[90vw] rounded-md bg-kat-purple p-1 text-center text-2xl lg:text-3xl">
+          Kat&apos;s Top Songs...
         </p>
 
-        <div className="flex flex-row mt-5 space-x-3 md:space-x-8 lg:space-x-4 w-screen justify-center 
-            lg:w-150 lg:ml-125 2xl:w-auto 2xl:h-auto 2xl:ml-0">
+        <div className="mt-8 flex w-full max-w-6xl flex-row flex-wrap justify-center gap-4 px-4 sm:gap-6 md:gap-8 lg:gap-10">
           {songs.slice(0, 3).map((song, index) => (
             <Songbox
               key={index}
@@ -135,6 +126,9 @@ drawings, clothes, or websites gives me an immense sense of fufillment. Scroll b
         </div>
       </div>
 
+      <div className={`artDiv ${koulenClass} relative w-full`}>
+        <ArtGallery koulenClass={koulenClass} specialClass={specialClass} />
+      </div>
 
       <BottomBar />
     </div>
