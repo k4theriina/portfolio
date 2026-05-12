@@ -87,6 +87,21 @@ export default function ArtGallery({
             </article>
           ))}
         </div>
+
+        <p
+          className={`${specialClass} mx-auto mt-10 max-w-2xl text-center text-base leading-relaxed text-white/90 sm:mt-12 sm:text-lg md:mt-14`}
+        >
+          Want to see more? Follow my instagram{" "}
+          <a
+            href="https://www.instagram.com/katxartt/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-semibold text-kat-purple underline decoration-kat-purple/50 underline-offset-2 transition hover:text-kat-purple hover:decoration-kat-purple"
+          >
+            @katxartt
+          </a>{" "}
+          !
+        </p>
       </div>
 
       <dialog

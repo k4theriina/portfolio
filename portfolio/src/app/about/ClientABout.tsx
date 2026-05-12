@@ -124,6 +124,29 @@ export default function About({
             />
           ))}
         </div>
+
+        <div className="mt-8 flex flex-wrap items-center justify-center gap-2.5 px-4 sm:mt-10 sm:gap-3">
+          <span
+            className={`${specialClass} text-sm text-white/75 sm:text-base`}
+          >
+            Powered by
+          </span>
+          <a
+            href="https://www.spotify.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center opacity-90 transition hover:opacity-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/60"
+            aria-label="Spotify"
+          >
+            <img
+              src="/assets/spotify.svg"
+              alt=""
+              width={28}
+              height={28}
+              className="h-7 w-7 sm:h-8 sm:w-8"
+            />
+          </a>
+        </div>
       </div>
 
       <div className={`artDiv ${koulenClass} relative w-full`}>
