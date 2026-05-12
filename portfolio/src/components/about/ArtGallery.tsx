@@ -117,7 +117,7 @@ export default function ArtGallery({
             <button
               type="button"
               onClick={close}
-              className="absolute right-3 top-3 z-20 rounded-lg bg-black/50 px-3 py-1.5 text-sm text-white/90 backdrop-blur-sm transition hover:bg-black/70 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/70 md:right-4 md:top-4"
+              className="cursor-pointer absolute right-3 top-3 z-20 rounded-lg bg-black/50 px-3 py-1.5 text-sm text-white/90 backdrop-blur-sm transition hover:bg-black/70 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/70 md:right-4 md:top-4"
               aria-label="Close"
             >
               ✕
