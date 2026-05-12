@@ -73,7 +73,7 @@ export default function ArtGallery({
                     width={piece.width}
                     height={piece.height}
                     sizes={GALLERY_SIZES}
-                    className="h-auto w-full transition duration-200 group-hover:brightness-105 motion-reduce:group-hover:brightness-100"
+                    className="cursor-pointer h-auto w-full transition duration-200 group-hover:brightness-105 motion-reduce:group-hover:brightness-100"
                     loading="lazy"
                     decoding="async"
                   />
@@ -172,7 +172,7 @@ export default function ArtGallery({
                 <form method="dialog" className="flex justify-end">
                   <button
                     type="submit"
-                    className="rounded-lg bg-white/10 px-4 py-2 text-sm text-white transition hover:bg-white/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/60"
+                    className="cursor-pointer rounded-lg bg-white/10 px-4 py-2 text-sm text-white transition hover:bg-white/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/60"
                   >
                     Close
                   </button>
