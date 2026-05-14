@@ -64,7 +64,7 @@ export default function ArtGallery({
               <button
                 type="button"
                 onClick={() => open(piece)}
-                className="group w-full cursor-zoom-in rounded-xl text-left outline-none ring-white/0 transition-[transform,box-shadow] duration-200 hover:scale-[1.02] hover:shadow-lg hover:shadow-black/40 focus-visible:ring-2 focus-visible:ring-white/70 motion-reduce:transition-none motion-reduce:hover:scale-100"
+                className="group w-full cursor-zoom-in rounded-xl text-left outline-none ring-white/0 transition-[transform,box-shadow] duration-200 hover:scale-[1.02] hover:shadow-lg hover:shadow-kat-purple focus-visible:ring-2 focus-visible:ring-white/70 motion-reduce:transition-none motion-reduce:hover:scale-100"
               >
                 <div className="relative w-full overflow-hidden rounded-xl bg-zinc-900">
                   <Image

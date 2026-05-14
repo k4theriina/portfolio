@@ -1,0 +1,11 @@
+{
+  "tracks": [
+    {
+      "id": "hooligang",
+      "title": "Hooligang",
+      "artist": "Artist name",
+      "audio": "hooligang.mp3",
+      "cover":"Punk_Tactics_cover.jpg"
+    }
+  ]
+}

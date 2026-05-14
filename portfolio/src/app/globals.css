@@ -237,3 +237,13 @@ body {
     left: 100px;
   }
 }
+
+@keyframes jukebox-vinyl-rotate {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.jukebox-vinyl-spinning {
+  animation: jukebox-vinyl-rotate 2.75s linear infinite;
+}
