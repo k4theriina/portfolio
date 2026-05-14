@@ -1,6 +1,5 @@
 "use client";
 
-import TopBar from "../../components/TopBar";
 import BottomBar from "../../components/BottomBar";
 import { Koulen } from "next/font/google";
 import { Jersey_10 } from "next/font/google";
@@ -46,15 +45,13 @@ export default function Home() {
       </Head>
 
 
-      <div className="select-none min-h-screen overflow-hidden">
+      <div className="select-none flex min-h-0 flex-1 flex-col overflow-hidden">
         <div
-          className={`${koulen.className} 
+          className={`${koulen.className} flex min-h-0 flex-1 flex-col
             bg-[url('/assets/mobilehomebg.jpg')] 
             sm:bg-[url('/assets/bgimageHome.jpg')] 
-            bg-cover bg-bottom h-screen min-h-screen`}
+            bg-cover bg-bottom`}
         >
-
-          <TopBar />
 
           <div className="flex flex-col space-y-5 items-center text-center justify-center mt-45">
             {/* Text fades and slides in */}

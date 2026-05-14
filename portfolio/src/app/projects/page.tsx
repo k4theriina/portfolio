@@ -1,6 +1,5 @@
 "use client";
 
-import TopBar from "../../../components/TopBar";
 import BottomBar from "../../../components/BottomBar";
 import ProjectBox from "../../../components/ProjectBox";
 
@@ -30,10 +29,9 @@ export default function Projects() {
         }, []);
 
     return (
-        <div className="min-h-screen overflow-hidden w-full">
-            <div className={`${koulen.className} select-none bg-[url('/assets/bgimageExp.jpg')] bg-cover bg-center w-full`}>
-                <TopBar />
-                <div className="relative flex flex-col items-center text-center min-h-screen min-w-screen">
+        <div className="flex min-h-full w-full flex-col overflow-hidden">
+            <div className={`${koulen.className} select-none flex min-h-full w-full flex-col bg-[url('/assets/bgimageExp.jpg')] bg-cover bg-center`}>
+                <div className="relative flex min-h-screen min-w-screen flex-col items-center text-center">
                     <div>
                         <img
                             className={`lg:hidden w-screen pointer-events-none transition-all duration-1000 ease-out delay-0 ${

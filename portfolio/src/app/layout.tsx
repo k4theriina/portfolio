@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Jersey_10, Koulen } from "next/font/google";
+import TopBar from "../../components/TopBar";
 import "./globals.css";
 
 const jersey10 = Jersey_10({
@@ -31,8 +32,11 @@ export const metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className={`${geistSans.className} antialiased`}>
-        {children}
+      <body
+        className={`${geistSans.className} flex min-h-screen flex-col antialiased`}
+      >
+        <TopBar />
+        <main className="flex min-h-0 flex-1 flex-col">{children}</main>
       </body>
     </html>
   );

@@ -1,6 +1,5 @@
 "use client";
 
-import TopBar from "../../../components/TopBar";
 import BottomBar from "../../../components/BottomBar";
 import Songbox from "../../../components/SongBox";
 import ThingsILikeToDo from "../../components/about/ThingsILikeToDo";
@@ -35,12 +34,10 @@ export default function About({
   }, []);
 
   return (
-    <div className="min-h-screen overflow-hidden">
+    <div className="flex min-h-full w-full flex-col">
       <div
-        className={`${koulenClass} relative flex min-h-0 flex-col bg-[url('/assets/bgimageAbout.jpg')] bg-cover bg-top lg:h-screen lg:bg-[url('/assets/aboutXL.png')]`}
+        className={`${koulenClass} relative flex min-h-0 flex-col bg-[url('/assets/bgimageAbout.jpg')] bg-cover bg-top lg:min-h-screen lg:bg-[url('/assets/aboutXL.png')]`}
       >
-        <TopBar />
-
         {/* Hero: flex-1 + justify-center avoids content hugging top-left; clamp() scales type + photo with viewport */}
         <div className="flex min-h-0 flex-1 flex-col justify-center py-8 sm:py-10 lg:py-6">
           <div className="mx-auto flex w-full max-w-[min(100%-1.5rem,2400px)] flex-col items-center gap-8 px-4 sm:gap-10 sm:px-6 md:gap-12 lg:flex-row lg:items-center lg:justify-center lg:gap-[clamp(1.5rem,4vw,5rem)] lg:px-8 xl:px-12 2xl:gap-16 2xl:px-16">
