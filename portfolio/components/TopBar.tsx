@@ -20,30 +20,40 @@ export default function TopBar() {
     };
 
     return (
-        <div className={`${jersey10.className} w-full flex flex-wrap items-center gap-3 bg-kat-black p-4 text-3xl md:flex-nowrap md:items-center`}>
-            <div className="flex min-w-0 shrink items-center gap-3 md:gap-5">
-                <div className="group shrink-0 hover:text-kat-purple">
-                    <button onClick={() => router.push("/")} className="flex space-x-4 items-center relative cursor-pointer">
-                        <img
-                            className="group-hover:hidden w-16 h-16 absolute"
-                            src="/assets/catHead.png"
-                            alt="cat icon"
-                        />
-                        <img
-                            className="hidden group-hover:block w-16 h-16 absolute"
-                            src="/assets/catHeadHover.png"
-                            alt="cat icon happy"
-                        />
-                        <span className="pl-15 min-w-66">Katherina Dayaon</span>
+        <div
+            className={`${jersey10.className} flex w-full flex-nowrap items-center justify-between gap-2 bg-kat-black px-3 py-2 text-3xl sm:gap-3 sm:px-4 sm:py-3 md:items-center`}
+        >
+            <div className="flex min-w-0 flex-1 items-center gap-2 sm:gap-3 md:flex-none md:gap-5 xl:gap-6">
+                <div className="group min-w-0 shrink hover:text-kat-purple">
+                    <button
+                        type="button"
+                        onClick={() => router.push("/")}
+                        className="flex max-w-full min-w-0 cursor-pointer items-center gap-2 sm:gap-3 xl:gap-4"
+                    >
+                        <span className="relative h-11 w-11 shrink-0 sm:h-14 sm:w-14 min-[1082px]:h-16 min-[1082px]:w-16 xl:h-20 xl:w-20 2xl:h-[5.25rem] 2xl:w-[5.25rem]">
+                            <img
+                                className="pointer-events-none absolute inset-0 h-full w-full object-contain group-hover:hidden"
+                                src="/assets/catHead.png"
+                                alt="cat icon"
+                            />
+                            <img
+                                className="pointer-events-none absolute inset-0 hidden h-full w-full object-contain group-hover:block"
+                                src="/assets/catHeadHover.png"
+                                alt="cat icon happy"
+                            />
+                        </span>
+                        <span className="min-w-0 truncate text-base leading-tight sm:text-2xl min-[1082px]:text-3xl xl:text-4xl 2xl:text-5xl">
+                            Katherina Dayaon
+                        </span>
                     </button>
                 </div>
-                {/* Match globals.css: .directory is hidden at max-width 1081px */}
+                {/* Inline nav + music only from 1082px up (matches globals .menu / old .directory breakpoint) */}
                 <div className="hidden min-h-[3.25rem] min-w-0 max-w-[min(70vw,22rem)] shrink sm:max-w-xl min-[1082px]:block">
                     <TopBarMusic variant="toolbar" />
                 </div>
             </div>
 
-            <div className="directory ml-auto hidden shrink-0 items-center space-x-10 md:flex">
+            <div className="directory hidden shrink-0 items-center space-x-10 min-[1082px]:flex">
                 <div className="space-x-3 md:space-x-15">
                     <PageButton label="Home" />
                     <PageButton label="About" />
@@ -64,9 +74,9 @@ export default function TopBar() {
                 </div>
             </div>
 
-            <div className="menu ml-auto shrink-0 md:hidden pr-4">
+            <div className="menu shrink-0 md:hidden">
                 <Popover key={pathname} className="relative">
-                    <PopoverButton className="cursor-pointer hover:text-kat-purple">
+                    <PopoverButton className="cursor-pointer p-1 leading-none hover:text-kat-purple">
                         <span>☰</span>
                     </PopoverButton>
 
@@ -74,31 +84,40 @@ export default function TopBar() {
                         transition
                         className="fixed inset-0 z-50 flex max-h-[100dvh] flex-col bg-kat-black text-white"
                     >
-                        <div className="flex shrink-0 items-start justify-between gap-3 border-b border-white/10 bg-kat-black px-4 pb-3 pt-[max(0.75rem,env(safe-area-inset-top))]">
-                            <div className="group min-w-0 shrink hover:text-kat-purple">
+                        <div className="relative flex w-full shrink-0 items-center gap-2 border-b border-white/10 bg-kat-black px-4 pb-3 pr-14 pt-[max(0.75rem,env(safe-area-inset-top))] sm:pr-16">
+                            <div className="group shrink-0">
                                 <button
                                     type="button"
                                     onClick={() => router.push("/")}
-                                    className="relative flex min-h-16 cursor-pointer items-center pl-14"
+                                    className="relative block h-14 w-14 shrink-0 cursor-pointer p-0 sm:h-16 sm:w-16"
+                                    aria-label="Home"
                                 >
                                     <img
-                                        className="pointer-events-none absolute left-0 top-1/2 h-16 w-16 -translate-y-1/2 group-hover:hidden"
+                                        className="pointer-events-none absolute inset-0 h-full w-full object-contain group-hover:hidden"
                                         src="/assets/catHead.png"
                                         alt=""
                                     />
                                     <img
-                                        className="pointer-events-none absolute left-0 top-1/2 hidden h-16 w-16 -translate-y-1/2 group-hover:block"
+                                        className="pointer-events-none absolute inset-0 hidden h-full w-full object-contain group-hover:block"
                                         src="/assets/catHeadHover.png"
                                         alt=""
                                     />
-                                    <span className="truncate text-left text-2xl leading-tight">
+                                </button>
+                            </div>
+                            <div className="flex min-w-0 flex-1 justify-center px-2">
+                                <button
+                                    type="button"
+                                    onClick={() => router.push("/")}
+                                    className="max-w-full cursor-pointer text-center hover:text-kat-purple"
+                                >
+                                    <span className="block truncate text-2xl leading-tight">
                                         Katherina Dayaon
                                     </span>
                                 </button>
                             </div>
                             <PopoverButton
                                 type="button"
-                                className="shrink-0 cursor-pointer px-2 py-1 text-4xl font-bold leading-none text-white hover:text-kat-purple"
+                                className="absolute right-3 top-1/2 -translate-y-1/2 shrink-0 cursor-pointer px-2 py-1 text-4xl font-bold leading-none text-white hover:text-kat-purple sm:right-4"
                                 aria-label="Close menu"
                             >
                                 ✕

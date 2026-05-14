@@ -92,11 +92,8 @@ body {
   }
 }
 
+/* Below 1082px the hamburger stays visible over Tailwind `md:hidden` on `.menu`. */
 @media (max-width: 1081px) {
-  .directory {
-    visibility: hidden;
-    pointer-events: none;
-  }
   .menu {
     display: block !important;
   }

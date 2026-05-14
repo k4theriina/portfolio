@@ -37,7 +37,7 @@ export default function Projects() {
                             className={`lg:hidden w-screen pointer-events-none transition-all duration-1000 ease-out delay-0 ${
                                 loaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
                             }`}
-                            src="/assets/paperstrip.png"
+                            src="/assets/paperstrip.webp"
                             alt="Projects heading"
                         />
 
@@ -45,7 +45,7 @@ export default function Projects() {
                             className={`hidden lg:block w-screen pointer-events-none transition-all duration-1000 ease-out delay-0 ${
                                 loaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
                             }`}
-                            src="/assets/paperstripLong.png"
+                            src="/assets/paperstripLong.webp"
                             alt="Projects heading"
                         />
 
