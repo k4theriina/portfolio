@@ -21,24 +21,25 @@ export default function TopBar() {
 
     return (
         <div className={`${jersey10.className} w-full flex flex-wrap items-center gap-3 bg-kat-black p-4 text-3xl md:flex-nowrap md:items-center`}>
-            <div className="group shrink-0 hover:text-kat-purple">
-                <button onClick={() => router.push("/")} className="flex space-x-4 items-center relative cursor-pointer">
-                <img
-                    className="group-hover:hidden w-16 h-16 absolute"
-                    src="/assets/catHead.png"
-                    alt="cat icon"
-                />
-                <img
-                    className="hidden group-hover:block w-16 h-16 absolute"
-                    src="/assets/catHeadHover.png"
-                    alt="cat icon happy"
-                />
-                <span className="pl-15 min-w-66">Katherina Dayaon</span> 
-                </button>
-            </div>
-
-            <div className="hidden min-h-[3.25rem] min-w-0 flex-1 justify-center px-2 md:flex lg:max-w-2xl xl:max-w-3xl">
-                <TopBarMusic />
+            <div className="flex min-w-0 shrink items-center gap-3 md:gap-5">
+                <div className="group shrink-0 hover:text-kat-purple">
+                    <button onClick={() => router.push("/")} className="flex space-x-4 items-center relative cursor-pointer">
+                        <img
+                            className="group-hover:hidden w-16 h-16 absolute"
+                            src="/assets/catHead.png"
+                            alt="cat icon"
+                        />
+                        <img
+                            className="hidden group-hover:block w-16 h-16 absolute"
+                            src="/assets/catHeadHover.png"
+                            alt="cat icon happy"
+                        />
+                        <span className="pl-15 min-w-66">Katherina Dayaon</span>
+                    </button>
+                </div>
+                <div className="min-h-[3.25rem] min-w-0 max-w-[min(70vw,22rem)] shrink sm:max-w-xl">
+                    <TopBarMusic />
+                </div>
             </div>
 
             <div className="directory ml-auto hidden shrink-0 items-center space-x-10 md:flex">
