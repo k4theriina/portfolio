@@ -34,9 +34,9 @@ export default function About({
   }, []);
 
   return (
-    <div className="flex min-h-full w-full flex-col">
+    <div className="flex min-h-full w-full flex-col overflow-x-hidden">
       <div
-        className={`${koulenClass} relative flex min-h-0 flex-col bg-[url('/assets/bgimageAbout.jpg')] bg-cover bg-top lg:min-h-screen lg:bg-[url('/assets/aboutXL.png')]`}
+        className={`${koulenClass} relative flex min-h-0 flex-col bg-[url('/assets/bgimageAbout.jpg')] bg-cover bg-top lg:min-h-[calc(100svh-4.75rem)] lg:bg-[url('/assets/aboutXL.png')]`}
       >
         {/* Hero: flex-1 + justify-center avoids content hugging top-left; clamp() scales type + photo with viewport */}
         <div className="flex min-h-0 flex-1 flex-col justify-center py-8 sm:py-10 lg:py-6">

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Jersey_10, Koulen } from "next/font/google";
+import { JukeboxProvider } from "../../components/JukeboxContext";
 import TopBar from "../../components/TopBar";
 import "./globals.css";
 
@@ -35,8 +36,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body
         className={`${geistSans.className} flex min-h-screen flex-col antialiased`}
       >
-        <TopBar />
-        <main className="flex min-h-0 flex-1 flex-col">{children}</main>
+        <JukeboxProvider>
+          <TopBar />
+          <main className="flex min-h-0 flex-1 flex-col">{children}</main>
+        </JukeboxProvider>
       </body>
     </html>
   );

@@ -239,11 +239,10 @@ body {
 }
 
 @keyframes jukebox-vinyl-rotate {
+  from {
+    transform: rotate(0deg);
+  }
   to {
     transform: rotate(360deg);
   }
-}
-
-.jukebox-vinyl-spinning {
-  animation: jukebox-vinyl-rotate 2.75s linear infinite;
 }

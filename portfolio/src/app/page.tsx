@@ -45,9 +45,9 @@ export default function Home() {
       </Head>
 
 
-      <div className="select-none flex min-h-0 flex-1 flex-col overflow-hidden">
+      <div className="select-none flex min-h-full w-full flex-1 flex-col overflow-x-hidden">
         <div
-          className={`${koulen.className} flex min-h-0 flex-1 flex-col
+          className={`${koulen.className} flex min-h-[calc(100svh-4.75rem)] shrink-0 flex-col
             bg-[url('/assets/mobilehomebg.jpg')] 
             sm:bg-[url('/assets/bgimageHome.jpg')] 
             bg-cover bg-bottom`}

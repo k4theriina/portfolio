@@ -76,6 +76,7 @@ export default function ArtGallery({
                     className="cursor-pointer h-auto w-full transition duration-200 group-hover:brightness-105 motion-reduce:group-hover:brightness-100"
                     loading="lazy"
                     decoding="async"
+                    unoptimized={piece.unoptimized}
                   />
                 </div>
                 <p
@@ -133,6 +134,7 @@ export default function ArtGallery({
                 sizes={LIGHTBOX_SIZES}
                 className="max-h-full max-w-full object-contain"
                 priority
+                unoptimized={active.unoptimized}
               />
             </div>
 

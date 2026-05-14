@@ -1,9 +1,16 @@
 {
   "tracks": [
     {
+      "id": "newjeans",
+      "title": "New Jeans",
+      "artist": "NewJeans",
+      "audio": "NewJeans.mp3",
+      "cover":"newJeansCover.jpg"
+    },
+    {
       "id": "hooligang",
-      "title": "Hooligang",
-      "artist": "Artist name",
+      "title": "HOOLIGANG",
+      "artist": "Joey Valence & Brae",
       "audio": "hooligang.mp3",
       "cover":"Punk_Tactics_cover.jpg"
     }

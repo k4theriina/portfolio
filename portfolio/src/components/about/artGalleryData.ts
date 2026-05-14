@@ -5,6 +5,8 @@
  *   If it has different dimensions than `src`, update `width` / `height` to match `fullSrc` for correct lightbox aspect.
  * - `width` / `height`: real pixel size of `src` (keeps layout stable and helps `next/image`).
  * - `date`: Shown in the lightbox (any string, e.g. "March 2025" or "2025-03-12").
+ * - `unoptimized`: set true for animated WebP/GIF (Next cannot optimize those). For optimized delivery,
+ *   use a static WebP/JPEG/AVIF, or use MP4/WebM in a `<video>` if you need motion.
  */
 export type ArtPiece = {
   id: string;
@@ -15,6 +17,8 @@ export type ArtPiece = {
   description: string;
   width: number;
   height: number;
+  /** Animated formats: Next image optimizer skips these; set true to silence the warning. */
+  unoptimized?: boolean;
 };
 
 export const MY_ART: ArtPiece[] = [
@@ -37,6 +41,7 @@ export const MY_ART: ArtPiece[] = [
       "Lighting practice from a photo walk around campus. I focused on rim light and skin undertones, trying to keep edges soft while still reading clearly at a distance.",
     width: 1200,
     height: 800,
+    unoptimized: true,
   },
   {
     id: "3",
