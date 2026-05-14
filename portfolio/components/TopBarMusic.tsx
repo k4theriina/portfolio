@@ -17,8 +17,8 @@ import {
 } from "react";
 
 const JUKEBOX_BASE = "/jukebox";
-
-const VINYL_BG = `radial-gradient(circle at 50% 50%, #0D0B0F 0%, #0D0B0F 6%, transparent 6.5%), repeating-radial-gradient(circle at 50% 50%, #25252c 0px, #25252c 1px, #141418 2px, #141418 3px)`;
+/** Place `vinyl.png` in `public/assets/` (see also `Vinyl.png`). */
+const VINYL_SRC = "/assets/vinyl.png";
 
 type ManifestTrack = {
   id: string;
@@ -81,7 +81,7 @@ function parseManifest(raw: unknown): ResolvedTrack[] {
   return out;
 }
 
-function VinylDisc({
+function VinylImage({
   spinning,
   size,
   className = "",
@@ -90,23 +90,19 @@ function VinylDisc({
   size: "sm" | "lg";
   className?: string;
 }) {
-  const dim = size === "sm" ? "h-11 w-11" : "h-[8.25rem] w-[8.25rem] sm:h-36 sm:w-36";
-  const hole = size === "sm" ? "h-2 w-2" : "h-3.5 w-3.5";
-  const shadow =
+  const dim =
     size === "sm"
-      ? "shadow-[0_4px_14px_rgba(0,0,0,0.75)]"
-      : "shadow-[0_14px_36px_rgba(0,0,0,0.9)]";
-
+      ? "h-14 w-14 sm:h-16 sm:w-16"
+      : "h-[7.25rem] w-[7.25rem] sm:h-32 sm:w-32";
   return (
-    <div
-      className={`relative ${dim} shrink-0 rounded-full ${shadow} ring-1 ring-black/70 ${spinning ? "jukebox-vinyl-spinning" : ""} ${className}`}
-      style={{ background: VINYL_BG }}
-      aria-hidden
-    >
-      <div
-        className={`absolute left-1/2 top-1/2 ${hole} -translate-x-1/2 -translate-y-1/2 rounded-full bg-kat-black ring-1 ring-white/20`}
-      />
-    </div>
+    <img
+      src={VINYL_SRC}
+      alt=""
+      width={128}
+      height={128}
+      draggable={false}
+      className={`${dim} shrink-0 select-none rounded-full object-cover shadow-[0_6px_20px_rgba(0,0,0,0.65)] ring-1 ring-white/20 ${spinning ? "jukebox-vinyl-spinning" : ""} ${className}`}
+    />
   );
 }
 
@@ -117,7 +113,6 @@ export default function TopBarMusic() {
   const [tracks, setTracks] = useState<ResolvedTrack[]>([]);
   const [manifestLoaded, setManifestLoaded] = useState(false);
   const [loadFailed, setLoadFailed] = useState(false);
-  const [dashboardOpen, setDashboardOpen] = useState(false);
 
   const [idx, setIdx] = useState(0);
   const [playing, setPlaying] = useState(false);
@@ -149,15 +144,6 @@ export default function TopBarMusic() {
       cancelled = true;
     };
   }, []);
-
-  useEffect(() => {
-    if (!dashboardOpen) return;
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setDashboardOpen(false);
-    };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [dashboardOpen]);
 
   useEffect(() => {
     const a = audioRef.current;
@@ -291,176 +277,188 @@ export default function TopBarMusic() {
   const progressPct = Math.min(100, (currentTime / dur) * 100);
 
   return (
-    <div className="relative z-[400] flex w-full max-w-xl min-w-0 justify-center font-sans">
+    <div
+      className="group relative z-[400] font-sans outline-none"
+      tabIndex={0}
+    >
       <audio ref={audioRef} preload="metadata" className="hidden" />
 
-      {/* Top bar: only the vinyl — click opens dashboard */}
-      <button
-        type="button"
-        onClick={() => setDashboardOpen(true)}
-        className="rounded-full p-0.5 outline-none ring-kat-purple/0 transition hover:ring-2 hover:ring-kat-purple/50 focus-visible:ring-2 focus-visible:ring-kat-purple"
-        aria-label="Open jukebox"
-        aria-expanded={dashboardOpen}
-        aria-haspopup="dialog"
-      >
-        <VinylDisc spinning={playing} size="sm" />
-      </button>
+      {/* Extra bottom padding = hover bridge into the dashboard */}
+      <div className="-m-1 flex items-start gap-3 p-1 pb-3">
+        <VinylImage spinning={playing} size="sm" />
 
-      {/* Full dashboard — click vinyl / control to open; backdrop or Escape to close */}
-      {dashboardOpen && (
-        <div
-          className="fixed inset-0 z-[500] flex items-start justify-center overflow-y-auto bg-black/65 px-3 pt-16 pb-10 sm:pt-20"
-          role="presentation"
-        >
-          <button
-            type="button"
-            className="absolute inset-0 cursor-default"
-            tabIndex={-1}
-            aria-label="Close jukebox"
-            onClick={() => setDashboardOpen(false)}
-          />
-          <div
-            role="dialog"
-            aria-modal
-            aria-labelledby="jukebox-title"
-            className="relative z-10 mt-0 w-full max-w-md rounded-xl border border-white/15 bg-kat-black/98 p-5 shadow-2xl shadow-black/70 ring-1 ring-white/10 backdrop-blur-md"
-            onClick={(e) => e.stopPropagation()}
+        <div className="min-w-0 max-w-[11rem] pt-0.5 text-left sm:max-w-[15rem]">
+          <p className="truncate text-xs font-medium leading-tight text-white sm:text-sm">
+            {track.title}
+          </p>
+          <p
+            className={`mt-0.5 text-[10px] font-sans tracking-wide sm:text-xs ${
+              playing ? "text-kat-purple" : "text-white/45"
+            }`}
           >
-            <div className="mb-2 flex items-start justify-between gap-3">
-              <h2
-                id="jukebox-title"
-                className="text-2xl font-bold tracking-tight text-white sm:text-3xl"
-              >
-                Jukebox
-              </h2>
-              <button
-                type="button"
-                onClick={() => setDashboardOpen(false)}
-                className="shrink-0 rounded-md px-2 py-1 text-sm text-white/60 transition hover:bg-white/10 hover:text-white"
-                aria-label="Close"
-              >
-                ✕
-              </button>
-            </div>
-            <p className="mb-5 text-center text-xs text-white/45 sm:text-sm">
-              Local tracks · {idx + 1} / {tracks.length}
-            </p>
-
-            <div className="relative mx-auto mb-6 flex h-[9.5rem] w-full max-w-[19rem] items-center justify-center sm:h-[10.5rem]">
-              <div
-                className="pointer-events-none absolute left-[46%] top-1/2 z-0 -translate-y-1/2 sm:left-[47%]"
-                aria-hidden
-              >
-                <VinylDisc spinning={playing} size="lg" />
-              </div>
-
-              <div className="relative z-10 -ml-10 shrink-0 overflow-hidden rounded-lg shadow-2xl ring-2 ring-white/20 sm:-ml-12">
-                {track.coverUrl ? (
-                  <img
-                    src={track.coverUrl}
-                    alt=""
-                    className="block h-[8.25rem] w-[8.25rem] object-cover sm:h-36 sm:w-36"
-                    width={144}
-                    height={144}
-                  />
-                ) : (
-                  <div className="flex h-[8.25rem] w-[8.25rem] items-center justify-center bg-gradient-to-br from-white/15 to-white/5 text-white/40 sm:h-36 sm:w-36">
-                    <FaMusic className="h-16 w-16 sm:h-20 sm:w-20" />
-                  </div>
-                )}
-              </div>
-            </div>
-
-            <h3 className="mb-1 line-clamp-2 text-center text-lg font-semibold text-white sm:text-xl">
-              {track.title}
-            </h3>
-            <p className="mb-5 line-clamp-2 text-center text-sm text-white/55">
-              {track.artist}
-            </p>
-
-            <div className="mb-1">
-              <input
-                type="range"
-                min={0}
-                max={dur}
-                step={0.05}
-                value={Math.min(currentTime, dur)}
-                onChange={(e) => seek(Number(e.target.value))}
-                className="h-1.5 w-full cursor-pointer accent-kat-purple"
-                aria-label="Seek"
-                style={{
-                  background: `linear-gradient(to right, rgb(168 85 247) ${progressPct}%, rgba(255,255,255,0.12) ${progressPct}%)`,
-                }}
-              />
-              <div className="mt-1 flex justify-between text-[11px] tabular-nums text-white/45">
-                <span>{formatTime(currentTime)}</span>
-                <span>{formatTime(duration)}</span>
-              </div>
-            </div>
-
-            <div className="mt-4 flex items-center justify-center gap-8">
-              <button
-                type="button"
-                onClick={goPrev}
-                disabled={tracks.length < 2}
-                className="rounded-full p-2 text-white/85 transition enabled:hover:bg-white/10 enabled:hover:text-white disabled:opacity-30"
-                aria-label="Previous track"
-              >
-                <FaStepBackward className="h-7 w-7" />
-              </button>
-              <button
-                type="button"
-                onClick={() => void togglePlay()}
-                className="rounded-full p-2 text-white transition hover:bg-white/10"
-                aria-label={playing ? "Pause" : "Play"}
-              >
-                {playing ? (
-                  <FaPause className="h-10 w-10" />
-                ) : (
-                  <FaPlay className="h-10 w-10 pl-1" />
-                )}
-              </button>
-              <button
-                type="button"
-                onClick={goNext}
-                disabled={tracks.length < 2}
-                className="rounded-full p-2 text-white/85 transition enabled:hover:bg-white/10 enabled:hover:text-white disabled:opacity-30"
-                aria-label="Next track"
-              >
-                <FaStepForward className="h-7 w-7" />
-              </button>
-            </div>
-
-            <div className="mt-5 flex items-center gap-2 border-t border-white/10 pt-4">
-              <button
-                type="button"
-                onClick={toggleMute}
-                className="shrink-0 rounded p-1.5 text-white/70 hover:bg-white/10 hover:text-white"
-                aria-label={muted ? "Unmute" : "Mute"}
-              >
-                {muted || volume < 0.02 ? (
-                  <FaVolumeMute className="h-4 w-4" />
-                ) : (
-                  <FaVolumeUp className="h-4 w-4" />
-                )}
-              </button>
-              <input
-                type="range"
-                min={0}
-                max={1}
-                step={0.02}
-                value={volume}
-                onChange={(e) => setVolume(Number(e.target.value))}
-                className="h-1.5 min-w-0 flex-1 cursor-pointer accent-kat-purple"
-                aria-label="Volume"
-              />
-              <span className="w-9 shrink-0 text-right text-[11px] tabular-nums text-white/50">
-                {Math.round(volume * 100)}%
-              </span>
-            </div>
+            {playing ? "Now playing" : "Paused"}
+          </p>
+          <div className="mt-1.5 flex items-center gap-0.5">
+            <button
+              type="button"
+              onClick={goPrev}
+              disabled={tracks.length < 2}
+              className="rounded p-1 text-white/75 transition enabled:hover:bg-white/10 enabled:hover:text-white disabled:opacity-30"
+              aria-label="Previous track"
+            >
+              <FaStepBackward className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
+            </button>
+            <button
+              type="button"
+              onClick={() => void togglePlay()}
+              className="rounded p-1 text-white transition hover:bg-white/10"
+              aria-label={playing ? "Pause" : "Play"}
+            >
+              {playing ? (
+                <FaPause className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+              ) : (
+                <FaPlay className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+              )}
+            </button>
+            <button
+              type="button"
+              onClick={goNext}
+              disabled={tracks.length < 2}
+              className="rounded p-1 text-white/75 transition enabled:hover:bg-white/10 enabled:hover:text-white disabled:opacity-30"
+              aria-label="Next track"
+            >
+              <FaStepForward className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
+            </button>
           </div>
         </div>
-      )}
+      </div>
+
+      {/* Hover: compact dashboard below, anchored like a top-right corner card */}
+      <div
+        className="pointer-events-none invisible absolute right-0 top-full z-[500] mt-0 w-[min(20rem,calc(100vw-2rem))] max-w-[92vw] origin-top-right scale-95 opacity-0 transition-all duration-200 ease-out group-hover:pointer-events-auto group-hover:visible group-hover:scale-100 group-hover:opacity-100 group-focus-within:pointer-events-auto group-focus-within:visible group-focus-within:scale-100 group-focus-within:opacity-100"
+      >
+        <div className="rounded-xl border border-white/15 bg-kat-black/98 p-4 shadow-2xl shadow-black/80 ring-1 ring-white/10 backdrop-blur-md sm:p-5">
+          <h2 className="mb-1 text-lg font-bold tracking-tight text-white sm:text-xl">
+            Jukebox
+          </h2>
+          <p className="mb-4 text-[11px] text-white/40 sm:text-xs">
+            {idx + 1} / {tracks.length}
+          </p>
+
+          <div className="relative mx-auto mb-4 flex h-[7.5rem] w-full max-w-[16rem] items-center justify-center sm:h-[8.5rem] sm:max-w-[17rem]">
+            <div
+              className="pointer-events-none absolute left-[46%] top-1/2 z-0 -translate-y-1/2 sm:left-[48%]"
+              aria-hidden
+            >
+              <VinylImage spinning={playing} size="lg" />
+            </div>
+
+            <div className="relative z-10 -ml-8 shrink-0 overflow-hidden rounded-lg shadow-xl ring-2 ring-white/20 sm:-ml-10">
+              {track.coverUrl ? (
+                <img
+                  src={track.coverUrl}
+                  alt=""
+                  className="block h-24 w-24 object-cover sm:h-28 sm:w-28"
+                  width={112}
+                  height={112}
+                />
+              ) : (
+                <div className="flex h-24 w-24 items-center justify-center bg-gradient-to-br from-white/15 to-white/5 text-white/35 sm:h-28 sm:w-28">
+                  <FaMusic className="h-12 w-12 sm:h-14 sm:w-14" />
+                </div>
+              )}
+            </div>
+          </div>
+
+          <h3 className="mb-0.5 line-clamp-2 text-center text-sm font-semibold text-white sm:text-base">
+            {track.title}
+          </h3>
+          <p className="mb-3 line-clamp-1 text-center text-xs text-white/50">
+            {track.artist}
+          </p>
+
+          <div className="mb-1">
+            <input
+              type="range"
+              min={0}
+              max={dur}
+              step={0.05}
+              value={Math.min(currentTime, dur)}
+              onChange={(e) => seek(Number(e.target.value))}
+              className="h-1.5 w-full cursor-pointer accent-kat-purple"
+              aria-label="Seek"
+              style={{
+                background: `linear-gradient(to right, rgb(168 85 247) ${progressPct}%, rgba(255,255,255,0.12) ${progressPct}%)`,
+              }}
+            />
+            <div className="mt-1 flex justify-between text-[10px] tabular-nums text-white/45 sm:text-[11px]">
+              <span>{formatTime(currentTime)}</span>
+              <span>{formatTime(duration)}</span>
+            </div>
+          </div>
+
+          <div className="mt-3 flex items-center justify-center gap-5">
+            <button
+              type="button"
+              onClick={goPrev}
+              disabled={tracks.length < 2}
+              className="rounded-full p-2 text-white/85 transition enabled:hover:bg-white/10 enabled:hover:text-white disabled:opacity-30"
+              aria-label="Previous track"
+            >
+              <FaStepBackward className="h-6 w-6" />
+            </button>
+            <button
+              type="button"
+              onClick={() => void togglePlay()}
+              className="rounded-full p-2 text-white transition hover:bg-white/10"
+              aria-label={playing ? "Pause" : "Play"}
+            >
+              {playing ? (
+                <FaPause className="h-8 w-8" />
+              ) : (
+                <FaPlay className="h-8 w-8 pl-0.5" />
+              )}
+            </button>
+            <button
+              type="button"
+              onClick={goNext}
+              disabled={tracks.length < 2}
+              className="rounded-full p-2 text-white/85 transition enabled:hover:bg-white/10 enabled:hover:text-white disabled:opacity-30"
+              aria-label="Next track"
+            >
+              <FaStepForward className="h-6 w-6" />
+            </button>
+          </div>
+
+          <div className="mt-4 flex items-center gap-2 border-t border-white/10 pt-3">
+            <button
+              type="button"
+              onClick={toggleMute}
+              className="shrink-0 rounded p-1 text-white/70 hover:bg-white/10 hover:text-white"
+              aria-label={muted ? "Unmute" : "Mute"}
+            >
+              {muted || volume < 0.02 ? (
+                <FaVolumeMute className="h-3.5 w-3.5" />
+              ) : (
+                <FaVolumeUp className="h-3.5 w-3.5" />
+              )}
+            </button>
+            <input
+              type="range"
+              min={0}
+              max={1}
+              step={0.02}
+              value={volume}
+              onChange={(e) => setVolume(Number(e.target.value))}
+              className="h-1.5 min-w-0 flex-1 cursor-pointer accent-kat-purple"
+              aria-label="Volume"
+            />
+            <span className="w-8 shrink-0 text-right text-[10px] tabular-nums text-white/50">
+              {Math.round(volume * 100)}%
+            </span>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
