@@ -37,33 +37,45 @@ export default function About({
         className={`${koulenClass} relative flex min-h-0 flex-col bg-[url('/assets/bgimageAbout.jpg')] bg-cover bg-top lg:min-h-[calc(100svh-4.75rem)] lg:bg-[url('/assets/aboutXL.png')]`}
       >
         <div className="flex min-h-0 flex-1 flex-col justify-center py-8 sm:py-10 lg:py-6">
-          <ScrollFade
-            lazy={false}
+          <StaggerRevealGroup
+            enterOnMount
+            itemCount={3}
+            rise
+            slide={0}
+            dropItem={40}
+            stagger={0.1}
+            enterDuration={1500}
+            range={0.85}
             className="mx-auto flex w-full max-w-[min(100%-1.5rem,2400px)] flex-col items-center gap-8 px-4 sm:gap-10 sm:px-6 md:gap-12 lg:flex-row lg:items-center lg:justify-center lg:gap-[clamp(1.5rem,4vw,5rem)] lg:px-8 xl:px-12 2xl:gap-16 2xl:px-16"
           >
-            <img
-              src="/assets/UltimateKatPhoto.webp"
-              alt="Katherina Dayaon"
-              className="h-auto w-[min(40rem,96vw)] shrink-0 object-contain sm:w-[min(46rem,95vw)] md:w-[min(52rem,93vw)] lg:w-[clamp(28rem,48vw,64rem)] xl:w-[clamp(32rem,46vw,72rem)] 2xl:w-[clamp(36rem,44vw,80rem)]"
-            />
+            <StaggerRevealItem index={0}>
+              <img
+                src="/assets/UltimateKatPhoto.webp"
+                alt="Katherina Dayaon"
+                className="h-auto w-[min(40rem,96vw)] shrink-0 object-contain sm:w-[min(46rem,95vw)] md:w-[min(52rem,93vw)] lg:w-[clamp(28rem,48vw,64rem)] xl:w-[clamp(32rem,46vw,72rem)] 2xl:w-[clamp(36rem,44vw,80rem)]"
+              />
+            </StaggerRevealItem>
 
             <div className="flex w-full min-w-0 max-w-[min(40rem,92vw)] flex-col items-center gap-2 text-center lg:max-w-[min(55rem,48vw)] lg:items-start lg:gap-3 lg:text-left xl:max-w-[min(60rem,46vw)] 2xl:max-w-[min(68rem,44vw)]">
-              <div className="w-full">
-                <h1
-                  className={`${specialClass} !text-[clamp(1.125rem,1.1vw+0.65rem,2.75rem)]`}
-                >
-                  Hi there, I&apos;m
-                </h1>
-                <h1
-                  className={`${koulenClass} !text-[clamp(1.5rem,2.4vw+0.85rem,4.25rem)]`}
-                >
-                  Katherina Dayaon
-                </h1>
-              </div>
+              <StaggerRevealItem index={1} className="w-full">
+                <div className="w-full">
+                  <h1
+                    className={`${specialClass} !text-[clamp(1.125rem,1.1vw+0.65rem,2.75rem)]`}
+                  >
+                    Hi there, I&apos;m
+                  </h1>
+                  <h1
+                    className={`${koulenClass} !text-[clamp(1.5rem,2.4vw+0.85rem,4.25rem)]`}
+                  >
+                    Katherina Dayaon
+                  </h1>
+                </div>
+              </StaggerRevealItem>
 
-              <div
-                className={`${specialClass} w-full !text-[clamp(0.9rem,0.45vw+0.72rem,1.35rem)] leading-relaxed`}
-              >
+              <StaggerRevealItem index={2} className="w-full">
+                <div
+                  className={`${specialClass} w-full !text-[clamp(0.9rem,0.45vw+0.72rem,1.35rem)] leading-relaxed`}
+                >
                 <p>
                   I&apos;m a Burnett Honors Computer Science student at the
                   University of Central Florida, where I&apos;m passionate about
@@ -79,9 +91,10 @@ export default function About({
                   drawings, clothes, or websites gives me an immense sense of
                   fufillment. Scroll below to learn more about me! :3
                 </p>
-              </div>
+                </div>
+              </StaggerRevealItem>
             </div>
-          </ScrollFade>
+          </StaggerRevealGroup>
         </div>
       </div>
 

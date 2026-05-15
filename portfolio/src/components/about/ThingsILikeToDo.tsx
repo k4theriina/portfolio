@@ -126,6 +126,7 @@ export default function ThingsILikeToDo({
           <div className="min-h-0 min-w-0 w-0 flex-1 basis-0">
             <StaggerRevealGroup
               replayKey={page}
+              itemCount={visible.length}
               className="grid w-full auto-rows-fr grid-cols-1 items-center gap-x-10 gap-y-8 overflow-visible sm:gap-y-10 md:grid-cols-2 md:gap-x-14 md:gap-y-12 lg:min-h-[min(50dvh,28rem)] lg:gap-x-20 lg:gap-y-14 xl:gap-x-24 xl:gap-y-16"
             >
               {visible.map((item, i) => (

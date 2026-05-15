@@ -22,7 +22,7 @@ export const projects:ProjectData[] = [
         description: "Draw to your heart's content with our art assistant tool that also provides live feedback, courtesy of our AI-powered art mentor, Shelly. ",
         caption: "(Made for Shellhacks 2025)",
         technologies: ["React", "Tailwind", "Figma", "Javascript"],
-        link: "https://github.com/Potara-art/Potara",
+        link: "https://devpost.com/software/potara",
     },
     {
         title: "ShapeShift",

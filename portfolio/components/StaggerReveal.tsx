@@ -24,10 +24,17 @@ type StaggerOptions = {
   stagger?: number;
   slide?: number;
   dropItem?: number;
+  /** Rise from below like experience boxes (no horizontal slide). */
+  rise?: boolean;
+  /** Mount enter duration in ms (experience boxes use 1000). */
+  enterDuration?: number;
 };
 
 type GroupContextValue = {
   register: (id: string, index: number, el: HTMLElement | null) => void;
+  rise: boolean;
+  dropItem: number;
+  slide: number;
 };
 
 const StaggerRevealGroupContext = createContext<GroupContextValue | null>(null);
@@ -39,18 +46,34 @@ type StaggerRevealGroupProps = StaggerOptions & {
   itemCount?: number;
   /** When changed (e.g. carousel page), replays left-to-right enter. */
   replayKey?: string | number;
+  /** Play dropdown enter on first mount (waits until items register). */
+  enterOnMount?: boolean;
 };
+
+function allItemsRegistered(
+  items: { index: number }[],
+  itemCount?: number,
+): boolean {
+  if (items.length === 0) return false;
+  const expected = itemCount ?? items.length;
+  if (items.length < expected) return false;
+  const maxIndex = Math.max(...items.map((i) => i.index));
+  return items.length >= maxIndex + 1;
+}
 
 export function StaggerRevealGroup({
   children,
   className = "",
   replayKey,
+  enterOnMount = false,
   itemCount: itemCountProp,
   range = 0.7,
   drop = 48,
   stagger = 0.2,
   slide = 50,
   dropItem = 28,
+  rise = false,
+  enterDuration,
 }: StaggerRevealGroupProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const itemsRef = useRef<Map<string, { index: number; el: HTMLElement }>>(
@@ -58,7 +81,10 @@ export function StaggerRevealGroup({
   );
   const replayingRef = useRef(false);
   const reducedMotionRef = useRef(false);
-  const styleOpts = { stagger, slide, drop: dropItem };
+  const pendingReplayKeyRef = useRef<string | number | null>(null);
+  const lastPlayedKeyRef = useRef<string | number | null>(null);
+  const enterCancelRef = useRef<(() => void) | null>(null);
+  const styleOpts = { stagger, slide, drop: dropItem, rise };
 
   const resolveItemCount = useCallback(
     () => Math.max(1, itemCountProp ?? itemsRef.current.size),
@@ -82,6 +108,81 @@ export function StaggerRevealGroup({
     [stagger, slide, dropItem, resolveItemCount],
   );
 
+  const isAwaitingEnter = useCallback(() => {
+    if (replayingRef.current) return true;
+    if (
+      replayKey !== undefined &&
+      pendingReplayKeyRef.current !== null &&
+      lastPlayedKeyRef.current !== pendingReplayKeyRef.current
+    ) {
+      return true;
+    }
+    if (enterOnMount && lastPlayedKeyRef.current !== "__mount__") return true;
+    return false;
+  }, [replayKey, enterOnMount]);
+
+  const tryPlayEnter = useCallback(() => {
+    if (reducedMotionRef.current || replayingRef.current) return;
+
+    const container = containerRef.current;
+    if (!container) return;
+
+    const items = [...itemsRef.current.values()].sort(
+      (a, b) => a.index - b.index,
+    );
+    if (!allItemsRegistered(items, itemCountProp)) return;
+
+    let playKey: string | number | null = null;
+    if (
+      replayKey !== undefined &&
+      pendingReplayKeyRef.current !== null &&
+      lastPlayedKeyRef.current !== pendingReplayKeyRef.current
+    ) {
+      playKey = pendingReplayKeyRef.current;
+    } else if (enterOnMount && lastPlayedKeyRef.current !== "__mount__") {
+      playKey = "__mount__";
+    }
+    if (playKey === null) return;
+
+    enterCancelRef.current?.();
+    replayingRef.current = true;
+
+    enterCancelRef.current = runStaggerEnter(
+      items.map(({ el, index }) => ({ el, index })),
+      {
+        ...styleOpts,
+        itemCount: resolveItemCount(),
+        duration: enterDuration,
+        easeOut: true,
+        onFrame: (baseT) => {
+          if (baseT >= 1) {
+            replayingRef.current = false;
+            lastPlayedKeyRef.current = playKey;
+            const scrollT = enterOnMount
+              ? 1
+              : computeScrollProgress(container, range);
+            applyAll(scrollT, true);
+          }
+        },
+      },
+    );
+  }, [
+    enterOnMount,
+    replayKey,
+    itemCountProp,
+    styleOpts,
+    resolveItemCount,
+    range,
+    applyAll,
+    enterDuration,
+  ]);
+
+  const tryPlayEnterRef = useRef(tryPlayEnter);
+  tryPlayEnterRef.current = tryPlayEnter;
+
+  const isAwaitingEnterRef = useRef(isAwaitingEnter);
+  isAwaitingEnterRef.current = isAwaitingEnter;
+
   const register = useCallback<GroupContextValue["register"]>(
     (id, index, el) => {
       if (el) {
@@ -89,7 +190,8 @@ export function StaggerRevealGroup({
         if (
           !replayingRef.current &&
           !reducedMotionRef.current &&
-          containerRef.current
+          containerRef.current &&
+          !isAwaitingEnter()
         ) {
           const baseT = computeScrollProgress(containerRef.current, range);
           applyStaggerStyle(
@@ -101,61 +203,69 @@ export function StaggerRevealGroup({
             { immediate: true },
           );
         }
+        tryPlayEnterRef.current();
       } else {
         itemsRef.current.delete(id);
       }
     },
-    [range, styleOpts, resolveItemCount],
+    [
+      range,
+      styleOpts,
+      resolveItemCount,
+      isAwaitingEnter,
+      replayKey,
+      enterOnMount,
+    ],
   );
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     reducedMotionRef.current = window.matchMedia(
       "(prefers-reduced-motion: reduce)",
     ).matches;
-  }, []);
+    if (reducedMotionRef.current && enterOnMount) {
+      lastPlayedKeyRef.current = "__mount__";
+    }
+  }, [enterOnMount]);
 
   useLayoutEffect(() => {
     const container = containerRef.current;
-    if (!container || reducedMotionRef.current) return;
+    if (!container || reducedMotionRef.current || isAwaitingEnter()) return;
     applyAll(computeScrollProgress(container, range), true);
-  }, [range, applyAll]);
+  }, [range, applyAll, isAwaitingEnter]);
 
   useEffect(() => {
     const container = containerRef.current;
     if (!container || reducedMotionRef.current) return;
 
     return subscribeScrollReveal(container, range, drop, (p) => {
-      if (replayingRef.current) return;
+      if (replayingRef.current || isAwaitingEnterRef.current()) return;
       applyAll(p.t);
     });
   }, [range, drop, applyAll]);
 
   useEffect(() => {
     if (replayKey === undefined || reducedMotionRef.current) return;
-    const container = containerRef.current;
-    if (!container) return;
-
-    const items = [...itemsRef.current.values()].sort(
-      (a, b) => a.index - b.index,
-    );
-    if (items.length === 0) return;
-
-    replayingRef.current = true;
-    const cancel = runStaggerEnter(
-      items.map(({ el, index }) => ({ el, index })),
-      {
-        ...styleOpts,
-        onFrame: (baseT) => {
-          if (baseT >= 1) replayingRef.current = false;
-        },
-      },
-    );
-
+    pendingReplayKeyRef.current = replayKey;
+    tryPlayEnter();
     return () => {
-      cancel();
+      enterCancelRef.current?.();
+      enterCancelRef.current = null;
       replayingRef.current = false;
     };
-  }, [replayKey, stagger, slide, dropItem]);
+  }, [replayKey, tryPlayEnter]);
+
+  useEffect(() => {
+    if (!enterOnMount || replayKey !== undefined || reducedMotionRef.current) {
+      return;
+    }
+    const raf = requestAnimationFrame(() => tryPlayEnterRef.current());
+    return () => {
+      cancelAnimationFrame(raf);
+      enterCancelRef.current?.();
+      enterCancelRef.current = null;
+      replayingRef.current = false;
+    };
+  }, [enterOnMount, replayKey]);
 
   useEffect(() => {
     if (!reducedMotionRef.current) return;
@@ -166,7 +276,9 @@ export function StaggerRevealGroup({
   }, [children]);
 
   return (
-    <StaggerRevealGroupContext.Provider value={{ register }}>
+    <StaggerRevealGroupContext.Provider
+      value={{ register, rise, dropItem, slide }}
+    >
       <div ref={containerRef} className={className}>
         {children}
       </div>
@@ -200,11 +312,15 @@ export function StaggerRevealItem({
     return <div className={className}>{children}</div>;
   }
 
+  const hiddenTransform = ctx.rise
+    ? `translate3d(0, ${ctx.dropItem}px, 0)`
+    : `translate3d(-${ctx.slide}px, -${ctx.dropItem}px, 0)`;
+
   return (
     <div
       ref={ref}
       className={className}
-      style={{ opacity: 0, transform: "translate3d(-40px, -28px, 0)" }}
+      style={{ opacity: 0, transform: hiddenTransform }}
     >
       {children}
     </div>

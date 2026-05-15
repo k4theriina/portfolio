@@ -27,6 +27,11 @@ export function smoothstep(t: number): number {
   return t * t * (3 - 2 * t);
 }
 
+/** CSS ease-out (cubic) — matches Tailwind `ease-out` / experience boxes. */
+export function easeOutCubic(t: number): number {
+  return 1 - Math.pow(1 - t, 3);
+}
+
 export function computeScrollProgress(
   el: HTMLElement,
   rangeFactor: number,
@@ -60,11 +65,14 @@ export function staggerStyleFromProgress(
     drop?: number;
     /** Total items in the group — ensures the last item reaches full opacity at baseT=1. */
     itemCount?: number;
+    /** Rise from below (experience-box style) instead of slide from top-left. */
+    rise?: boolean;
   } = {},
 ): StaggerRevealStyle {
   const stagger = options.stagger ?? 0.11;
-  const slide = options.slide ?? 40;
+  const slide = options.rise ? 0 : (options.slide ?? 40);
   const drop = options.drop ?? 28;
+  const rise = options.rise ?? false;
   const count = Math.max(1, options.itemCount ?? 1);
   const maxIndex = Math.max(0, count - 1);
   const totalSpread = maxIndex * stagger;
@@ -75,10 +83,11 @@ export function staggerStyleFromProgress(
       : Math.max(0, Math.min(1, baseT * (1 + totalSpread) - index * stagger));
   const t = smoothstep(linear);
 
+  const offset = (1 - t) * drop;
   return {
     opacity: t,
-    translateX: -(1 - t) * slide,
-    translateY: -(1 - t) * drop,
+    translateX: rise ? 0 : -(1 - t) * slide,
+    translateY: rise ? offset : -offset,
   };
 }
 
@@ -106,16 +115,16 @@ export function applyStaggerStyle(
   options?: { immediate?: boolean },
 ): void {
   const prev = readRevealState(el);
-  const immediate = options?.immediate ?? !prev;
+  const immediate = prev === null || options?.immediate === true;
 
   const next: StaggerRevealStyle = immediate
     ? style
     : {
-        opacity: prev!.opacity + (style.opacity - prev!.opacity) * REVEAL_LERP,
+        opacity: prev.opacity + (style.opacity - prev.opacity) * REVEAL_LERP,
         translateX:
-          prev!.translateX + (style.translateX - prev!.translateX) * REVEAL_LERP,
+          prev.translateX + (style.translateX - prev.translateX) * REVEAL_LERP,
         translateY:
-          prev!.translateY + (style.translateY - prev!.translateY) * REVEAL_LERP,
+          prev.translateY + (style.translateY - prev.translateY) * REVEAL_LERP,
       };
 
   el.style.opacity = String(next.opacity);
@@ -199,19 +208,22 @@ export function runStaggerEnter(
     drop?: number;
     duration?: number;
     itemCount?: number;
+    /** Use CSS ease-out timing (experience boxes). Default true. */
+    easeOut?: boolean;
     onFrame?: (baseT: number) => void;
   } = {},
 ): () => void {
   const duration = options.duration ?? 520;
+  const easeOut = options.easeOut ?? true;
   let raf = 0;
   let start = 0;
 
   const frame = (now: number) => {
     if (!start) start = now;
     const linear = Math.min(1, (now - start) / duration);
-    const baseT = smoothstep(linear);
+    const baseT = easeOut ? easeOutCubic(linear) : smoothstep(linear);
 
-    const itemCount = items.length;
+    const itemCount = options.itemCount ?? items.length;
     for (const { el, index } of items) {
       applyStaggerStyle(
         el,
@@ -226,7 +238,7 @@ export function runStaggerEnter(
     }
   };
 
-  const itemCount = items.length;
+  const itemCount = options.itemCount ?? items.length;
   for (const { el, index } of items) {
     applyStaggerStyle(
       el,
