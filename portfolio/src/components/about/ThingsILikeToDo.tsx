@@ -3,6 +3,10 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import {
+  StaggerRevealGroup,
+  StaggerRevealItem,
+} from "../../../components/StaggerReveal";
+import {
   THINGS_I_LIKE_TO_DO,
   type ThingILikeToDo,
 } from "./thingsILikeToDoData";
@@ -120,15 +124,16 @@ export default function ThingsILikeToDo({
           )}
 
           <div className="min-h-0 min-w-0 w-0 flex-1 basis-0">
-            <div className="grid w-full auto-rows-fr grid-cols-1 items-center gap-x-10 gap-y-8 overflow-visible sm:gap-y-10 md:grid-cols-2 md:gap-x-14 md:gap-y-12 lg:min-h-[min(50dvh,28rem)] lg:gap-x-20 lg:gap-y-14 xl:gap-x-24 xl:gap-y-16">
+            <StaggerRevealGroup
+              replayKey={page}
+              className="grid w-full auto-rows-fr grid-cols-1 items-center gap-x-10 gap-y-8 overflow-visible sm:gap-y-10 md:grid-cols-2 md:gap-x-14 md:gap-y-12 lg:min-h-[min(50dvh,28rem)] lg:gap-x-20 lg:gap-y-14 xl:gap-x-24 xl:gap-y-16"
+            >
               {visible.map((item, i) => (
-                <ThingRow
-                  key={`${sliceStart + i}-${item.imageSrc}`}
-                  item={item}
-                  specialClass={specialClass}
-                />
+                <StaggerRevealItem key={`${sliceStart + i}-${item.imageSrc}`} index={i}>
+                  <ThingRow item={item} specialClass={specialClass} />
+                </StaggerRevealItem>
               ))}
-            </div>
+            </StaggerRevealGroup>
 
             {showArrows && totalPages > 1 && (
               <div

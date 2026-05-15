@@ -2,6 +2,10 @@
 
 import BottomBar from "../../../components/BottomBar";
 import ScrollFade from "../../../components/ScrollFade";
+import {
+  StaggerRevealGroup,
+  StaggerRevealItem,
+} from "../../../components/StaggerReveal";
 import Songbox from "../../../components/SongBox";
 import ThingsILikeToDo from "../../components/about/ThingsILikeToDo";
 import ArtGallery from "../../components/about/ArtGallery";
@@ -84,9 +88,7 @@ export default function About({
       <div
         className={`newDiv ${koulenClass} relative flex min-h-screen w-full flex-col items-stretch bg-[url('/assets/bgCat.png')] bg-cover bg-top`}
       >
-        <ScrollFade className="w-full">
-          <ThingsILikeToDo koulenClass={koulenClass} specialClass={specialClass} />
-        </ScrollFade>
+        <ThingsILikeToDo koulenClass={koulenClass} specialClass={specialClass} />
       </div>
 
       <div
@@ -97,17 +99,21 @@ export default function About({
             Kat&apos;s Top Songs...
           </p>
 
-          <div className="mt-8 flex w-full max-w-6xl flex-row flex-wrap justify-center gap-4 px-4 sm:gap-6 md:gap-8 lg:gap-10">
+          <StaggerRevealGroup
+            replayKey={songs.map((s) => s.name).join("|") || "empty"}
+            className="mt-8 flex w-full max-w-6xl flex-row flex-wrap justify-center gap-4 px-4 sm:gap-6 md:gap-8 lg:gap-10"
+          >
             {songs.slice(0, 3).map((song, index) => (
-              <Songbox
-                key={index}
-                index={index}
-                title={song.name}
-                artist={song.artist}
-                cover={song.cover}
-              />
+              <StaggerRevealItem key={`${song.name}-${index}`} index={index}>
+                <Songbox
+                  index={index}
+                  title={song.name}
+                  artist={song.artist}
+                  cover={song.cover}
+                />
+              </StaggerRevealItem>
             ))}
-          </div>
+          </StaggerRevealGroup>
 
           <div className="mt-8 flex flex-wrap items-center justify-center gap-2.5 px-4 sm:mt-10 sm:gap-3">
             <span
@@ -135,9 +141,7 @@ export default function About({
       </div>
 
       <div className={`artDiv ${koulenClass} relative w-full`}>
-        <ScrollFade className="w-full">
-          <ArtGallery koulenClass={koulenClass} specialClass={specialClass} />
-        </ScrollFade>
+        <ArtGallery koulenClass={koulenClass} specialClass={specialClass} />
       </div>
 
       <BottomBar />

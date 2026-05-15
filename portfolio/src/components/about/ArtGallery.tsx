@@ -2,6 +2,10 @@
 
 import Image from "next/image";
 import { useCallback, useEffect, useRef, useState } from "react";
+import {
+  StaggerRevealGroup,
+  StaggerRevealItem,
+} from "../../../components/StaggerReveal";
 import { MY_ART, type ArtPiece } from "./artGalleryData";
 
 type ArtGalleryProps = {
@@ -55,12 +59,14 @@ export default function ArtGallery({
           ‧₊˚❀༉‧₊˚ my art ‧₊˚❀༉‧₊˚.
         </h2>
 
-        <div className="columns-2 gap-3 sm:columns-3 sm:gap-4 md:columns-4 md:gap-4 lg:gap-5">
-          {pieces.map((piece) => (
-            <article
+        <StaggerRevealGroup className="columns-2 gap-3 sm:columns-3 sm:gap-4 md:columns-4 md:gap-4 lg:gap-5">
+          {pieces.map((piece, index) => (
+            <StaggerRevealItem
               key={piece.id}
+              index={index}
               className="mb-3 break-inside-avoid sm:mb-4"
             >
+              <article>
               <button
                 type="button"
                 onClick={() => open(piece)}
@@ -85,9 +91,10 @@ export default function ArtGallery({
                   {piece.title}
                 </p>
               </button>
-            </article>
+              </article>
+            </StaggerRevealItem>
           ))}
-        </div>
+        </StaggerRevealGroup>
 
         <p
           className={`${specialClass} mx-auto mt-10 max-w-2xl text-center text-base leading-relaxed text-white/90 sm:mt-12 sm:text-lg md:mt-14`}

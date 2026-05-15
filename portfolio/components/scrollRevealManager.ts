@@ -1,32 +1,36 @@
-/** One shared scroll loop for all scroll-reveal elements (single listener, one rAF). */
+/** Shared scroll loop + stagger math for reveal animations (single listener, one rAF). */
 
 export type RevealProgress = {
-  /** 0 = hidden / offset, 1 = centered in final position */
   t: number;
   opacity: number;
   translateY: number;
 };
 
-type Subscriber = {
+export type StaggerRevealStyle = {
+  opacity: number;
+  translateX: number;
+  translateY: number;
+};
+
+type ScrollSubscriber = {
   el: HTMLElement;
   range: number;
   drop: number;
   onUpdate: (value: RevealProgress) => void;
 };
 
-const subscribers = new Set<Subscriber>();
+const scrollSubscribers = new Set<ScrollSubscriber>();
 let rafId = 0;
 let listening = false;
 
-function smoothstep(t: number): number {
+export function smoothstep(t: number): number {
   return t * t * (3 - 2 * t);
 }
 
-function computeProgress(
+export function computeScrollProgress(
   el: HTMLElement,
   rangeFactor: number,
-  dropPx: number,
-): RevealProgress {
+): number {
   const vh = window.innerHeight;
   const viewportCenter = vh * 0.5;
   const rect = el.getBoundingClientRect();
@@ -34,10 +38,61 @@ function computeProgress(
   const distance = Math.abs(elementCenter - viewportCenter);
   const range = Math.max(vh * rangeFactor, 1);
   const linear = Math.max(0, Math.min(1, 1 - distance / range));
-  const t = smoothstep(linear);
-  const translateY = -(1 - t) * dropPx;
+  return smoothstep(linear);
+}
 
-  return { t, opacity: t, translateY };
+export function computeVerticalReveal(
+  el: HTMLElement,
+  rangeFactor: number,
+  dropPx: number,
+): RevealProgress {
+  const t = computeScrollProgress(el, rangeFactor);
+  return { t, opacity: t, translateY: -(1 - t) * dropPx };
+}
+
+/** Map scroll progress + index → left-to-right dropdown fade. */
+export function staggerStyleFromProgress(
+  baseT: number,
+  index: number,
+  options: {
+    stagger?: number;
+    slide?: number;
+    drop?: number;
+    /** Total items in the group — ensures the last item reaches full opacity at baseT=1. */
+    itemCount?: number;
+  } = {},
+): StaggerRevealStyle {
+  const stagger = options.stagger ?? 0.11;
+  const slide = options.slide ?? 40;
+  const drop = options.drop ?? 28;
+  const count = Math.max(1, options.itemCount ?? 1);
+  const maxIndex = Math.max(0, count - 1);
+  const totalSpread = maxIndex * stagger;
+
+  const linear =
+    maxIndex === 0
+      ? baseT
+      : Math.max(0, Math.min(1, baseT * (1 + totalSpread) - index * stagger));
+  const t = smoothstep(linear);
+
+  return {
+    opacity: t,
+    translateX: -(1 - t) * slide,
+    translateY: -(1 - t) * drop,
+  };
+}
+
+export function applyStaggerStyle(
+  el: HTMLElement,
+  style: StaggerRevealStyle,
+): void {
+  el.style.opacity = String(style.opacity);
+  el.style.transform = `translate3d(${style.translateX}px, ${style.translateY}px, 0)`;
+  if (style.opacity > 0.02 && style.opacity < 0.98) {
+    el.style.willChange = "opacity, transform";
+  } else {
+    el.style.willChange = "";
+  }
 }
 
 function isNearViewport(el: HTMLElement, margin = vhSlack()): boolean {
@@ -54,9 +109,9 @@ function tick() {
   rafId = 0;
   const slack = vhSlack();
 
-  for (const sub of subscribers) {
+  for (const sub of scrollSubscribers) {
     if (!isNearViewport(sub.el, slack)) continue;
-    sub.onUpdate(computeProgress(sub.el, sub.range, sub.drop));
+    sub.onUpdate(computeVerticalReveal(sub.el, sub.range, sub.drop));
   }
 }
 
@@ -73,7 +128,7 @@ function ensureListening() {
 }
 
 function stopListeningIfIdle() {
-  if (subscribers.size > 0 || !listening) return;
+  if (scrollSubscribers.size > 0 || !listening) return;
   listening = false;
   window.removeEventListener("scroll", scheduleTick);
   window.removeEventListener("resize", scheduleTick);
@@ -89,14 +144,63 @@ export function subscribeScrollReveal(
   drop: number,
   onUpdate: (value: RevealProgress) => void,
 ): () => void {
-  const sub: Subscriber = { el, range, drop, onUpdate };
-  subscribers.add(sub);
+  const sub: ScrollSubscriber = { el, range, drop, onUpdate };
+  scrollSubscribers.add(sub);
   ensureListening();
-  onUpdate(computeProgress(el, range, drop));
+  onUpdate(computeVerticalReveal(el, range, drop));
   scheduleTick();
 
   return () => {
-    subscribers.delete(sub);
+    scrollSubscribers.delete(sub);
     stopListeningIfIdle();
+  };
+}
+
+/** Time-based stagger enter (pagination, etc.). Returns cancel fn. */
+export function runStaggerEnter(
+  items: { el: HTMLElement; index: number }[],
+  options: {
+    stagger?: number;
+    slide?: number;
+    drop?: number;
+    duration?: number;
+    itemCount?: number;
+    onFrame?: (baseT: number) => void;
+  } = {},
+): () => void {
+  const duration = options.duration ?? 520;
+  let raf = 0;
+  let start = 0;
+
+  const frame = (now: number) => {
+    if (!start) start = now;
+    const linear = Math.min(1, (now - start) / duration);
+    const baseT = smoothstep(linear);
+
+    const itemCount = items.length;
+    for (const { el, index } of items) {
+      applyStaggerStyle(
+        el,
+        staggerStyleFromProgress(baseT, index, { ...options, itemCount }),
+      );
+    }
+    options.onFrame?.(baseT);
+
+    if (linear < 1) {
+      raf = requestAnimationFrame(frame);
+    }
+  };
+
+  const itemCount = items.length;
+  for (const { el, index } of items) {
+    applyStaggerStyle(
+      el,
+      staggerStyleFromProgress(0, index, { ...options, itemCount }),
+    );
+  }
+  raf = requestAnimationFrame(frame);
+
+  return () => {
+    if (raf) cancelAnimationFrame(raf);
   };
 }
