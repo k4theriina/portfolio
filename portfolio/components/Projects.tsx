@@ -9,6 +9,14 @@ type ProjectData = {
 
 export const projects:ProjectData[] = [
     {
+        title: "LockIn-Buddy",
+        gif: "/assets/lock-in-buddy.webm",
+        description: "A productivity-focused robot buddy paired with a desktop app designed to help users stay locked in!",
+        caption: "(KH Project Checkpoint Winner)",
+        technologies: ["React", "ThreeJS", "Figma", "Javascript"],
+        link: "https://devpost.com/software/lock-in-buddy",
+    },
+    {
         title: "SMARTLook",
         gif: "/assets/SmartLOOK.webm",
         description: "A web-based digital twin utilizing Three.js and AI assistance to better maintain SMART factories.",
