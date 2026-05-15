@@ -1,19 +1,8 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Jersey_10, Koulen } from "next/font/google";
+import { Geist, Geist_Mono } from "next/font/google";
 import { JukeboxProvider } from "../../components/JukeboxContext";
 import TopBar from "../../components/TopBar";
 import "./globals.css";
-
-const jersey10 = Jersey_10({
-  subsets: ['latin'],
-  weight: '400',
-});
-
-const koulen = Koulen({
-  subsets: ['latin'],
-  weight: '400',
-});
-
 
 const geistSans = Geist({
   variable: "--font-geist-sans",

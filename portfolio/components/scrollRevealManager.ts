@@ -82,13 +82,47 @@ export function staggerStyleFromProgress(
   };
 }
 
+const REVEAL_LERP = 0.14;
+
+function readRevealState(el: HTMLElement): StaggerRevealStyle | null {
+  const opacity = parseFloat(el.dataset.revealO ?? "");
+  if (!Number.isFinite(opacity)) return null;
+  return {
+    opacity,
+    translateX: parseFloat(el.dataset.revealX ?? "0") || 0,
+    translateY: parseFloat(el.dataset.revealY ?? "0") || 0,
+  };
+}
+
+function writeRevealState(el: HTMLElement, style: StaggerRevealStyle): void {
+  el.dataset.revealO = String(style.opacity);
+  el.dataset.revealX = String(style.translateX);
+  el.dataset.revealY = String(style.translateY);
+}
+
 export function applyStaggerStyle(
   el: HTMLElement,
   style: StaggerRevealStyle,
+  options?: { immediate?: boolean },
 ): void {
-  el.style.opacity = String(style.opacity);
-  el.style.transform = `translate3d(${style.translateX}px, ${style.translateY}px, 0)`;
-  if (style.opacity > 0.02 && style.opacity < 0.98) {
+  const prev = readRevealState(el);
+  const immediate = options?.immediate ?? !prev;
+
+  const next: StaggerRevealStyle = immediate
+    ? style
+    : {
+        opacity: prev!.opacity + (style.opacity - prev!.opacity) * REVEAL_LERP,
+        translateX:
+          prev!.translateX + (style.translateX - prev!.translateX) * REVEAL_LERP,
+        translateY:
+          prev!.translateY + (style.translateY - prev!.translateY) * REVEAL_LERP,
+      };
+
+  el.style.opacity = String(next.opacity);
+  el.style.transform = `translate3d(${next.translateX}px, ${next.translateY}px, 0)`;
+  writeRevealState(el, next);
+
+  if (next.opacity > 0.02 && next.opacity < 0.98) {
     el.style.willChange = "opacity, transform";
   } else {
     el.style.willChange = "";
@@ -182,6 +216,7 @@ export function runStaggerEnter(
       applyStaggerStyle(
         el,
         staggerStyleFromProgress(baseT, index, { ...options, itemCount }),
+        { immediate: true },
       );
     }
     options.onFrame?.(baseT);
@@ -196,6 +231,7 @@ export function runStaggerEnter(
     applyStaggerStyle(
       el,
       staggerStyleFromProgress(0, index, { ...options, itemCount }),
+      { immediate: true },
     );
   }
   raf = requestAnimationFrame(frame);

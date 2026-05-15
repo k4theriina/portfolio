@@ -104,6 +104,7 @@ export function JukeboxProvider({ children }: { children: React.ReactNode }) {
   const [loadFailed, setLoadFailed] = useState(false);
 
   const [idx, setIdx] = useState(0);
+  const [audioPrimed, setAudioPrimed] = useState(false);
   const [playing, setPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
@@ -114,29 +115,43 @@ export function JukeboxProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     let cancelled = false;
-    fetch(`${JUKEBOX_BASE}/manifest.json`, { cache: "no-store" })
-      .then(async (r) => {
-        if (!r.ok) throw new Error("manifest");
-        return r.json() as Promise<unknown>;
-      })
-      .then((raw) => {
-        if (cancelled) return;
-        setTracks(parseManifest(raw));
-      })
-      .catch(() => {
-        if (!cancelled) setLoadFailed(true);
-      })
-      .finally(() => {
-        if (!cancelled) setManifestLoaded(true);
-      });
+
+    const loadManifest = () => {
+      fetch(`${JUKEBOX_BASE}/manifest.json`)
+        .then(async (r) => {
+          if (!r.ok) throw new Error("manifest");
+          return r.json() as Promise<unknown>;
+        })
+        .then((raw) => {
+          if (cancelled) return;
+          setTracks(parseManifest(raw));
+        })
+        .catch(() => {
+          if (!cancelled) setLoadFailed(true);
+        })
+        .finally(() => {
+          if (!cancelled) setManifestLoaded(true);
+        });
+    };
+
+    let cancelSchedule: () => void;
+    if (typeof requestIdleCallback === "function") {
+      const id = requestIdleCallback(loadManifest, { timeout: 2500 });
+      cancelSchedule = () => cancelIdleCallback(id);
+    } else {
+      const id = setTimeout(loadManifest, 400);
+      cancelSchedule = () => clearTimeout(id);
+    }
+
     return () => {
       cancelled = true;
+      cancelSchedule();
     };
   }, []);
 
   useEffect(() => {
     const a = audioRef.current;
-    if (!a || !track) return;
+    if (!a || !track || !audioPrimed) return;
 
     const shouldPlay = playAfterLoadRef.current;
     playAfterLoadRef.current = false;
@@ -164,7 +179,7 @@ export function JukeboxProvider({ children }: { children: React.ReactNode }) {
     return () => {
       a.removeEventListener("loadedmetadata", onLoaded);
     };
-  }, [track?.id, track?.audioUrl]);
+  }, [audioPrimed, track?.id, track?.audioUrl]);
 
   useEffect(() => {
     const a = audioRef.current;
@@ -212,6 +227,13 @@ export function JukeboxProvider({ children }: { children: React.ReactNode }) {
   const togglePlay = useCallback(async () => {
     const a = audioRef.current;
     if (!a || !track) return;
+
+    if (!audioPrimed) {
+      playAfterLoadRef.current = true;
+      setAudioPrimed(true);
+      return;
+    }
+
     if (playing) {
       a.pause();
     } else {
@@ -221,19 +243,27 @@ export function JukeboxProvider({ children }: { children: React.ReactNode }) {
         setPlaying(false);
       }
     }
-  }, [playing, track]);
+  }, [audioPrimed, playing, track]);
 
   const goPrev = useCallback(() => {
     if (tracks.length < 2) return;
+    if (!audioPrimed) {
+      setIdx((i) => (i - 1 + tracks.length) % tracks.length);
+      return;
+    }
     playAfterLoadRef.current = playing;
     setIdx((i) => (i - 1 + tracks.length) % tracks.length);
-  }, [tracks.length, playing]);
+  }, [audioPrimed, tracks.length, playing]);
 
   const goNext = useCallback(() => {
     if (tracks.length < 2) return;
+    if (!audioPrimed) {
+      setIdx((i) => (i + 1) % tracks.length);
+      return;
+    }
     playAfterLoadRef.current = playing;
     setIdx((i) => (i + 1) % tracks.length);
-  }, [tracks.length, playing]);
+  }, [audioPrimed, tracks.length, playing]);
 
   const seek = useCallback((seconds: number) => {
     const a = audioRef.current;
@@ -286,7 +316,7 @@ export function JukeboxProvider({ children }: { children: React.ReactNode }) {
 
   return (
     <JukeboxContext.Provider value={value}>
-      <audio ref={audioRef} preload="metadata" className="hidden" aria-hidden />
+      <audio ref={audioRef} preload="none" className="hidden" aria-hidden />
       {children}
     </JukeboxContext.Provider>
   );

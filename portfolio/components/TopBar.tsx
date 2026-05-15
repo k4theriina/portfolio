@@ -2,9 +2,14 @@
 
 import { Jersey_10 } from "next/font/google";
 import PageButton from "./PageButton";
-import TopBarMusic from "./TopBarMusic";
 import { usePathname, useRouter } from "next/navigation";
+import dynamic from "next/dynamic";
 import { Popover, PopoverButton, PopoverPanel } from "@headlessui/react";
+
+const TopBarMusic = dynamic(() => import("./TopBarMusic"), {
+  ssr: false,
+  loading: () => null,
+});
 
 const jersey10 = Jersey_10({
   subsets: ['latin'],

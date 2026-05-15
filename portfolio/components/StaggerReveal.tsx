@@ -6,6 +6,7 @@ import {
   useContext,
   useEffect,
   useId,
+  useLayoutEffect,
   useRef,
   type ReactNode,
 } from "react";
@@ -34,6 +35,8 @@ const StaggerRevealGroupContext = createContext<GroupContextValue | null>(null);
 type StaggerRevealGroupProps = StaggerOptions & {
   children: ReactNode;
   className?: string;
+  /** Fixed total for stagger math (avoids jumps when lazy items mount). */
+  itemCount?: number;
   /** When changed (e.g. carousel page), replays left-to-right enter. */
   replayKey?: string | number;
 };
@@ -42,9 +45,10 @@ export function StaggerRevealGroup({
   children,
   className = "",
   replayKey,
-  range = 1,
+  itemCount: itemCountProp,
+  range = 0.7,
   drop = 48,
-  stagger = 0.13,
+  stagger = 0.2,
   slide = 50,
   dropItem = 28,
 }: StaggerRevealGroupProps) {
@@ -56,17 +60,26 @@ export function StaggerRevealGroup({
   const reducedMotionRef = useRef(false);
   const styleOpts = { stagger, slide, drop: dropItem };
 
+  const resolveItemCount = useCallback(
+    () => Math.max(1, itemCountProp ?? itemsRef.current.size),
+    [itemCountProp],
+  );
+
   const applyAll = useCallback(
-    (baseT: number) => {
-      const itemCount = itemsRef.current.size;
+    (baseT: number, immediate = false) => {
+      const itemCount = resolveItemCount();
       for (const { el, index } of itemsRef.current.values()) {
         applyStaggerStyle(
           el,
-          staggerStyleFromProgress(baseT, index, { ...styleOpts, itemCount }),
+          staggerStyleFromProgress(baseT, index, {
+            ...styleOpts,
+            itemCount,
+          }),
+          { immediate },
         );
       }
     },
-    [stagger, slide, dropItem],
+    [stagger, slide, dropItem, resolveItemCount],
   );
 
   const register = useCallback<GroupContextValue["register"]>(
@@ -83,15 +96,16 @@ export function StaggerRevealGroup({
             el,
             staggerStyleFromProgress(baseT, index, {
               ...styleOpts,
-              itemCount: itemsRef.current.size,
+              itemCount: resolveItemCount(),
             }),
+            { immediate: true },
           );
         }
       } else {
         itemsRef.current.delete(id);
       }
     },
-    [range, styleOpts],
+    [range, styleOpts, resolveItemCount],
   );
 
   useEffect(() => {
@@ -99,6 +113,12 @@ export function StaggerRevealGroup({
       "(prefers-reduced-motion: reduce)",
     ).matches;
   }, []);
+
+  useLayoutEffect(() => {
+    const container = containerRef.current;
+    if (!container || reducedMotionRef.current) return;
+    applyAll(computeScrollProgress(container, range), true);
+  }, [range, applyAll]);
 
   useEffect(() => {
     const container = containerRef.current;
@@ -169,7 +189,7 @@ export function StaggerRevealItem({
   const id = useId();
   const ref = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!ctx) return;
     const el = ref.current;
     ctx.register(id, index, el);
