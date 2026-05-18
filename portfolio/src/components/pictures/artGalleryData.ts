@@ -113,4 +113,104 @@ export const MY_ART: ArtPiece[] = [
     width: 800,
     height: 600,
   },
+  {
+    id: "10",
+    src: "/assets/art10.webp",
+    title: "Club poster",
+    date: "September 2024",
+    description:
+      "Print-style layout for a student org event. Hierarchy, print margins, and a bold headline that still worked when photocopied in grayscale.",
+    width: 800,
+    height: 600,
+  },
+  {
+    id: "11",
+    src: "/assets/art11.webp",
+    title: "Club poster",
+    date: "September 2024",
+    description:
+      "Print-style layout for a student org event. Hierarchy, print margins, and a bold headline that still worked when photocopied in grayscale.",
+    width: 800,
+    height: 600,
+  },
+  {
+    id: "12",
+    src: "/assets/art12.webp",
+    title: "Club poster",
+    date: "September 2024",
+    description:
+      "Print-style layout for a student org event. Hierarchy, print margins, and a bold headline that still worked when photocopied in grayscale.",
+    width: 800,
+    height: 600,
+  },
+  {
+    id: "13",
+    src: "/assets/art13.webp",
+    title: "Club poster",
+    date: "September 2024",
+    description:
+      "Print-style layout for a student org event. Hierarchy, print margins, and a bold headline that still worked when photocopied in grayscale.",
+    width: 800,
+    height: 600,
+  },
+  {
+    id: "14",
+    src: "/assets/art14.webp",
+    title: "Club poster",
+    date: "September 2024",
+    description:
+      "Print-style layout for a student org event. Hierarchy, print margins, and a bold headline that still worked when photocopied in grayscale.",
+    width: 800,
+    height: 600,
+  },
+  {
+    id: "15",
+    src: "/assets/art15.webp",
+    title: "Club poster",
+    date: "September 2024",
+    description:
+      "Print-style layout for a student org event. Hierarchy, print margins, and a bold headline that still worked when photocopied in grayscale.",
+    width: 800,
+    height: 600,
+  },
+  {
+    id: "16",
+    src: "/assets/art16.webp",
+    title: "Club poster",
+    date: "September 2024",
+    description:
+      "Print-style layout for a student org event. Hierarchy, print margins, and a bold headline that still worked when photocopied in grayscale.",
+    width: 800,
+    height: 600,
+  },
+  {
+    id: "17",
+    src: "/assets/art17.webp",
+    title: "Club poster",
+    date: "September 2024",
+    description:
+      "Print-style layout for a student org event. Hierarchy, print margins, and a bold headline that still worked when photocopied in grayscale.",
+    width: 800,
+    height: 600,
+  },
+  {
+    id: "18",
+    src: "/assets/art18.webp",
+    title: "Club poster",
+    date: "September 2024",
+    description:
+      "Print-style layout for a student org event. Hierarchy, print margins, and a bold headline that still worked when photocopied in grayscale.",
+    width: 800,
+    height: 600,
+  },
+  {
+    id: "19",
+    src: "/assets/art19.webp",
+    title: "Club poster",
+    date: "September 2024",
+    description:
+      "Print-style layout for a student org event. Hierarchy, print margins, and a bold headline that still worked when photocopied in grayscale.",
+    width: 800,
+    height: 600,
+  },
 ];

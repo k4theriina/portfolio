@@ -10,14 +10,13 @@ export type ThingILikeToDo = {
 };
 
 export const THINGS_I_LIKE_TO_DO: ThingILikeToDo[] = [
-  { imageSrc: "/assets/guitarCat.png", label: "Drawing!!! Check out some of my art below :3" },
-  { imageSrc: "/assets/UltimateKatPhoto.webp", label: "Making music (I've hidden my bandcamp somewhere here...)" },
-  { imageSrc: "/assets/ThreeJSLogo.png", label: "Crocheting! I've made sweaters and bags :D" },
-  { imageSrc: "/assets/TLlogo.png", label: "Developing websites! You're looking at one B)" },
-  { imageSrc: "/assets/BNYLogo.png", label: "Meeting & connecting with new people!" },
-  { imageSrc: "/assets/ISTLogo.png", label: "Eating good food :droolemoji..." },
-  { imageSrc: "/assets/ArbLogo.png", label: "Playing awesome games! (Currently playing tomadachi life)" },
-  { imageSrc: "/assets/BgCat.png", label: "Exploring new places!" },
-  { imageSrc: "/assets/BgCat.png", label: "Hanging out with my sibs" },
-  { imageSrc: "/assets/BgCat.png", label: "Make cool projects (check out the projects page on the top right!)" },
+  { imageSrc: "/assets/drawing.webp", label: "Drawing!!! Check out some of my art below :3" },
+  { imageSrc: "/assets/music.webp", label: "Making music (I've hidden my bandcamp somewhere here...)" },
+  { imageSrc: "/assets/crochet.webp", label: "Crocheting! I've made sweaters and bags :D" },
+  { imageSrc: "/assets/coding.webp", label: "Developing awesome websites! You're looking at one 😎" },
+  { imageSrc: "/assets/people.webp", label: "Meeting & connecting with new people!" },
+  { imageSrc: "/assets/eating.webp", label: "Eating good food 🤤..." },
+  { imageSrc: "/assets/games.webp", label: "Playing awesome games! (Currently playing tomadachi life)" },
+  { imageSrc: "/assets/exploring.webp", label: "Exploring new places!" },
+  { imageSrc: "/assets/projects.webp", label: "Make cool projects (check out my projects page on the top right!)" },
 ];

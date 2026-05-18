@@ -121,7 +121,7 @@ export default function ThingsILikeToDo({
               onClick={goPrev}
               disabled={!canPrev}
               aria-label="Previous"
-              className="shrink-0 self-center rounded-full p-2 text-white/90 transition enabled:hover:bg-white/15 enabled:hover:text-white disabled:pointer-events-none disabled:opacity-30 md:p-3"
+              className="shrink-0 cursor-pointer self-center rounded-full p-2 text-white/90 transition enabled:hover:bg-white/15 enabled:hover:text-white disabled:pointer-events-none disabled:opacity-30 md:p-3"
             >
               <FaChevronLeft className="h-6 w-6 md:h-8 md:w-8" />
             </button>
@@ -130,12 +130,13 @@ export default function ThingsILikeToDo({
           <div className="min-h-0 min-w-0 w-0 flex-1 basis-0">
             <div className={CAROUSEL_GRID_MIN_H}>
               <StaggerRevealGroup
+                key={`things-page-${page}`}
                 replayKey={page}
-                itemCount={perPage}
+                itemCount={visible.length}
                 className="grid h-full w-full auto-rows-[minmax(4rem,auto)] grid-cols-1 items-center gap-x-10 gap-y-8 overflow-visible sm:auto-rows-[minmax(5rem,auto)] sm:gap-y-10 md:grid-cols-2 md:auto-rows-[minmax(6rem,auto)] md:gap-x-14 md:gap-y-12 lg:auto-rows-[minmax(7rem,auto)] lg:gap-x-20 lg:gap-y-14 xl:auto-rows-[minmax(8rem,auto)] xl:gap-x-24 xl:gap-y-16"
               >
                 {visible.map((item, i) => (
-                  <StaggerRevealItem key={`${sliceStart + i}-${item.imageSrc}`} index={i}>
+                  <StaggerRevealItem key={`${page}-${item.imageSrc}-${i}`} index={i}>
                     <ThingRow item={item} specialClass={specialClass} />
                   </StaggerRevealItem>
                 ))}
@@ -176,7 +177,7 @@ export default function ThingsILikeToDo({
               onClick={goNext}
               disabled={!canNext}
               aria-label="Next"
-              className="shrink-0 self-center rounded-full p-2 text-white/90 transition enabled:hover:bg-white/15 enabled:hover:text-white disabled:pointer-events-none disabled:opacity-30 md:p-3"
+              className="shrink-0 cursor-pointer self-center rounded-full p-2 text-white/90 transition enabled:hover:bg-white/15 enabled:hover:text-white disabled:pointer-events-none disabled:opacity-30 md:p-3"
             >
               <FaChevronRight className="h-6 w-6 md:h-8 md:w-8" />
             </button>

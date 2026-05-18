@@ -160,7 +160,7 @@ export default function ArtGallery({
               onClick={goPrev}
               disabled={!canPrev}
               aria-label="Previous art page"
-              className="shrink-0 self-center rounded-full p-2 text-white/90 transition enabled:hover:bg-white/15 enabled:hover:text-white disabled:pointer-events-none disabled:opacity-30 md:p-3"
+              className="shrink-0 cursor-pointer self-center rounded-full p-2 text-white/90 transition enabled:hover:bg-white/15 enabled:hover:text-white disabled:pointer-events-none disabled:opacity-30 md:p-3"
             >
               <FaChevronLeft className="h-6 w-6 md:h-8 md:w-8" />
             </button>
@@ -213,7 +213,7 @@ export default function ArtGallery({
               onClick={goNext}
               disabled={!canNext}
               aria-label="Next art page"
-              className="shrink-0 self-center rounded-full p-2 text-white/90 transition enabled:hover:bg-white/15 enabled:hover:text-white disabled:pointer-events-none disabled:opacity-30 md:p-3"
+              className="shrink-0 cursor-pointer self-center rounded-full p-2 text-white/90 transition enabled:hover:bg-white/15 enabled:hover:text-white disabled:pointer-events-none disabled:opacity-30 md:p-3"
             >
               <FaChevronRight className="h-6 w-6 md:h-8 md:w-8" />
             </button>
