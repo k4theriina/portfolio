@@ -13,6 +13,10 @@ import {
 
 const MD_MIN = 768;
 
+/** Keeps carousel height stable when the last page has fewer items than `perPage`. */
+const CAROUSEL_GRID_MIN_H =
+  "min-h-[calc(3*4rem+2*2rem)] sm:min-h-[calc(3*5rem+2*2.5rem)] md:min-h-[calc(3*6rem+2*3rem)] lg:min-h-[calc(3*7rem+2*3.5rem)] xl:min-h-[calc(3*8rem+2*4rem)]";
+
 function useResponsiveItemsPerPage(): number {
   const [perPage, setPerPage] = useState(6);
 
@@ -124,17 +128,30 @@ export default function ThingsILikeToDo({
           )}
 
           <div className="min-h-0 min-w-0 w-0 flex-1 basis-0">
-            <StaggerRevealGroup
-              replayKey={page}
-              itemCount={visible.length}
-              className="grid w-full auto-rows-fr grid-cols-1 items-center gap-x-10 gap-y-8 overflow-visible sm:gap-y-10 md:grid-cols-2 md:gap-x-14 md:gap-y-12 lg:min-h-[min(50dvh,28rem)] lg:gap-x-20 lg:gap-y-14 xl:gap-x-24 xl:gap-y-16"
-            >
-              {visible.map((item, i) => (
-                <StaggerRevealItem key={`${sliceStart + i}-${item.imageSrc}`} index={i}>
-                  <ThingRow item={item} specialClass={specialClass} />
-                </StaggerRevealItem>
-              ))}
-            </StaggerRevealGroup>
+            <div className={CAROUSEL_GRID_MIN_H}>
+              <StaggerRevealGroup
+                replayKey={page}
+                itemCount={perPage}
+                className="grid h-full w-full auto-rows-[minmax(4rem,auto)] grid-cols-1 items-center gap-x-10 gap-y-8 overflow-visible sm:auto-rows-[minmax(5rem,auto)] sm:gap-y-10 md:grid-cols-2 md:auto-rows-[minmax(6rem,auto)] md:gap-x-14 md:gap-y-12 lg:auto-rows-[minmax(7rem,auto)] lg:gap-x-20 lg:gap-y-14 xl:auto-rows-[minmax(8rem,auto)] xl:gap-x-24 xl:gap-y-16"
+              >
+                {visible.map((item, i) => (
+                  <StaggerRevealItem key={`${sliceStart + i}-${item.imageSrc}`} index={i}>
+                    <ThingRow item={item} specialClass={specialClass} />
+                  </StaggerRevealItem>
+                ))}
+                {Array.from({ length: Math.max(0, perPage - visible.length) }).map(
+                  (_, i) => (
+                    <div
+                      key={`spacer-${page}-${i}`}
+                      className="invisible pointer-events-none"
+                      aria-hidden
+                    >
+                      <ThingRow item={items[0]} specialClass={specialClass} />
+                    </div>
+                  ),
+                )}
+              </StaggerRevealGroup>
+            </div>
 
             {showArrows && totalPages > 1 && (
               <div
