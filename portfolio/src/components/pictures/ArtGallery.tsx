@@ -1,7 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import {
   StaggerRevealGroup,
   StaggerRevealItem,
@@ -14,6 +15,10 @@ type ArtGalleryProps = {
   specialClass?: string;
 };
 
+const LG_MIN = 1024;
+const PER_PAGE_SMALL = 5;
+const PER_PAGE_LARGE = 10;
+
 /** Masonry thumbnails */
 const GALLERY_SIZES =
   "(max-width: 640px) 50vw, (max-width: 1024px) 33vw, (max-width: 1536px) 25vw, 20vw";
@@ -22,13 +27,94 @@ const GALLERY_SIZES =
 const LIGHTBOX_SIZES =
   "(max-width: 767px) 96vw, (max-width: 1536px) 45vw, 720px";
 
+function useResponsiveArtPerPage(): number {
+  const [perPage, setPerPage] = useState(PER_PAGE_SMALL);
+
+  useEffect(() => {
+    const mq = window.matchMedia(`(min-width: ${LG_MIN}px)`);
+    const read = () => (mq.matches ? PER_PAGE_LARGE : PER_PAGE_SMALL);
+    setPerPage(read());
+    const onChange = () => setPerPage(read());
+    mq.addEventListener("change", onChange);
+    return () => mq.removeEventListener("change", onChange);
+  }, []);
+
+  return perPage;
+}
+
+function ArtPieceTile({
+  piece,
+  koulenClass,
+  onOpen,
+}: {
+  piece: ArtPiece;
+  koulenClass: string;
+  onOpen: (piece: ArtPiece) => void;
+}) {
+  return (
+    <article>
+      <button
+        type="button"
+        onClick={() => onOpen(piece)}
+        className="group w-full cursor-zoom-in rounded-xl text-left outline-none ring-white/0 transition-[transform,box-shadow] duration-200 hover:scale-[1.02] hover:shadow-lg hover:shadow-kat-purple focus-visible:ring-2 focus-visible:ring-white/70 motion-reduce:transition-none motion-reduce:hover:scale-100"
+      >
+        <div className="relative w-full overflow-hidden rounded-xl bg-zinc-900">
+          <Image
+            src={piece.src}
+            alt={piece.title}
+            width={piece.width}
+            height={piece.height}
+            sizes={GALLERY_SIZES}
+            className="h-auto w-full cursor-pointer transition duration-200 group-hover:brightness-105 motion-reduce:group-hover:brightness-100"
+            loading="lazy"
+            decoding="async"
+            unoptimized={piece.unoptimized}
+          />
+        </div>
+        <p
+          className={`${koulenClass} mt-2 line-clamp-2 px-0.5 text-sm text-white/90 sm:text-base`}
+        >
+          {piece.title}
+        </p>
+      </button>
+    </article>
+  );
+}
+
 export default function ArtGallery({
   pieces = MY_ART,
   koulenClass = "",
   specialClass = "",
 }: ArtGalleryProps) {
+  const perPage = useResponsiveArtPerPage();
+  const prevPerPage = useRef(PER_PAGE_SMALL);
+  const [page, setPage] = useState(0);
   const [active, setActive] = useState<ArtPiece | null>(null);
   const dialogRef = useRef<HTMLDialogElement>(null);
+
+  const totalPages = useMemo(
+    () => Math.max(1, Math.ceil(pieces.length / perPage)),
+    [pieces.length, perPage],
+  );
+
+  useEffect(() => {
+    const prev = prevPerPage.current;
+    if (prev !== perPage) {
+      setPage((p) => Math.floor((p * prev) / perPage));
+      prevPerPage.current = perPage;
+    }
+  }, [perPage]);
+
+  useEffect(() => {
+    setPage((p) => Math.min(p, totalPages - 1));
+  }, [totalPages]);
+
+  const canPrev = page > 0;
+  const canNext = page < totalPages - 1;
+  const showArrows = pieces.length > perPage;
+
+  const sliceStart = page * perPage;
+  const visible = pieces.slice(sliceStart, sliceStart + perPage);
 
   const open = useCallback((piece: ArtPiece) => {
     setActive(piece);
@@ -37,6 +123,14 @@ export default function ArtGallery({
   const close = useCallback(() => {
     setActive(null);
   }, []);
+
+  const goPrev = useCallback(() => {
+    setPage((p) => Math.max(0, p - 1));
+  }, []);
+
+  const goNext = useCallback(() => {
+    setPage((p) => Math.min(totalPages - 1, p + 1));
+  }, [totalPages]);
 
   useEffect(() => {
     const el = dialogRef.current;
@@ -59,45 +153,72 @@ export default function ArtGallery({
           ‧₊˚❀༉‧₊˚ my art ‧₊˚❀༉‧₊˚.
         </h2>
 
-        <StaggerRevealGroup
-          range={1.6}
-          className="columns-2 gap-3 sm:columns-3 sm:gap-4 md:columns-4 md:gap-4 lg:gap-5"
-        >
-          {pieces.map((piece, index) => (
-            <StaggerRevealItem
-              key={piece.id}
-              index={index}
-              className="mb-3 break-inside-avoid sm:mb-4"
+        <div className="relative flex w-full items-stretch gap-3 sm:gap-4 md:gap-6">
+          {showArrows && (
+            <button
+              type="button"
+              onClick={goPrev}
+              disabled={!canPrev}
+              aria-label="Previous art page"
+              className="shrink-0 self-center rounded-full p-2 text-white/90 transition enabled:hover:bg-white/15 enabled:hover:text-white disabled:pointer-events-none disabled:opacity-30 md:p-3"
             >
-              <article>
-              <button
-                type="button"
-                onClick={() => open(piece)}
-                className="group w-full cursor-zoom-in rounded-xl text-left outline-none ring-white/0 transition-[transform,box-shadow] duration-200 hover:scale-[1.02] hover:shadow-lg hover:shadow-kat-purple focus-visible:ring-2 focus-visible:ring-white/70 motion-reduce:transition-none motion-reduce:hover:scale-100"
-              >
-                <div className="relative w-full overflow-hidden rounded-xl bg-zinc-900">
-                  <Image
-                    src={piece.src}
-                    alt={piece.title}
-                    width={piece.width}
-                    height={piece.height}
-                    sizes={GALLERY_SIZES}
-                    className="cursor-pointer h-auto w-full transition duration-200 group-hover:brightness-105 motion-reduce:group-hover:brightness-100"
-                    loading="lazy"
-                    decoding="async"
-                    unoptimized={piece.unoptimized}
-                  />
-                </div>
-                <p
-                  className={`${koulenClass} mt-2 line-clamp-2 px-0.5 text-sm text-white/90 sm:text-base`}
+              <FaChevronLeft className="h-6 w-6 md:h-8 md:w-8" />
+            </button>
+          )}
+
+          <div className="min-h-0 min-w-0 w-0 flex-1 basis-0">
+            <StaggerRevealGroup
+              key={`art-page-${page}`}
+              replayKey={page}
+              itemCount={visible.length}
+              range={1.6}
+              stagger={0.12}
+              className="columns-2 gap-3 sm:columns-3 sm:gap-4 md:columns-4 md:gap-4 lg:gap-5"
+            >
+              {visible.map((piece, i) => (
+                <StaggerRevealItem
+                  key={`${page}-${piece.id}`}
+                  index={i}
+                  className="mb-3 break-inside-avoid sm:mb-4"
                 >
-                  {piece.title}
-                </p>
-              </button>
-              </article>
-            </StaggerRevealItem>
-          ))}
-        </StaggerRevealGroup>
+                  <ArtPieceTile
+                    piece={piece}
+                    koulenClass={koulenClass}
+                    onOpen={open}
+                  />
+                </StaggerRevealItem>
+              ))}
+            </StaggerRevealGroup>
+
+            {showArrows && totalPages > 1 && (
+              <div
+                className="mt-8 flex justify-center gap-2.5 md:mt-10 md:gap-3"
+                aria-hidden
+              >
+                {Array.from({ length: totalPages }, (_, i) => (
+                  <span
+                    key={i}
+                    className={`h-2.5 w-2.5 rounded-full transition-colors md:h-3 md:w-3 ${
+                      i === page ? "bg-white" : "bg-white/35"
+                    }`}
+                  />
+                ))}
+              </div>
+            )}
+          </div>
+
+          {showArrows && (
+            <button
+              type="button"
+              onClick={goNext}
+              disabled={!canNext}
+              aria-label="Next art page"
+              className="shrink-0 self-center rounded-full p-2 text-white/90 transition enabled:hover:bg-white/15 enabled:hover:text-white disabled:pointer-events-none disabled:opacity-30 md:p-3"
+            >
+              <FaChevronRight className="h-6 w-6 md:h-8 md:w-8" />
+            </button>
+          )}
+        </div>
 
         <p
           className={`${specialClass} mx-auto mt-10 max-w-2xl text-center text-base leading-relaxed text-white/90 sm:mt-12 sm:text-lg md:mt-14`}
@@ -134,7 +255,6 @@ export default function ArtGallery({
               ✕
             </button>
 
-            {/* Image — left on md+ */}
             <div className="relative flex h-[min(42vh,480px)] w-full shrink-0 items-center justify-center bg-black p-4 sm:h-[min(46vh,520px)] md:h-full md:min-h-0 md:w-[min(50%,900px)] md:max-w-[52%] md:p-6 lg:w-[48%]">
               <Image
                 src={active.fullSrc ?? active.src}
@@ -148,7 +268,6 @@ export default function ArtGallery({
               />
             </div>
 
-            {/* Title, date, description — right on md+ */}
             <div className="flex min-h-0 min-w-0 flex-1 flex-col border-t border-white/10 md:border-l md:border-t-0">
               <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-5 py-5 sm:px-7 sm:py-7 md:px-8 md:py-8 lg:px-10 lg:py-10">
                 <h3
