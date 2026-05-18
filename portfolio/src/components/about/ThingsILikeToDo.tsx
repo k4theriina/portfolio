@@ -5,7 +5,7 @@ import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import {
   StaggerRevealGroup,
   StaggerRevealItem,
-} from "../../../components/StaggerReveal";
+} from "@/components/animations/StaggerReveal";
 import {
   THINGS_I_LIKE_TO_DO,
   type ThingILikeToDo,

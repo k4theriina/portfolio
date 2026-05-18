@@ -1,11 +1,11 @@
 "use client";
 
-import BottomBar from "../../../components/BottomBar";
-import ExperienceBox from "../../../components/ExperienceBox";
+import BottomBar from "@/components/layout/BottomBar";
+import ExperienceBox from "@/components/experience/ExperienceBox";
 
 import { Koulen, Special_Elite } from "next/font/google";
 
-import { experiences } from "../../../components/Experience";
+import { experiences } from "@/components/experience/experienceData";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 

@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { getAccessToken } from "@/app/spotify";
+import { getAccessToken } from "@/lib/spotify";
 export async function GET() {
   try {
     const token = await getAccessToken();

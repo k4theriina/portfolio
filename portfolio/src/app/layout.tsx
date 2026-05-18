@@ -1,16 +1,10 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import { JukeboxProvider } from "../../components/JukeboxContext";
-import TopBar from "../../components/TopBar";
-import "./globals.css";
+import { Geist } from "next/font/google";
+import { JukeboxProvider } from "@/components/jukebox/JukeboxContext";
+import TopBar from "@/components/layout/TopBar";
+import "@/styles/globals.css";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
   subsets: ["latin"],
 });
 

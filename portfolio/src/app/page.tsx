@@ -1,6 +1,6 @@
 "use client";
 
-import BottomBar from "../../components/BottomBar";
+import BottomBar from "@/components/layout/BottomBar";
 import { Koulen } from "next/font/google";
 import { Jersey_10 } from "next/font/google";
 import { useRouter } from "next/navigation";

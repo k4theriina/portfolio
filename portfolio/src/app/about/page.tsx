@@ -1,4 +1,3 @@
-// src/app/about/page.tsx
-import AboutWrapper from "./AboutWrapper";
+import AboutWrapper from "@/components/about/AboutWrapper";
 
 export default AboutWrapper;

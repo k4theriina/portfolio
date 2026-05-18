@@ -8,6 +8,13 @@
       "cover":"newJeansCover.jpg"
     },
     {
+      "id": "attractedToYou",
+      "title": "Attracted to You",
+      "artist": "PinkPantheress",
+      "audio": "AttractedtoYou.mp3",
+      "cover":"newJeansCover.jpg"
+    },
+    {
       "id": "hooligang",
       "title": "HOOLIGANG",
       "artist": "Joey Valence & Brae",

@@ -1,11 +1,11 @@
 "use client";
 
-import BottomBar from "../../../components/BottomBar";
-import LazyInView from "../../../components/LazyInView";
-import { projects } from "../../../components/Projects";
+import BottomBar from "@/components/layout/BottomBar";
+import LazyInView from "@/components/animations/LazyInView";
+import { projects } from "@/components/projects/projectData";
 import dynamic from "next/dynamic";
 
-const ProjectBox = dynamic(() => import("../../../components/ProjectBox"), {
+const ProjectBox = dynamic(() => import("@/components/projects/ProjectBox"), {
   ssr: false,
   loading: () => (
     <div
@@ -17,7 +17,7 @@ const ProjectBox = dynamic(() => import("../../../components/ProjectBox"), {
 import {
   StaggerRevealGroup,
   StaggerRevealItem,
-} from "../../../components/StaggerReveal";
+} from "@/components/animations/StaggerReveal";
 import { Koulen } from "next/font/google";
 import { useEffect, useState } from "react";
 
