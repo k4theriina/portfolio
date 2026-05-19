@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import { fetchMyTopTracks, type TopTracksTimeRange } from "@/lib/spotify";
 
+export const dynamic = "force-dynamic";
+
 const VALID_TIME_RANGES: TopTracksTimeRange[] = [
   "short_term",
   "medium_term",

@@ -18,8 +18,7 @@ const jukeboxHintFont = Jersey_10({
   weight: "400",
 });
 
-/** Place `vinyl.png` in `public/assets/` (see also `Vinyl.png`). */
-const VINYL_SRC = "/assets/vinyl.png";
+const VINYL_SRC = "/assets/Vinyl.png";
 
 export function formatTime(seconds: number): string {
   if (!Number.isFinite(seconds) || seconds < 0) return "0:00";

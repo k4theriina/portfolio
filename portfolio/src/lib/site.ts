@@ -1,4 +1,4 @@
-const productionSiteUrl = "https://katherinadayaon.me";
+const productionSiteUrl = "https://katdayaon.art";
 
 /** Canonical site URL for metadata, sitemap, and OAuth redirect configuration. */
 export function getSiteUrl(): string {

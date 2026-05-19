@@ -23,10 +23,12 @@ export default function ClientAbout({
   >([]);
 
   useEffect(() => {
-    fetch("/api/topTracks")
+    fetch("/api/topTracks", { cache: "no-store" })
       .then(async (res) => {
         const data = await res.json();
-        if (res.ok && Array.isArray(data)) setSongs(data);
+        if (res.ok && Array.isArray(data)) {
+          setSongs(data);
+        }
       })
       .catch(() => setSongs([]));
   }, []);
@@ -99,7 +101,7 @@ export default function ClientAbout({
       </div>
 
       <div
-        className={`newDiv ${koulenClass} relative flex min-h-screen w-full flex-col items-stretch bg-[url('/assets/bgCat.png')] bg-cover bg-top`}
+        className={`newDiv ${koulenClass} relative flex min-h-screen w-full flex-col items-stretch bg-[url('/assets/BgCat.png')] bg-cover bg-top`}
       >
         <ThingsILikeToDo koulenClass={koulenClass} specialClass={specialClass} />
       </div>
