@@ -1,7 +1,11 @@
 import { NextResponse } from "next/server";
+import { assertOAuthSetupEnabled } from "@/lib/oauth-guard";
 import { exchangeAuthorizationCode } from "@/lib/spotify";
 
 export async function GET(request: Request) {
+  const blocked = assertOAuthSetupEnabled();
+  if (blocked) return blocked;
+
   const { searchParams } = new URL(request.url);
   const error = searchParams.get("error");
   const code = searchParams.get("code");
@@ -47,9 +51,9 @@ export async function GET(request: Request) {
 </head>
 <body>
   <h1>Spotify connected</h1>
-  <p>Add this to <code>.env.local</code> (then restart the dev server):</p>
+  <p>Add this to your environment (local: <code>.env.local</code>; production: host env vars), then redeploy or restart:</p>
   <pre>SPOTIFY_REFRESH_TOKEN=${tokens.refresh_token}</pre>
-  <p>Your About page will load top tracks from <code>/v1/me/top/tracks</code> instead of a playlist.</p>
+  <p>Remove <code>SPOTIFY_ALLOW_OAUTH_SETUP</code> if you set it for production setup. OAuth routes are disabled once this token is present.</p>
   <p><a href="/about">Go to About</a></p>
 </body>
 </html>`;

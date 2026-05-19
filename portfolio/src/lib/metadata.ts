@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
+import { getSiteUrl } from "@/lib/site";
 
-export const siteUrl = "https://katherinadayaon.me";
+const siteUrl = getSiteUrl();
 
 /** Used for link previews (Open Graph / Twitter). Add `public/assets/og-image.jpg` (1200×630) and update this path if you prefer a custom card. */
 export const siteOgImage = `${siteUrl}/assets/UltimateKatPhoto.webp`;

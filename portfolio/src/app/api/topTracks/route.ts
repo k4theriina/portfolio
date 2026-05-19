@@ -31,7 +31,7 @@ export async function GET(request: Request) {
       {
         error: message,
         ...(needsAuth && {
-          hint: "Open /api/login in your browser, approve access, then add SPOTIFY_REFRESH_TOKEN to .env.local from the callback page.",
+          hint: "Visit /api/login (local dev or with SPOTIFY_ALLOW_OAUTH_SETUP=true), approve access, then set SPOTIFY_REFRESH_TOKEN in your environment.",
         }),
       },
       { status: needsAuth ? 503 : 500 },

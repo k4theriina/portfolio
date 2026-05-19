@@ -1,6 +1,11 @@
 import { NextResponse } from "next/server";
+import { assertOAuthSetupEnabled } from "@/lib/oauth-guard";
+import { getSiteUrl } from "@/lib/site";
 
 export async function GET() {
+  const blocked = assertOAuthSetupEnabled();
+  if (blocked) return blocked;
+
   const scope = "user-top-read";
   const clientId = process.env.SPOTIFY_CLIENT_ID;
   const redirectUri = process.env.REDIRECT_URI;
@@ -8,8 +13,8 @@ export async function GET() {
   if (!clientId || !redirectUri) {
     return NextResponse.json(
       {
-        error:
-          "SPOTIFY_CLIENT_ID and REDIRECT_URI must be set (e.g. REDIRECT_URI=http://localhost:3000/api/callback).",
+        error: "SPOTIFY_CLIENT_ID and REDIRECT_URI must be set.",
+        hint: `Example: REDIRECT_URI=${getSiteUrl()}/api/callback (must match Spotify app settings exactly).`,
       },
       { status: 503 },
     );
