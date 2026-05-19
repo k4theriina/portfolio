@@ -8,6 +8,7 @@ import {
   StaggerRevealItem,
 } from "@/components/animations/StaggerReveal";
 import { MY_ART, type ArtPiece } from "./artGalleryData";
+import ArtDescription from "./ArtDescription";
 
 type ArtGalleryProps = {
   pieces?: ArtPiece[];
@@ -291,11 +292,10 @@ export default function ArtGallery({
                   <p className="text-xs font-medium uppercase tracking-[0.2em] text-white/45">
                     About
                   </p>
-                  <p
+                  <ArtDescription
+                    text={active.description}
                     className={`${specialClass} mt-3 whitespace-pre-wrap text-base leading-relaxed text-white/[0.88] sm:text-lg md:text-lg lg:leading-loose`}
-                  >
-                    {active.description}
-                  </p>
+                  />
                 </div>
               </div>
 

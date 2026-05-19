@@ -53,7 +53,7 @@ export default function TopBar() {
                     </button>
                 </div>
                 {/* Inline nav + music only from 1082px up (matches globals .menu / old .directory breakpoint) */}
-                <div className="hidden min-h-[3.25rem] min-w-0 max-w-[min(70vw,22rem)] shrink sm:max-w-xl min-[1082px]:block">
+                <div className="hidden min-h-[3.25rem] w-[14.75rem] shrink-0 sm:w-[19.75rem] min-[1082px]:block">
                     <TopBarMusic variant="toolbar" />
                 </div>
             </div>

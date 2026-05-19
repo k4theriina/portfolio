@@ -91,24 +91,24 @@ function JukeboxDashboard({ className = "" }: { className?: string }) {
 
   return (
     <div
-      className={`rounded-xl border border-white/15 bg-kat-black/98 p-4 shadow-2xl shadow-black/80 ring-1 ring-white/10 backdrop-blur-md sm:p-5 ${className}`}
+      className={`box-border w-[20rem] max-w-[calc(100vw-2rem)] shrink-0 rounded-xl border border-white/15 bg-kat-black/98 p-4 shadow-2xl shadow-black/80 ring-1 ring-white/10 backdrop-blur-md sm:p-5 ${className}`}
     >
       <h2 className="mb-1 text-lg font-bold tracking-tight text-white sm:text-xl">
         Songs I like :3
       </h2>
-      <p className="mb-4 text-[11px] text-white/40 sm:text-xs">
+      <p className="mb-4 text-[11px] tabular-nums text-white/40 sm:text-xs">
         {idx + 1} / {tracks.length}
       </p>
 
-      <div className="relative mx-auto mb-4 flex h-[7.5rem] w-full max-w-[16rem] items-center justify-center sm:h-[8.5rem] sm:max-w-[17rem]">
+      <div className="relative mx-auto mb-4 h-[7.5rem] w-[17rem] shrink-0 sm:h-[8.5rem]">
         <div
-          className="pointer-events-none absolute left-[46%] top-1/2 z-0 -translate-y-1/2 sm:left-[48%]"
+          className="pointer-events-none absolute left-[38%] top-1/2 z-0 -translate-x-1/2 -translate-y-1/2"
           aria-hidden
         >
           <VinylImage spinning={playing} size="lg" />
         </div>
 
-        <div className="relative z-10 -ml-8 shrink-0 overflow-hidden rounded-lg shadow-xl ring-2 ring-white/20 sm:-ml-10">
+        <div className="absolute left-[58%] top-1/2 z-10 -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-lg shadow-xl ring-2 ring-white/20">
           {track.coverUrl ? (
             <img
               src={track.coverUrl}
@@ -125,10 +125,10 @@ function JukeboxDashboard({ className = "" }: { className?: string }) {
         </div>
       </div>
 
-      <h3 className="mb-0.5 line-clamp-2 text-center text-sm font-semibold text-white sm:text-base">
+      <h3 className="mb-0.5 line-clamp-2 h-[2.75rem] text-center text-sm font-semibold leading-snug text-white sm:h-[3rem] sm:text-base">
         {track.title}
       </h3>
-      <p className="mb-3 line-clamp-1 text-center text-xs text-white/50">
+      <p className="mb-3 line-clamp-1 h-4 text-center text-xs text-white/50">
         {track.artist}
       </p>
 
@@ -290,10 +290,10 @@ export default function TopBarMusic({
 
   return (
     <div
-      className="group relative z-[400] font-sans outline-none"
+      className="group relative z-[400] w-[14.75rem] shrink-0 font-sans outline-none sm:w-[19.75rem]"
       tabIndex={0}
     >
-      <div className="-m-1 flex items-start gap-3 p-1 pb-3">
+      <div className="-m-1 flex w-full items-start gap-3 p-1 pb-3">
         <div className="relative shrink-0 pt-2">
           <VinylImage spinning={playing} size="sm" />
           {hintBubbleMounted ? (
@@ -311,7 +311,7 @@ export default function TopBarMusic({
           ) : null}
         </div>
 
-        <div className="min-w-0 max-w-[11rem] pt-2 text-left sm:max-w-[15rem]">
+        <div className="min-w-0 flex-1 pt-2 text-left">
           <p className="truncate text-xs font-medium leading-tight text-white sm:text-sm">
             {track.title}
           </p>
@@ -358,7 +358,7 @@ export default function TopBarMusic({
       </div>
 
       <div
-        className="pointer-events-none invisible absolute right-0 top-full z-[500] mt-0 w-[min(20rem,calc(100vw-2rem))] max-w-[92vw] origin-top-right scale-95 opacity-0 transition-all duration-200 ease-out group-hover:pointer-events-auto group-hover:visible group-hover:scale-100 group-hover:opacity-100 group-focus-within:pointer-events-auto group-focus-within:visible group-focus-within:scale-100 group-focus-within:opacity-100"
+        className="pointer-events-none invisible absolute left-1/2 top-full z-[500] mt-0 w-[20rem] max-w-[calc(100vw-2rem)] -translate-x-1/2 origin-top scale-95 opacity-0 transition-all duration-200 ease-out group-hover:pointer-events-auto group-hover:visible group-hover:scale-100 group-hover:opacity-100 group-focus-within:pointer-events-auto group-focus-within:visible group-focus-within:scale-100 group-focus-within:opacity-100"
       >
         <JukeboxDashboard />
       </div>
