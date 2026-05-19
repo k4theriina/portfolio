@@ -1,6 +1,8 @@
 "use client";
 
 import BottomBar from "@/components/layout/BottomBar";
+import PageBackground from "@/components/layout/PageBackground";
+import { PAGE_BACKGROUNDS } from "@/lib/backgrounds";
 import { Koulen, Jersey_10 } from "next/font/google";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -27,12 +29,22 @@ export default function HomePage() {
   return (
     <div className="select-none flex min-h-full w-full flex-1 flex-col overflow-x-hidden">
       <div
-        className={`${koulen.className} flex min-h-[calc(95svh-4.75rem)] shrink-0 flex-col
-            bg-[url('/assets/mobilehomebg.jpg')] 
-            sm:bg-[url('/assets/bgimageHome.jpg')] 
-            bg-cover bg-bottom`}
+        className={`${koulen.className} relative flex min-h-[calc(95svh-4.75rem)] shrink-0 flex-col`}
       >
-        <div className="mt-45 flex flex-col items-center justify-center space-y-5 text-center">
+        <PageBackground
+          priority
+          objectPosition="bottom"
+          imgClassName="object-bottom"
+          layers={[
+            {
+              ...PAGE_BACKGROUNDS.homeDesktop,
+              media: "(min-width: 640px)",
+              fallbackType: "image/jpeg",
+            },
+            PAGE_BACKGROUNDS.homeMobile,
+          ]}
+        />
+        <div className="relative mt-45 flex flex-col items-center justify-center space-y-5 text-center">
           <p
             className={`pointer-events-none text-4xl transition-all duration-1000 ease-out md:text-5xl ${loaded ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"}`}
           >

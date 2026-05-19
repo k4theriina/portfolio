@@ -9,7 +9,11 @@ import {
 import Songbox from "@/components/songs/SongBox";
 import ThingsILikeToDo from "@/components/about/ThingsILikeToDo";
 import ArtGallery from "@/components/pictures/ArtGallery";
+import PageBackground from "@/components/layout/PageBackground";
+import { PAGE_BACKGROUNDS } from "@/lib/backgrounds";
 import { useEffect, useState } from "react";
+
+const LG_MEDIA = "(min-width: 1024px)";
 
 export default function ClientAbout({
   koulenClass,
@@ -36,9 +40,21 @@ export default function ClientAbout({
   return (
     <div className="flex min-h-full w-full flex-col overflow-x-hidden">
       <div
-        className={`${koulenClass} relative flex min-h-0 flex-col bg-[url('/assets/bgimageAbout.jpg')] bg-cover bg-top lg:min-h-[calc(100svh-4.75rem)] lg:bg-[url('/assets/aboutXL.png')]`}
+        className={`${koulenClass} relative flex min-h-0 flex-col lg:min-h-[calc(100svh-4.75rem)]`}
       >
-        <div className="flex min-h-0 flex-1 flex-col justify-center py-8 sm:py-10 lg:py-6">
+        <PageBackground
+          priority
+          objectPosition="top"
+          layers={[
+            {
+              ...PAGE_BACKGROUNDS.aboutHeroLg,
+              media: LG_MEDIA,
+              fallbackType: "image/png",
+            },
+            PAGE_BACKGROUNDS.aboutHero,
+          ]}
+        />
+        <div className="relative flex min-h-0 flex-1 flex-col justify-center py-8 sm:py-10 lg:py-6">
           <StaggerRevealGroup
             enterOnMount
             itemCount={3}
@@ -101,15 +117,26 @@ export default function ClientAbout({
       </div>
 
       <div
-        className={`newDiv ${koulenClass} relative flex min-h-screen w-full flex-col items-stretch bg-[url('/assets/BgCat.png')] bg-cover bg-top`}
+        className={`newDiv ${koulenClass} relative flex min-h-screen w-full flex-col items-stretch`}
       >
+        <PageBackground
+          priority
+          objectPosition="top"
+          layers={[
+            {
+              ...PAGE_BACKGROUNDS.aboutThings,
+              fallbackType: "image/png",
+            },
+          ]}
+        />
         <ThingsILikeToDo koulenClass={koulenClass} specialClass={specialClass} />
       </div>
 
       <div
-        className={`${koulenClass} relative flex flex-col items-center bg-[url('/assets/bgimageAbout.jpg')] bg-cover bg-top pb-12 pt-10 lg:min-h-[35rem] lg:pb-16 lg:pt-7 isolate`}
+        className={`${koulenClass} relative flex flex-col items-center pb-12 pt-10 lg:min-h-[35rem] lg:pb-16 lg:pt-7 isolate`}
       >
-        <ScrollFade className="flex w-full flex-col items-center">
+        <PageBackground objectPosition="top" layers={[PAGE_BACKGROUNDS.aboutHero]} />
+        <ScrollFade className="relative flex w-full flex-col items-center">
           <p className="mx-auto w-fit max-w-[90vw] rounded-md bg-kat-purple p-1 text-center text-2xl lg:text-3xl">
             Kat&apos;s Top Songs...
           </p>

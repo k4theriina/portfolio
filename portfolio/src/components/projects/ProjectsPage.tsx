@@ -8,6 +8,8 @@ import {
   StaggerRevealGroup,
   StaggerRevealItem,
 } from "@/components/animations/StaggerReveal";
+import PageBackground from "@/components/layout/PageBackground";
+import { PAGE_BACKGROUNDS } from "@/lib/backgrounds";
 import { Koulen } from "next/font/google";
 import { useEffect, useState } from "react";
 
@@ -37,8 +39,18 @@ export default function ProjectsPage() {
   return (
     <div className="flex min-h-full w-full flex-col overflow-hidden">
       <div
-        className={`${koulen.className} select-none flex min-h-full w-full flex-col bg-[url('/assets/bgimageExp.jpg')] bg-cover bg-center`}
+        className={`${koulen.className} relative select-none flex min-h-full w-full flex-col`}
       >
+        <PageBackground
+          priority
+          objectPosition="center"
+          layers={[
+            {
+              ...PAGE_BACKGROUNDS.experience,
+              fallbackType: "image/jpeg",
+            },
+          ]}
+        />
         <div className="relative flex min-h-screen min-w-screen flex-col items-center text-center">
           <div>
             <img

@@ -1,6 +1,8 @@
 "use client";
 
 import BottomBar from "@/components/layout/BottomBar";
+import PageBackground from "@/components/layout/PageBackground";
+import { PAGE_BACKGROUNDS } from "@/lib/backgrounds";
 import ExperienceBox from "@/components/experience/ExperienceBox";
 import { Koulen, Special_Elite } from "next/font/google";
 import { experiences } from "@/components/experience/experienceData";
@@ -26,8 +28,18 @@ export default function ExperiencePage() {
   return (
     <div className="flex min-h-full w-full flex-col overflow-hidden">
       <div
-        className={`${koulen.className} flex min-h-full w-full flex-col bg-[url('/assets/bgimageExp.jpg')] bg-cover bg-center bg-repeat`}
+        className={`${koulen.className} relative flex min-h-full w-full flex-col`}
       >
+        <PageBackground
+          priority
+          objectPosition="center"
+          layers={[
+            {
+              ...PAGE_BACKGROUNDS.experience,
+              fallbackType: "image/jpeg",
+            },
+          ]}
+        />
         <div className="relative flex flex-col items-center px-6 pb-32 pt-10 text-center">
           <div className="pointer-events-none absolute left-1/2 top-0 z-0 h-full w-[5px] -translate-x-1/2 bg-white"></div>
           <div className="relative w-1/4 place-self-center">
