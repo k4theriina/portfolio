@@ -18,5 +18,5 @@ export const THINGS_I_LIKE_TO_DO: ThingILikeToDo[] = [
   { imageSrc: "/assets/eating.webp", label: "Eating good food 🤤..." },
   { imageSrc: "/assets/games.webp", label: "Playing awesome games! (Currently playing tomadachi life)" },
   { imageSrc: "/assets/exploring.webp", label: "Exploring new places!" },
-  { imageSrc: "/assets/projects.webp", label: "Make cool projects (check out my projects page on the top right!)" },
+  { imageSrc: "/assets/projects.webp", label: "Creating cool projects (check out my projects page on the top right!)" },
 ];

@@ -1,6 +1,13 @@
+import type { Metadata } from "next";
 import { Geist } from "next/font/google";
 import { JukeboxProvider } from "@/components/jukebox/JukeboxContext";
 import TopBar from "@/components/layout/TopBar";
+import {
+  createPageMetadata,
+  defaultDescription,
+  defaultTitle,
+  titleTemplate,
+} from "@/lib/metadata";
 import "@/styles/globals.css";
 
 const geistSans = Geist({
@@ -8,9 +15,19 @@ const geistSans = Geist({
   subsets: ["latin"],
 });
 
-export const metadata = {
-  title: "Katherina Dayaon's Portfolio",
-  description: "Kat's super awesome portfolio website!",
+const baseMetadata = createPageMetadata({
+  title: defaultTitle,
+  absoluteTitle: true,
+  path: "/",
+});
+
+export const metadata: Metadata = {
+  ...baseMetadata,
+  title: {
+    default: defaultTitle,
+    template: titleTemplate,
+  },
+  description: defaultDescription,
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

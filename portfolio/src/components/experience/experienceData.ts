@@ -10,11 +10,20 @@ type ExperienceData = {
 export const experiences: ExperienceData[] = [
   {
     title: "Software Engineer Intern",
-    date: "January 2026-Present",
+    date: "May 2026-Present",
+    organization: "Florida Blue",
+    image: "/assets/FloridaBlue.png",
+    description:
+      "Currently here!",
+    link: "https://www.floridablue.com/",
+  },
+  {
+    title: "Software Engineer Intern",
+    date: "January 2026-April 2026",
     organization: "Bank of New York",
     image: "/assets/BNYLogo.png",
     description:
-      "Currently here!",
+      "I deployed an anomaly detection system using ML, automated remediation for 50+ incidents, a React monitoring dashboard, and a Power Automate email pipeline for alerts.",
     link: "https://www.bny.com/corporate/global/en.html",
   },
   {

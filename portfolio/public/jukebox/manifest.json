@@ -8,6 +8,20 @@
       "cover":"newJeansCover.jpg"
     },
     {
+      "id": "punkGirl",
+      "title": "P.U.N.K. Girl",
+      "artist": "Heavenly",
+      "audio": "punkGirl.mp3",
+      "cover":"AttaGirl_album_cover.jpg"
+    },
+    {
+      "id": "driveMeCrazy",
+      "title": "drive ME crazy!",
+      "artist": "Lil Yachty, Diana Gordon",
+      "audio": "driveMeCrazy.mp3",
+      "cover":"driveMecrazy_track_cover.jpg"
+    },
+    {
       "id": "attractedToYou",
       "title": "Attracted to You",
       "artist": "PinkPantheress",
@@ -20,6 +34,27 @@
       "artist": "Joey Valence & Brae",
       "audio": "hooligang.mp3",
       "cover":"Punk_Tactics_cover.jpg"
+    },
+    {
+      "id": "myLove",
+      "title": "My Love Mine All Mine",
+      "artist": "Mitski",
+      "audio": "myLoveMineAllMine.mp3",
+      "cover":"myLoveMineAllMine.jpg"
+    },
+    {
+      "id": "talk",
+      "title": "Talk",
+      "artist": "beabadoobee",
+      "audio": "talk.mp3",
+      "cover":"Talk_track_cover.jpg"
+    },
+    {
+      "id": "iBetOnLosingDogs",
+      "title": "I Bet on Losing Dogs",
+      "artist": "Mitski",
+      "audio": "iBetOnLosingDogs.mp3",
+      "cover":"iBetOnLosingDogs.jpg"
     }
   ]
 }
