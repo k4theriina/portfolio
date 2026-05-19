@@ -98,10 +98,11 @@ export default function ClientAbout({
                   I&apos;m a Burnett Honors Computer Science student at the
                   University of Central Florida, where I&apos;m passionate about
                   creating meaningful technologies and exploring the intersection
-                  of technology and creativity. I&apos;m currently a software
-                  engineer intern at BNY and I&apos;m excited to be joining
-                  Florida Blue this summer where I&apos;ll continue to develop my
-                  skills in software engineering.
+                  of technology and creativity. I just completed an internship with BNY
+                  in the spring, and now I&apos;m currently a software
+                  engineer intern at Florida Blue. I&apos;m so excited to continue to grow 
+                  and develop my
+                  skills in software engineering!
                   <br />
                   <br />
                   Beyond coding and problem-solving, I absolutely love anything
