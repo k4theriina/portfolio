@@ -58,7 +58,7 @@ export default function Projects() {
           </div>
 
           <StaggerRevealGroup
-            range={1.2}
+            range={3}
             stagger={0.3}
             itemCount={projects.length}
             className="projectSection -mt-5 mb-20 flex flex-col items-center space-y-10 place-self-center sm:-mt-7 md:-mt-8 lg:-mt-10 lg:ml-20 lg:grid lg:grid-cols-3 lg:items-start lg:gap-x-15 lg:gap-y-10 xl:-mt-12"

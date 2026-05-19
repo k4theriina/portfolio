@@ -1,12 +1,29 @@
-// app/api/login/route.ts
-import { NextResponse } from 'next/server';
+import { NextResponse } from "next/server";
 
 export async function GET() {
-  const scope = 'user-top-read';
-  const client_id = process.env.SPOTIFY_CLIENT_ID!;
-  const redirect_uri = process.env.REDIRECT_URI!;
+  const scope = "user-top-read";
+  const clientId = process.env.SPOTIFY_CLIENT_ID;
+  const redirectUri = process.env.REDIRECT_URI;
 
-  const authUrl = `https://accounts.spotify.com/authorize?response_type=code&client_id=${client_id}&scope=${encodeURIComponent(scope)}&redirect_uri=${encodeURIComponent(redirect_uri)}`;
+  if (!clientId || !redirectUri) {
+    return NextResponse.json(
+      {
+        error:
+          "SPOTIFY_CLIENT_ID and REDIRECT_URI must be set (e.g. REDIRECT_URI=http://localhost:3000/api/callback).",
+      },
+      { status: 503 },
+    );
+  }
 
-  return NextResponse.redirect(authUrl);
+  const params = new URLSearchParams({
+    response_type: "code",
+    client_id: clientId,
+    scope,
+    redirect_uri: redirectUri,
+    show_dialog: "true",
+  });
+
+  return NextResponse.redirect(
+    `https://accounts.spotify.com/authorize?${params.toString()}`,
+  );
 }
