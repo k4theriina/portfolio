@@ -38,7 +38,7 @@ export const projects:ProjectData[] = [
         description: "A Dev tool web app that converts 2D assets into production-ready 3D models and Three.js code.",
         caption: "(Made for Bitcamp 2025)",
         technologies: ["React", "Tailwind", "Figma", "Typescript"],
-        link: "https://www.we-shapeshift.tech/",
+        link: "https://github.com/Lewin-B/shapeshift/tree/main",
     },
     {
         title: "AiSight",
